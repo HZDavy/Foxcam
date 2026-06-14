@@ -1,6 +1,6 @@
 # Foxcam
 
-[![release](https://img.shields.io/badge/release-v1.0-blue)](https://github.com/HZDavy/Foxcam/releases)
+[![release](https://img.shields.io/badge/release-v1.1-blue)](https://github.com/HZDavy/Foxcam/releases)
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/HZDavy/Foxcam/blob/main/LICENSE)
 [![python](https://img.shields.io/badge/python-3.10+-yellow)](https://www.python.org/)
 [![platform](https://img.shields.io/badge/platform-Windows-lightgrey)](https://www.microsoft.com/windows/)
@@ -34,8 +34,8 @@ A lightweight Windows desktop application for controlling UVC (USB Video Class) 
 
 Download the latest release from [Releases](https://github.com/HZDavy/Foxcam/releases). Two language versions are available:
 
-- **[Foxcam-v1.0.zip](https://github.com/HZDavy/Foxcam/releases/download/v1.0/Foxcam-v1.0.zip)** — 中文版 (Chinese)
-- **[Foxcam-EN-v1.0.zip](https://github.com/HZDavy/Foxcam/releases/download/v1.0/Foxcam-EN-v1.0.zip)** — English version
+- **[Foxcam-v1.0.zip](https://github.com/HZDavy/Foxcam/releases/download/v1.1/Foxcam-v1.1.zip)** — 中文版 (Chinese)
+- **[Foxcam-EN-v1.0.zip](https://github.com/HZDavy/Foxcam/releases/download/v1.1/Foxcam-EN-v1.1.zip)** — English version
 
 Extract the zip and run `Foxcam.exe`.
 
