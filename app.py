@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 import os
 import json
 import gc
@@ -649,7 +649,7 @@ class CameraTab(ctk.CTkFrame):
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title('Foxcam v1.0')
+        self.title('Foxcam v1.1')
         self.geometry('1020x560')
         self.minsize(800, 420)
         self.configure(fg_color='#222222')
@@ -685,7 +685,9 @@ class App(ctk.CTk):
         self._build_preset_bar()
 
         self.tabs = {}
+        self._last_tab_name = ''
         self.after(200, self.scan)
+        self.after(500, self._poll_tab_change)
 
     def _build_toolbar(self):
         tb = ctk.CTkFrame(self, fg_color='transparent')
@@ -837,6 +839,13 @@ class App(ctk.CTk):
         self._save_data(data)
         self._refresh_presets()
         self.preset_var.set(name)
+
+    def _poll_tab_change(self):
+        current = self.notebook.get()
+        if current and current != self._last_tab_name:
+            self._last_tab_name = current
+            self._refresh_presets()
+        self.after(200, self._poll_tab_change)
 
     def _current_tab(self):
         sel = self.notebook.get()
