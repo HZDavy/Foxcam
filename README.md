@@ -2,7 +2,15 @@
 
 A lightweight Windows desktop application for controlling UVC (USB Video Class) camera parameters in real-time.
 
-![Foxcam](icon.png)
+<p align="center">
+  <img src="docs/logo.png" alt="Foxcam" width="400">
+</p>
+
+## Screenshot
+
+<p align="center">
+  <img src="docs/screenshot.png" alt="Foxcam Screenshot" width="700">
+</p>
 
 ## Features
 
