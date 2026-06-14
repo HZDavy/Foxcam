@@ -32,7 +32,12 @@ A lightweight Windows desktop application for controlling UVC (USB Video Class) 
 
 ### Download (No Python required)
 
-Download the latest release from [Releases](https://github.com/HZDavy/Foxcam/releases), extract the zip, and run `Foxcam.exe`.
+Download the latest release from [Releases](https://github.com/HZDavy/Foxcam/releases). Two language versions are available:
+
+- **[Foxcam-v1.0.zip](https://github.com/HZDavy/Foxcam/releases/download/v1.0/Foxcam-v1.0.zip)** — 中文版 (Chinese)
+- **[Foxcam-EN-v1.0.zip](https://github.com/HZDavy/Foxcam/releases/download/v1.0/Foxcam-EN-v1.0.zip)** — English version
+
+Extract the zip and run `Foxcam.exe`.
 
 ### Run from Source
 
@@ -49,6 +54,10 @@ python app.py
 pip install pyinstaller
 pyinstaller --onedir --windowed --name Foxcam --icon foxcam.ico --add-data "icon.png;." --add-data "foxcam_logo.png;." --add-data "foxcam.ico;." --hidden-import duvc_ctl --hidden-import dshow --hidden-import customtkinter --hidden-import PIL app.py
 ```
+
+## Languages
+
+Currently supported: **中文 (Chinese)** and **English**
 
 ## Requirements
 
