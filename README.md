@@ -19,12 +19,12 @@ A lightweight Windows desktop application for controlling UVC (USB Video Class) 
 
 ### Download (No Python required)
 
-Download the latest release from [Releases](https://github.com/your-username/foxcam/releases), extract the zip, and run `Foxcam.exe`.
+Download the latest release from [Releases](https://github.com/HZDavy/foxcam/releases), extract the zip, and run `Foxcam.exe`.
 
 ### Run from Source
 
 ```bash
-git clone https://github.com/your-username/foxcam.git
+git clone https://github.com/HZDavy/foxcam.git
 cd foxcam
 pip install -r requirements.txt
 python app.py
