@@ -1,5 +1,10 @@
 # Foxcam
 
+[![release](https://img.shields.io/badge/release-v1.0-blue)](https://github.com/HZDavy/Foxcam/releases)
+[![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/HZDavy/Foxcam/blob/main/LICENSE)
+[![python](https://img.shields.io/badge/python-3.10+-yellow)](https://www.python.org/)
+[![platform](https://img.shields.io/badge/platform-Windows-lightgrey)](https://www.microsoft.com/windows/)
+
 A lightweight Windows desktop application for controlling UVC (USB Video Class) camera parameters in real-time.
 
 <p align="center">
