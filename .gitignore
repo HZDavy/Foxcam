@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+build/
+dist/
+*.spec
+gray_theme.json
+camera_settings.json
+camera_presets.json
