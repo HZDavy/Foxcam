@@ -649,7 +649,7 @@ class CameraTab(ctk.CTkFrame):
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title('Foxcam v1.0 (EN)')
+        self.title('Foxcam v1.1 (EN)')
         self.geometry('1020x560')
         self.minsize(800, 420)
         self.configure(fg_color='#222222')
