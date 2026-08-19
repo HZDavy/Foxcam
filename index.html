@@ -168,16 +168,11 @@
     position: relative;
     border-radius: var(--radius);
     overflow: hidden;
-    background: var(--bg-elev);
-    border: 1px solid var(--border);
+    background: transparent;
+    border: none;
     transition: transform 0.5s;
   }
   .showcase-wrap img { display: block; width: 100%; height: auto; }
-  .showcase-wrap::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 80%, rgba(11,11,15,0.4) 100%);
-    pointer-events: none;
-  }
 
   /* ===== Section ===== */
   .section { padding: 100px 0; border-top: 1px solid var(--border); }
