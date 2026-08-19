@@ -10,7 +10,6 @@
     --bg: #0B0B0F;
     --bg-elev: #111117;
     --surface: #15151D;
-    --surface-hover: #1C1C26;
     --border: rgba(255,255,255,0.06);
     --border-strong: rgba(255,255,255,0.1);
     --text: #E8E8ED;
@@ -19,9 +18,7 @@
     --accent: #F97316;
     --accent-hover: #FB923C;
     --accent-glow: rgba(249,115,22,0.15);
-    --radius: 12px;
-    --radius-sm: 8px;
-    --max-w: 1160px;
+    --max-w: 1200px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,10 +29,9 @@
                  "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.5;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.005em;
   }
 
   /* ===== Navigation ===== */
@@ -43,17 +39,14 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 0 40px; height: 64px;
     display: flex; justify-content: space-between; align-items: center;
-    background: rgba(11,11,15,0.8);
+    background: rgba(11,11,15,0.7);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
     border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
   }
   .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .nav-brand img { height: 24px; width: auto; display: block; }
-  .nav-brand span {
-    font-weight: 600; font-size: 15px; color: var(--text);
-    letter-spacing: -0.01em;
-  }
   .nav-right { display: flex; align-items: center; gap: 8px; }
   .nav-right a {
     color: var(--text-dim); text-decoration: none; font-size: 14px;
@@ -78,81 +71,144 @@
   }
   .lang-switch button.active { background: var(--bg); color: var(--text); }
 
+  /* ===== Marquee ===== */
+  .marquee-wrap {
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elev);
+    padding: 28px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .marquee {
+    display: inline-flex;
+    animation: marquee 22s linear infinite;
+    font-size: clamp(48px, 8vw, 112px);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .marquee span { padding: 0 40px; }
+  .marquee .white { color: var(--text); }
+  .marquee .orange { color: var(--accent); }
+  .marquee .dim { color: var(--text-muted); }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
   /* ===== Container ===== */
   .container { max-width: var(--max-w); margin: 0 auto; padding: 0 40px; }
 
   /* ===== Hero ===== */
   .hero {
-    padding: 140px 0 80px;
+    padding: 140px 0 60px;
     position: relative;
+    overflow: hidden;
   }
-  .hero-inner { max-width: 760px; }
+  .hero-inner { max-width: 900px; }
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 13px; font-weight: 500; color: var(--accent);
     text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
   .hero-eyebrow::before {
     content: ''; width: 24px; height: 1px; background: var(--accent);
   }
   .hero h1 {
-    font-size: clamp(48px, 6vw, 76px);
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 1.02;
-    margin-bottom: 28px;
+    font-size: clamp(56px, 8vw, 104px);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+    margin-bottom: 32px;
   }
-  .hero h1 .gradient-text {
-    background: linear-gradient(135deg, #fff 0%, #B4B4C0 100%);
+  .hero h1 .line { display: block; overflow: hidden; }
+  .hero h1 .line-inner {
+    display: block;
+    background: linear-gradient(180deg, #fff 0%, #9A9AA8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+  .hero h1 .accent {
+    color: var(--accent);
+    -webkit-text-fill-color: var(--accent);
+  }
   .hero p {
-    font-size: 19px; color: var(--text-dim);
-    max-width: 560px; margin-bottom: 40px;
+    font-size: 20px; color: var(--text-dim);
+    max-width: 600px; margin-bottom: 44px;
     line-height: 1.55;
   }
-  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 14px 24px; border-radius: var(--radius-sm);
+    padding: 16px 28px; border-radius: 10px;
     font-weight: 500; font-size: 15px; text-decoration: none;
-    transition: all 0.2s; cursor: pointer; border: none;
+    transition: all 0.25s; cursor: pointer; border: none;
     font-family: inherit;
   }
   .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
   .btn-ghost {
     background: transparent; color: var(--text);
     border: 1px solid var(--border-strong);
   }
   .btn-ghost:hover { background: var(--surface); }
   .hero-meta {
-    margin-top: 36px; display: flex; gap: 32px;
+    margin-top: 44px; display: flex; gap: 32px;
     color: var(--text-muted); font-size: 13px;
   }
   .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
 
-  /* ===== Screenshot Showcase ===== */
-  .showcase { padding: 0 0 100px; }
+  /* ===== Giant Scroll Text Section ===== */
+  .giant-section {
+    padding: 120px 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .giant-text {
+    font-size: clamp(80px, 14vw, 220px);
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    color: var(--text);
+  }
+  .giant-text .accent { color: var(--accent); }
+  .giant-text .dim { color: var(--text-muted); }
+  .giant-text.outline {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--border-strong);
+  }
+  .giant-row {
+    display: flex; align-items: baseline; gap: 20px;
+    margin-bottom: 12px;
+  }
+  .giant-row .sub {
+    font-size: clamp(16px, 1.4vw, 22px);
+    color: var(--text-dim);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    max-width: 320px;
+  }
+
+  /* ===== Screenshot ===== */
+  .showcase { padding: 40px 0 100px; }
   .showcase-wrap {
     position: relative;
-    border-radius: var(--radius);
+    border-radius: 14px;
     overflow: hidden;
     background: var(--bg-elev);
     border: 1px solid var(--border);
+    transition: transform 0.5s;
   }
   .showcase-wrap img { display: block; width: 100%; height: auto; }
-  .showcase-wrap::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 80%, rgba(11,11,15,0.4) 100%);
-    pointer-events: none;
-  }
 
-  /* ===== Section ===== */
-  .section { padding: 100px 0; border-top: 1px solid var(--border); }
+  /* ===== Feature Grid ===== */
+  .section { padding: 80px 0; border-top: 1px solid var(--border); }
   .section-header {
     display: flex; align-items: flex-end; justify-content: space-between;
     margin-bottom: 48px; gap: 40px; flex-wrap: wrap;
@@ -163,44 +219,67 @@
     margin-bottom: 12px;
   }
   .section-header h2 {
-    font-size: clamp(32px, 4vw, 44px);
-    font-weight: 700; letter-spacing: -0.03em;
-    line-height: 1.08;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800; letter-spacing: -0.04em;
+    line-height: 1.05;
   }
   .section-header p {
-    color: var(--text-dim); max-width: 420px;
-    font-size: 16px; line-height: 1.55;
+    color: var(--text-dim); max-width: 440px;
+    font-size: 17px; line-height: 1.55;
   }
-
-  /* ===== Features ===== */
   .features {
     display: grid; grid-template-columns: repeat(3, 1fr);
     gap: 1px; background: var(--border);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 14px;
     overflow: hidden;
   }
   .feature {
     background: var(--bg);
-    padding: 32px;
-    transition: background 0.25s;
+    padding: 36px 32px;
+    transition: background 0.3s;
     position: relative;
   }
   .feature:hover { background: var(--bg-elev); }
   .feature-num {
     font-size: 13px; font-weight: 500; color: var(--text-muted);
-    letter-spacing: 0.05em; margin-bottom: 20px;
+    letter-spacing: 0.05em; margin-bottom: 24px;
   }
   .feature h3 {
-    font-size: 19px; font-weight: 600; margin-bottom: 8px;
+    font-size: 20px; font-weight: 600; margin-bottom: 10px;
     letter-spacing: -0.01em;
   }
-  .feature p { color: var(--text-dim); font-size: 14px; line-height: 1.6; }
+  .feature p { color: var(--text-dim); font-size: 14px; line-height: 1.65; }
   .feature .accent-bar {
     position: absolute; top: 0; left: 0; width: 0; height: 2px;
-    background: var(--accent); transition: width 0.35s ease-out;
+    background: var(--accent); transition: width 0.4s ease-out;
   }
   .feature:hover .accent-bar { width: 100%; }
+
+  /* ===== Parallax Text ===== */
+  .parallax-section {
+    padding: 140px 0;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+  }
+  .parallax-text {
+    font-size: clamp(60px, 10vw, 160px);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 0.92;
+    will-change: transform;
+  }
+  .parallax-text .row { display: block; }
+  .parallax-text .accent { color: var(--accent); }
+  .parallax-text .outline {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--border-strong);
+  }
+  .parallax-desc {
+    max-width: 380px; color: var(--text-dim);
+    font-size: 17px; line-height: 1.55;
+    margin-top: 40px;
+  }
 
   /* ===== Download ===== */
   .download-section { padding: 100px 0; border-top: 1px solid var(--border); }
@@ -208,17 +287,17 @@
     display: grid; grid-template-columns: 1fr 1fr 1fr;
     gap: 1px; background: var(--border);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 14px;
     overflow: hidden;
   }
   .download-card {
     background: var(--bg);
-    padding: 40px 32px;
+    padding: 48px 36px;
     text-decoration: none; color: var(--text);
-    transition: background 0.25s;
+    transition: background 0.3s;
     position: relative;
     display: flex; flex-direction: column;
-    gap: 12px;
+    gap: 14px;
   }
   .download-card:hover { background: var(--bg-elev); }
   .download-card .d-label {
@@ -226,19 +305,18 @@
     text-transform: uppercase; letter-spacing: 0.08em;
   }
   .download-card .d-version {
-    font-size: 36px; font-weight: 700; letter-spacing: -0.03em;
+    font-size: 48px; font-weight: 800; letter-spacing: -0.04em;
+    line-height: 1;
   }
   .download-card .d-desc { color: var(--text-dim); font-size: 14px; }
   .download-card .d-arrow {
-    margin-top: auto; padding-top: 20px;
+    margin-top: auto; padding-top: 24px;
     display: inline-flex; align-items: center; gap: 6px;
-    font-size: 14px; color: var(--accent); font-weight: 500;
-    transition: gap 0.2s;
+    font-size: 15px; color: var(--accent); font-weight: 500;
+    transition: gap 0.25s;
   }
-  .download-card:hover .d-arrow { gap: 12px; }
-  .download-card.featured {
-    background: var(--bg-elev);
-  }
+  .download-card:hover .d-arrow { gap: 14px; }
+  .download-card.featured { background: var(--bg-elev); }
   .download-card.featured::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
     background: var(--accent);
@@ -246,7 +324,7 @@
 
   /* ===== Footer ===== */
   footer {
-    padding: 64px 0 40px;
+    padding: 80px 0 40px;
     border-top: 1px solid var(--border);
   }
   .footer-inner {
@@ -263,17 +341,28 @@
   }
   .footer-links a:hover { color: var(--text); }
   .footer-bottom {
-    margin-top: 32px; padding-top: 24px;
+    margin-top: 36px; padding-top: 24px;
     border-top: 1px solid var(--border);
     display: flex; justify-content: space-between;
     color: var(--text-muted); font-size: 12px;
   }
 
-  /* ===== Reveal animation ===== */
-  .reveal { opacity: 0; transform: translateY(16px); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+  /* ===== Scroll Reveal ===== */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-40px); transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(40px); transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
 
-  /* ===== Language visibility ===== */
+  /* ===== Line by line stagger ===== */
+  .stagger > * { opacity: 0; transform: translateY(20px); transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+  .stagger.visible > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: translateY(0); }
+  .stagger.visible > *:nth-child(2) { transition-delay: 0.15s; opacity: 1; transform: translateY(0); }
+  .stagger.visible > *:nth-child(3) { transition-delay: 0.25s; opacity: 1; transform: translateY(0); }
+  .stagger.visible > *:nth-child(4) { transition-delay: 0.35s; opacity: 1; transform: translateY(0); }
+
+  /* ===== Language ===== */
   .hidden-en { display: none !important; }
   body.lang-en .hidden-zh { display: none !important; }
   body.lang-en .hidden-en { display: block !important; }
@@ -286,10 +375,13 @@
     .container { padding: 0 20px; }
     .hero { padding: 120px 0 60px; }
     .section { padding: 64px 0; }
+    .giant-section, .parallax-section { padding: 80px 0; }
     .section-header { flex-direction: column; align-items: flex-start; }
     .hero-meta { gap: 20px; flex-wrap: wrap; }
     .footer-inner { flex-direction: column; align-items: flex-start; }
     .footer-bottom { flex-direction: column; gap: 8px; }
+    .marquee { font-size: clamp(32px, 10vw, 56px); }
+    .giant-row { flex-wrap: wrap; }
   }
 </style>
 </head>
@@ -317,12 +409,14 @@
 
 <div class="container">
   <section class="hero">
-    <div class="hero-inner">
+    <div class="hero-inner stagger visible">
       <div class="hero-eyebrow hidden-zh">UVC Camera Control</div>
       <div class="hero-eyebrow hidden-en">UVC Camera Control</div>
       <h1>
-        <span class="gradient-text hidden-zh">专业级 UVC<br>摄像头控制中心</span>
-        <span class="gradient-text hidden-en">Professional UVC<br>Camera Control</span>
+        <span class="line"><span class="line-inner hidden-zh">专业级 UVC</span></span>
+        <span class="line"><span class="line-inner hidden-zh">摄像头<span class="accent">控制中心</span></span></span>
+        <span class="line"><span class="line-inner hidden-en">Professional UVC</span></span>
+        <span class="line"><span class="line-inner hidden-en">Camera <span class="accent">Control</span></span></span>
       </h1>
       <p class="hidden-zh">一款轻量 Windows 桌面应用，实时控制 UVC 摄像头全部参数。多摄像头、预设、组合——一切尽在掌控。</p>
       <p class="hidden-en">A lightweight Windows desktop app for real-time UVC camera control. Multi-camera, presets, combos — all under your control.</p>
@@ -332,26 +426,54 @@
           <span class="hidden-zh">立即下载</span>
           <span class="hidden-en">Download</span>
         </a>
-        <a class="btn btn-ghost" href="https://github.com/HZDavy/Foxcam">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.16c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.77.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0C17.59 4.49 18.6 4.81 18.6 4.81c.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.82.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </a>
+        <a class="btn btn-ghost" href="https://github.com/HZDavy/Foxcam">GitHub</a>
       </div>
       <div class="hero-meta">
         <span>Windows 10/11</span>
         <span class="hidden-zh">无需 Python</span>
-        <span class="hidden-en">No Python required</span>
+        <span class="hidden-en">No Python</span>
         <span>MIT License</span>
       </div>
     </div>
   </section>
+</div>
 
+<!-- Marquee -->
+<div class="marquee-wrap">
+  <div class="marquee" id="marquee">
+    <span class="white">REAL-TIME</span><span class="orange">●</span><span class="dim">MULTI-CAMERA</span><span class="white">PRESETS</span><span class="orange">●</span><span class="dim">UVC CONTROL</span><span class="white">REAL-TIME</span><span class="orange">●</span><span class="dim">MULTI-CAMERA</span><span class="white">PRESETS</span><span class="orange">●</span><span class="dim">UVC CONTROL</span>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Giant text row -->
+  <section class="giant-section">
+    <div class="giant-row">
+      <div class="giant-text reveal-left hidden-zh">专业级</div>
+      <div class="giant-text reveal-right hidden-zh" style="font-size: clamp(32px,4vw,56px);color:var(--text-dim);font-weight:400;letter-spacing:-0.02em;align-self:flex-end;">精细到每一个参数</div>
+    </div>
+    <div class="giant-row">
+      <div class="giant-text reveal hidden-zh"><span class="accent">UVC</span> 控制</div>
+      <div class="giant-text reveal hidden-en">UVC <span class="accent">Control</span></div>
+    </div>
+    <div class="giant-row">
+      <div class="giant-text reveal-left hidden-zh" style="font-size: clamp(32px,4vw,56px);font-weight:400;color:var(--text-dim);">多摄像头 · 预设 · 组合</div>
+      <div class="giant-text reveal-right hidden-zh outline" style="font-size: clamp(40px,5vw,72px);">一切尽在掌控</div>
+    </div>
+    <div class="giant-row">
+      <div class="giant-text reveal-left hidden-en" style="font-size: clamp(32px,4vw,56px);font-weight:400;color:var(--text-dim);">Multi-camera · Presets · Combos</div>
+      <div class="giant-text reveal-right hidden-en outline" style="font-size: clamp(40px,5vw,72px);">All under control</div>
+    </div>
+  </section>
+
+  <!-- Screenshot -->
   <section class="showcase">
-    <div class="showcase-wrap">
+    <div class="showcase-wrap reveal">
       <img src="docs/screenshot.png" alt="Foxcam Screenshot">
     </div>
   </section>
 
+  <!-- Features -->
   <section class="section" id="features">
     <div class="section-header reveal">
       <div>
@@ -360,25 +482,25 @@
         <h2 class="hidden-zh">为专业工作流<br>而生的工具</h2>
         <h2 class="hidden-en">Built for<br>professional workflows</h2>
       </div>
-      <p class="hidden-zh">在多摄像头环境中精细控制每一个细节，让你的设备发挥最佳表现。</p>
-      <p class="hidden-en">Fine-tune every detail in multi-camera setups and get the best performance from your devices.</p>
+      <p class="hidden-zh">在多摄像头环境中精细控制每一个细节。</p>
+      <p class="hidden-en">Fine-tune every detail in multi-camera setups.</p>
     </div>
     <div class="features">
       <div class="feature reveal">
         <div class="accent-bar"></div>
         <div class="feature-num">01</div>
         <h3 class="hidden-zh">多摄像头实时管理</h3>
-        <h3 class="hidden-en">Multi-camera Control</h3>
+        <h3 class="hidden-en">Multi-camera</h3>
         <p class="hidden-zh">同时检测和控制多个 USB 摄像头，每个独立配置</p>
-        <p class="hidden-en">Detect and control multiple USB cameras simultaneously with independent configs</p>
+        <p class="hidden-en">Detect and control multiple USB cameras simultaneously</p>
       </div>
       <div class="feature reveal">
         <div class="accent-bar"></div>
         <div class="feature-num">02</div>
         <h3 class="hidden-zh">实时参数调节</h3>
         <h3 class="hidden-en">Real-time Adjustment</h3>
-        <p class="hidden-zh">亮度、对比度、饱和度、色调、伽马、白平衡、曝光、缩放、对焦</p>
-        <p class="hidden-en">Brightness, contrast, saturation, hue, gamma, white balance, exposure, zoom, focus</p>
+        <p class="hidden-zh">亮度、对比度、饱和度、色调、伽马、白平衡、曝光</p>
+        <p class="hidden-en">Brightness, contrast, saturation, hue, gamma, white balance</p>
       </div>
       <div class="feature reveal">
         <div class="accent-bar"></div>
@@ -386,15 +508,15 @@
         <h3 class="hidden-zh">自动 / 手动</h3>
         <h3 class="hidden-en">Auto / Manual</h3>
         <p class="hidden-zh">每个参数独立切换自动或手动模式</p>
-        <p class="hidden-en">Toggle auto or manual mode independently per parameter</p>
+        <p class="hidden-en">Toggle mode independently per parameter</p>
       </div>
       <div class="feature reveal">
         <div class="accent-bar"></div>
         <div class="feature-num">04</div>
         <h3 class="hidden-zh">预设与组合</h3>
         <h3 class="hidden-en">Presets & Combos</h3>
-        <p class="hidden-zh">按摄像头保存配置，跨设备一键应用组合预设</p>
-        <p class="hidden-en">Save per-camera configs, apply preset combos across devices</p>
+        <p class="hidden-zh">按摄像头保存配置，跨设备一键应用</p>
+        <p class="hidden-en">Save per-camera configs, apply across devices</p>
       </div>
       <div class="feature reveal">
         <div class="accent-bar"></div>
@@ -402,7 +524,7 @@
         <h3 class="hidden-zh">拖拽排序</h3>
         <h3 class="hidden-en">Drag & Drop</h3>
         <p class="hidden-zh">拖拽排列摄像头标签，顺序自动记忆</p>
-        <p class="hidden-en">Reorder camera tabs by dragging, order is remembered</p>
+        <p class="hidden-en">Reorder tabs, order is remembered</p>
       </div>
       <div class="feature reveal">
         <div class="accent-bar"></div>
@@ -415,6 +537,19 @@
     </div>
   </section>
 
+  <!-- Parallax text -->
+  <section class="parallax-section">
+    <div class="parallax-text" id="parallaxText">
+      <span class="row hidden-zh" data-speed="0.1">实时 · <span class="accent">精准</span> · 可靠</span>
+      <span class="row hidden-en" data-speed="0.1">Real-time · <span class="accent">Precise</span> · Reliable</span>
+      <span class="row hidden-zh" data-speed="0.2">为每一个<span class="outline">像素</span>而生</span>
+      <span class="row hidden-en" data-speed="0.2">Built for every <span class="outline">pixel</span></span>
+    </div>
+    <p class="parallax-desc reveal hidden-zh">专业级摄像头参数控制，为多摄像头工作流而生。</p>
+    <p class="parallax-desc reveal hidden-en">Professional camera control, built for multi-camera workflows.</p>
+  </section>
+
+  <!-- Download -->
   <section class="download-section" id="download">
     <div class="section-header reveal">
       <div>
@@ -424,7 +559,7 @@
         <h2 class="hidden-en">Choose your version</h2>
       </div>
       <p class="hidden-zh">开箱即用，无需额外安装。</p>
-      <p class="hidden-en">Ready out of the box. No extra installation needed.</p>
+      <p class="hidden-en">Ready out of the box.</p>
     </div>
     <div class="download-grid reveal">
       <a class="download-card featured" href="https://github.com/HZDavy/Foxcam/releases/download/v1.1/Foxcam-v1.1.zip">
@@ -451,7 +586,7 @@
         <span class="d-label" class="hidden-en">Source</span>
         <span class="d-version">GitHub</span>
         <span class="d-desc" class="hidden-zh">查看仓库和构建说明</span>
-        <span class="d-desc" class="hidden-en">View repository and build instructions</span>
+        <span class="d-desc" class="hidden-en">View repository</span>
         <span class="d-arrow">
           <span class="hidden-zh">查看</span>
           <span class="hidden-en">View</span>
@@ -501,8 +636,34 @@
   // Reveal on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => observer.observe(el));
+
+  // Parallax effect on giant text
+  const parallaxText = document.getElementById('parallaxText');
+  if (parallaxText) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrolled = window.pageYOffset;
+          const rows = parallaxText.querySelectorAll('.row');
+          rows.forEach(row => {
+            const speed = parseFloat(row.dataset.speed || '0.1');
+            row.style.transform = `translateY(${scrolled * speed * 0.3}px)`;
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+
+  // Duplicate marquee for seamless loop
+  const marquee = document.getElementById('marquee');
+  if (marquee) {
+    marquee.innerHTML += marquee.innerHTML;
+  }
 </script>
 
 </body>
