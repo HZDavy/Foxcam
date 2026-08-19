@@ -78,6 +78,33 @@
   }
   .lang-switch button.active { background: var(--bg); color: var(--text); }
 
+  /* ===== Marquee (thin) ===== */
+  .marquee-wrap {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elev);
+  }
+  .marquee {
+    display: inline-flex;
+    animation: marquee 28s linear infinite;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .marquee span { padding: 0 32px; }
+  .marquee .white { color: var(--text); }
+  .marquee .orange { color: var(--accent); }
+  .marquee .dim { color: var(--text-muted); }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
   /* ===== Container ===== */
   .container { max-width: var(--max-w); margin: 0 auto; padding: 0 40px; }
 
@@ -345,7 +372,16 @@
       </div>
     </div>
   </section>
+</div>
 
+<!-- Thin marquee -->
+<div class="marquee-wrap">
+  <div class="marquee" id="marquee">
+    <span class="white">REAL-TIME</span><span class="orange">●</span><span class="dim">MULTI-CAMERA</span><span class="white">PRESETS</span><span class="orange">●</span><span class="dim">UVC CONTROL</span>
+  </div>
+</div>
+
+<div class="container">
   <section class="showcase">
     <div class="showcase-wrap">
       <img src="docs/screenshot.png" alt="Foxcam Screenshot">
@@ -503,6 +539,12 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Duplicate marquee for seamless loop
+  const marquee = document.getElementById('marquee');
+  if (marquee) {
+    marquee.innerHTML += marquee.innerHTML;
+  }
 </script>
 
 </body>
