@@ -15,6 +15,8 @@
   <img src="docs/screenshot.png" alt="Foxcam Screenshot" width="700">
 </p>
 
+[中文](#中文) | [English](#english)
+
 ---
 
 ## 中文
