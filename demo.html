@@ -6,34 +6,60 @@
 <title>Foxcam — 在线试用</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
   body {
     font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
     background: #1a1a24;
     color: #e0e0e8;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* When embedded in iframe, fill the parent */
+  body.embedded {
+    min-height: 100%;
+    height: 100%;
+    padding: 0;
   }
 
   .window {
     width: 100%;
-    max-width: 960px;
+    max-width: 100%;
+    height: 100%;
     background: #2a2a38;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+  }
+
+  /* Standalone mode: centered with shadow */
+  body:not(.embedded) {
+    align-items: center;
+    padding: 20px;
+  }
+  body:not(.embedded) .window {
+    max-width: 960px;
+    height: auto;
+    min-height: 0;
     border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-    overflow: hidden;
-    user-select: none;
   }
 
   /* Title bar */
   .titlebar {
     display: flex;
     align-items: center;
-    padding: 10px 14px;
+    padding: 8px 14px;
     background: #1e1e2a;
     border-bottom: 1px solid rgba(255,255,255,0.05);
+    flex-shrink: 0;
   }
   .titlebar-icon {
     width: 20px; height: 20px;
@@ -43,12 +69,12 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 11px; font-weight: bold; color: #fff;
   }
-  .titlebar-title { font-size: 13px; color: #bbb; flex: 1; }
-  .titlebar-btns { display: flex; gap: 8px; }
+  .titlebar-title { font-size: 12px; color: #999; flex: 1; }
+  .titlebar-btns { display: flex; gap: 4px; }
   .titlebar-btns span {
     width: 28px; height: 22px; border-radius: 4px;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; font-size: 12px; color: #aaa;
+    cursor: pointer; font-size: 12px; color: #999;
     transition: background 0.15s;
   }
   .titlebar-btns span:hover { background: rgba(255,255,255,0.08); }
@@ -56,10 +82,11 @@
 
   /* App header */
   .app-header {
-    display: flex; align-items: center; gap: 16px;
-    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px;
     background: #242430;
     border-bottom: 1px solid rgba(255,255,255,0.05);
+    flex-shrink: 0;
   }
   .app-logo {
     font-size: 20px; font-weight: 800;
@@ -67,58 +94,62 @@
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -0.02em;
+    cursor: pointer;
   }
   .app-logo span { color: #e0e0e8; -webkit-text-fill-color: #e0e0e8; font-weight: 700; }
   .app-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 14px; border-radius: 6px;
-    background: #2f2f3e; color: #ccc;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 12px; border-radius: 5px;
+    background: #2f2f3e; color: #bbb;
     border: 1px solid rgba(255,255,255,0.06);
-    font-size: 13px; cursor: pointer;
+    font-size: 12px; cursor: pointer;
     transition: all 0.15s;
+    white-space: nowrap;
   }
   .app-btn:hover { background: #3a3a4d; color: #fff; }
-  .app-btn.active { background: rgba(249,115,22,0.15); color: #f97316; border-color: rgba(249,115,22,0.3); }
   .app-btn .dot { width: 6px; height: 6px; border-radius: 50%; background: #f97316; }
   .spacer { flex: 1; }
-  .header-right { display: flex; align-items: center; gap: 12px; }
-  .header-right .label { font-size: 12px; color: #888; display: inline-flex; align-items: center; gap: 4px; }
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .header-right .label { font-size: 12px; color: #888; display: inline-flex; align-items: center; gap: 3px; }
   .header-right .label::before { content: '⚡'; font-size: 11px; }
   .header-right select {
-    background: #2f2f3e; color: #ccc; border: 1px solid rgba(255,255,255,0.08);
-    padding: 5px 10px; border-radius: 5px; font-size: 13px; cursor: pointer;
+    background: #2f2f3e; color: #bbb; border: 1px solid rgba(255,255,255,0.08);
+    padding: 4px 8px; border-radius: 4px; font-size: 12px; cursor: pointer;
   }
   .header-right .top-btn {
-    display: inline-flex; align-items: center; gap: 4px;
-    padding: 5px 12px; border-radius: 5px;
+    display: inline-flex; align-items: center; gap: 3px;
+    padding: 4px 10px; border-radius: 4px;
     background: rgba(249,115,22,0.12); color: #f97316;
     border: 1px solid rgba(249,115,22,0.3);
-    font-size: 13px; cursor: pointer;
+    font-size: 12px; cursor: pointer;
   }
 
   /* Toolbar */
   .toolbar {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 16px;
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 16px;
     background: #22222e;
     border-bottom: 1px solid rgba(255,255,255,0.04);
+    flex-shrink: 0;
   }
   .toolbar .combo-label {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 13px; color: #aaa;
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; color: #aaa;
+    white-space: nowrap;
   }
   .toolbar select {
-    flex: 1; max-width: 280px;
-    background: #2f2f3e; color: #ccc; border: 1px solid rgba(255,255,255,0.08);
-    padding: 6px 10px; border-radius: 5px; font-size: 13px; cursor: pointer;
+    flex: 1; max-width: 240px;
+    background: #2f2f3e; color: #bbb; border: 1px solid rgba(255,255,255,0.08);
+    padding: 5px 8px; border-radius: 5px; font-size: 12px; cursor: pointer;
   }
   .toolbar-btn {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 6px 14px; border-radius: 5px;
-    background: #2f2f3e; color: #ccc;
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 5px 12px; border-radius: 5px;
+    background: #2f2f3e; color: #bbb;
     border: 1px solid rgba(255,255,255,0.06);
-    font-size: 13px; cursor: pointer;
+    font-size: 12px; cursor: pointer;
     transition: all 0.15s;
+    white-space: nowrap;
   }
   .toolbar-btn:hover { background: #3a3a4d; color: #fff; }
   .toolbar-btn.primary { background: #f97316; color: #fff; border-color: #f97316; }
@@ -128,17 +159,20 @@
 
   /* Camera tabs */
   .camera-tabs {
-    display: flex; gap: 2px;
-    padding: 10px 16px 0;
+    display: flex; gap: 1px;
+    padding: 8px 16px 0;
     background: #1e1e2a;
+    flex-shrink: 0;
+    overflow-x: auto;
   }
   .cam-tab {
-    padding: 8px 18px; border-radius: 6px 6px 0 0;
-    background: #2a2a38; color: #bbb;
-    font-size: 13px; cursor: pointer;
+    padding: 6px 14px; border-radius: 5px 5px 0 0;
+    background: #2a2a38; color: #aaa;
+    font-size: 12px; cursor: pointer;
     border: 1px solid rgba(255,255,255,0.05);
     border-bottom: none;
     transition: all 0.15s;
+    white-space: nowrap;
   }
   .cam-tab:hover { background: #333344; color: #fff; }
   .cam-tab.active {
@@ -147,31 +181,35 @@
   }
 
   /* Content */
-  .content { padding: 18px 16px; }
+  .content {
+    padding: 16px;
+    flex: 1;
+    overflow-y: auto;
+  }
   .cam-title {
-    font-size: 16px; font-weight: 600; margin-bottom: 16px;
+    font-size: 14px; font-weight: 600; margin-bottom: 14px;
     color: #e0e0e8;
   }
 
   /* Slider rows */
-  .sliders { display: flex; flex-direction: column; gap: 14px; }
+  .sliders { display: flex; flex-direction: column; gap: 10px; }
   .slider-row {
     display: grid;
-    grid-template-columns: 80px 1fr 60px auto;
+    grid-template-columns: 70px 1fr 48px auto;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
   }
-  .slider-label { font-size: 13px; color: #aaa; }
-  .slider-wrap { display: flex; align-items: center; gap: 10px; }
+  .slider-label { font-size: 12px; color: #aaa; white-space: nowrap; }
+  .slider-wrap { display: flex; align-items: center; gap: 8px; }
   input[type="range"] {
     -webkit-appearance: none; appearance: none;
-    width: 100%; height: 4px; border-radius: 2px;
+    width: 100%; height: 3px; border-radius: 2px;
     background: #3a3a4d; outline: none; cursor: pointer;
   }
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none; appearance: none;
-    width: 16px; height: 16px; border-radius: 50%;
-    background: #e0e0e8; border: 2px solid #555;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #d0d0d8; border: 2px solid #444;
     cursor: pointer; transition: all 0.15s;
   }
   input[type="range"]::-webkit-slider-thumb:hover {
@@ -184,27 +222,28 @@
     background: #f97316; border-color: #f97316;
   }
   .slider-value {
-    font-size: 13px; color: #ccc;
+    font-size: 12px; color: #ccc;
     text-align: right; min-width: 32px;
   }
   .auto-check {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 12px; color: #888; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; color: #777; cursor: pointer;
+    white-space: nowrap;
   }
   .auto-check input[type="checkbox"] {
-    width: 14px; height: 14px; accent-color: #f97316;
+    width: 13px; height: 13px; accent-color: #f97316;
     cursor: pointer;
   }
   .auto-check.checked { color: #f97316; }
 
   /* Info bar */
   .info-bar {
-    margin-top: 18px;
-    padding: 10px 14px;
+    margin-top: 14px;
+    padding: 8px 12px;
     background: rgba(249,115,22,0.08);
     border: 1px solid rgba(249,115,22,0.2);
-    border-radius: 8px;
-    font-size: 12px;
+    border-radius: 6px;
+    font-size: 11px;
     color: #f97316;
   }
   .info-bar.hidden { display: none; }
@@ -216,23 +255,21 @@
   body.lang-en .hidden-en.block { display: block !important; }
   body.lang-en .hidden-en.flex { display: flex !important; }
 
-  /* Hint badge */
+  /* Embedded mode: no try badge */
+  body.embedded .try-badge { display: none !important; }
+
+  /* Try badge (standalone only) */
   .try-badge {
     position: fixed; top: 20px; right: 20px; z-index: 1000;
     background: rgba(249,115,22,0.95); color: #fff;
     padding: 8px 16px; border-radius: 20px;
     font-size: 13px; font-weight: 500;
     box-shadow: 0 4px 16px rgba(249,115,22,0.4);
-    animation: pulse 2s ease-in-out infinite;
     cursor: pointer;
-  }
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
   }
 </style>
 </head>
-<body>
+<body class="embedded">
 
 <div class="try-badge hidden-zh" onclick="location.href='index.html'">← 返回官网</div>
 <div class="try-badge hidden-en" onclick="location.href='index.html'" style="display:none">← Back</div>
@@ -290,17 +327,21 @@
   <!-- Content -->
   <div class="content">
     <div class="cam-title" id="camTitle">Logitech Webcam C925e A</div>
-    <div class="sliders" id="sliders">
-      <!-- Generated by JS -->
-    </div>
+    <div class="sliders" id="sliders"></div>
     <div class="info-bar hidden" id="infoBar">
-      <span class="hidden-zh">参数已更新 · 点击滑块或复选框体验交互效果</span>
-      <span class="hidden-en">Parameters updated · Try sliders and checkboxes</span>
+      <span class="hidden-zh">参数已更新</span>
+      <span class="hidden-en">Parameters updated</span>
     </div>
   </div>
 </div>
 
 <script>
+  // Check if embedded in iframe
+  const isEmbedded = window.self !== window.top;
+  if (isEmbedded) {
+    document.body.classList.add('embedded');
+  }
+
   const paramData = [
     { key: 'brightness', labelZh: '亮度', labelEn: 'Brightness', value: 128, min: 0, max: 255, auto: false },
     { key: 'contrast', labelZh: '对比度', labelEn: 'Contrast', value: 128, min: 0, max: 255, auto: false },
@@ -338,7 +379,6 @@
       </div>
     `).join('');
 
-    // Bind slider events
     container.querySelectorAll('input[type="range"]').forEach(input => {
       input.addEventListener('input', (e) => {
         const key = e.target.dataset.key;
@@ -346,17 +386,10 @@
         const param = paramData.find(p => p.key === key);
         param.value = val;
         container.querySelector(`[data-value="${key}"]`).textContent = val;
-        // Preview effect
-        const wb = container.querySelector(`input[data-key="whiteBalance"]`);
-        const exp = container.querySelector(`input[data-key="exposure"]`);
-        const bright = container.querySelector(`input[data-key="brightness"]`);
-        const r = g = b = Math.round(255 * (bright.value / 255));
         showInfo();
       });
-      input.addEventListener('change', showInfo);
     });
 
-    // Bind auto checkbox events
     container.querySelectorAll('.auto-check').forEach(label => {
       const key = label.dataset.key;
       const param = paramData.find(p => p.key === key);
@@ -376,10 +409,9 @@
     const bar = document.getElementById('infoBar');
     bar.classList.remove('hidden');
     clearTimeout(infoTimer);
-    infoTimer = setTimeout(() => bar.classList.add('hidden'), 2000);
+    infoTimer = setTimeout(() => bar.classList.add('hidden'), 1500);
   }
 
-  // Camera tab switching
   document.querySelectorAll('.cam-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.cam-tab').forEach(t => t.classList.remove('active'));
@@ -387,23 +419,17 @@
       const camId = tab.dataset.cam;
       const cam = cameraData[camId];
       document.getElementById('camTitle').textContent = cam.name;
-      // Restore values
       paramData.forEach(p => {
-        if (cam.values[p.key] !== undefined) {
-          p.value = cam.values[p.key];
-        }
+        if (cam.values[p.key] !== undefined) p.value = cam.values[p.key];
       });
       renderSliders();
       showInfo();
     });
   });
 
-  // Scan button
-  document.getElementById('btnScan').addEventListener('click', () => {
-    showInfo();
-  });
+  document.getElementById('btnScan').addEventListener('click', showInfo);
 
-  // Init language from localStorage
+  // Init language
   const savedLang = localStorage.getItem('foxcam-lang') || 'zh';
   if (savedLang === 'en') {
     document.body.classList.add('lang-en');
@@ -414,7 +440,6 @@
     });
   }
 
-  // Init
   renderSliders();
 </script>
 
