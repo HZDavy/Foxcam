@@ -33,20 +33,19 @@
     background: var(--bg-1);
     color: var(--text);
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     min-height: 100vh;
-    overflow: auto;
+    overflow: hidden;
     font-size: 13px;
     letter-spacing: -0.01em;
   }
-  body.embedded { min-height: 100vh; padding: 0; }
-  body:not(.embedded) { padding: 0; }
 
   .window {
     position: relative;
-    width: 1060px;
+    width: 100%;
     max-width: 100%;
+    height: 100vh;
     background: var(--bg-1);
     border-radius: 12px;
     overflow: hidden;

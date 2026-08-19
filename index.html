@@ -164,13 +164,13 @@
 
   /* ===== Screenshot Showcase ===== */
   .showcase { padding: 40px 0 100px; }
-  .showcase-wrap {
-    position: relative;
-    border-radius: var(--radius);
+  .showcase iframe {
+    width: 100%;
+    height: 720px;
+    border: 0;
+    display: block;
+    border-radius: 12px;
     overflow: hidden;
-    background: transparent;
-    border: none;
-    transition: transform 0.5s;
   }
   .showcase-wrap img { display: block; width: 100%; height: auto; }
 
@@ -379,9 +379,7 @@
 
 <div class="container">
   <section class="showcase">
-    <div class="showcase-wrap">
-      <iframe src="demo.html" style="width:100%;height:720px;border:0;display:block;border-radius:var(--radius);" title="Foxcam Demo"></iframe>
-    </div>
+    <iframe src="demo.html" title="Foxcam Demo"></iframe>
     <p style="text-align:center;margin-top:16px;font-size:12px;color:var(--text-muted);">
       <span class="hidden-zh">👆 直接在上面的窗口中拖动滑块、切换摄像头体验</span>
       <span class="hidden-en">👆 Drag sliders and switch cameras above to try it out</span>
