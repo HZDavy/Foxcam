@@ -60,7 +60,7 @@
 
   /* ===== TOOLBAR ===== */
   .toolbar {
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center; gap: 0;
     padding: 6px 8px;
     background: transparent;
     flex-shrink: 0;
@@ -73,7 +73,7 @@
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -0.02em;
-    padding-right: 8px;
+    margin-right: 16px;
   }
   .logo span { color: #e0e0e0; -webkit-text-fill-color: #e0e0e0; font-weight: 700; }
 
@@ -90,11 +90,9 @@
   .btn:hover { background: #5a5a6a; }
   .btn.gray { background: #5a5a6a; }
   .btn.gray:hover { background: #444444; }
-  .btn.danger { background: #5a5a6a; }
-  .btn.danger:hover { background: #444444; }
   .btn.small { padding: 3px 8px; font-size: 11px; }
   .btn.arrow {
-    width: 22px; height: 22px; padding: 0;
+    width: 18px; height: 22px; padding: 0;
     background: transparent; color: #555;
     border-radius: 2px; font-size: 11px;
   }
@@ -102,13 +100,21 @@
 
   .spacer { flex: 1; }
 
-  .header-right { display: flex; align-items: center; gap: 8px; }
-  .label { font-size: 11px; color: #999; display: inline-flex; align-items: center; gap: 3px; }
-  .label::before { content: '⚡'; font-size: 10px; }
+  /* Toolbar button spacing */
+  .toolbar .btn + .btn { margin-left: 4px; }
+  .toolbar .btn:first-of-type { margin-left: 0; }
+
+  .header-right { display: flex; align-items: center; gap: 0; }
+  .header-right .label {
+    font-size: 11px; color: #999;
+    padding: 0 2px;
+    display: inline-flex; align-items: center; gap: 3px;
+  }
+  .header-right .label::before { content: '⚡'; font-size: 10px; }
 
   .combobox {
     background: #353535; color: #ccc;
-    border: 1px solid #555; border-radius: 6px;
+    border: 1px solid #555565; border-radius: 6px;
     padding: 4px 8px; font-size: 12px;
     cursor: pointer; font-family: inherit;
     appearance: none; -webkit-appearance: none;
@@ -119,35 +125,30 @@
   }
   .combobox:hover { border-color: #666; }
 
+  /* Separator between toolbar and combo bar */
+  .sep { height: 1px; background: #3a3a3a; margin: 0 8px; }
+
   /* ===== COMBO BAR ===== */
   .combobar {
-    display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 0;
     margin: 0 8px 4px;
     padding: 0;
     background: #2a2a2a;
     border-radius: 6px;
     flex-shrink: 0;
   }
-  .combobar .label { font-size: 12px; font-weight: bold; color: #b0b0b0; padding: 6px 4px 6px 8px; }
-  .combobar .combobox { min-width: 140px; }
+  .combobar > .label { font-size: 12px; font-weight: bold; color: #b0b0b0; padding: 6px 4px 6px 8px; }
+  .combobar .combobox { min-width: 160px; margin: 6px 4px; }
+  .combobar .btn { margin: 6px 2px; }
+  .combobar .btn.arrow { margin: 6px 0; }
+  .combobar .right-group { display: flex; align-items: center; margin-left: auto; }
+  .combobar .right-group .btn { margin: 6px 2px; }
 
-  /* ===== PRESET BAR ===== */
-  .presetbar {
-    display: flex; align-items: center; gap: 6px;
-    margin: 4px 8px;
-    padding: 0;
-    background: #2a2a2a;
-    border-radius: 6px;
-    flex-shrink: 0;
-  }
-  .presetbar .label { font-size: 12px; font-weight: bold; color: #b0b0b0; padding: 6px 4px 6px 8px; }
-  .presetbar .combobox { min-width: 140px; }
-
-  /* ===== NOTEBOOK / TAB SEGMENTED ===== */
+  /* ===== NOTEBOOK ===== */
   .notebook {
     display: flex; align-items: center; gap: 0;
     margin: 4px 8px 0;
-    padding: 4px 4px;
+    padding: 4px;
     background: #333333;
     border-radius: 6px;
     flex-shrink: 0;
@@ -163,8 +164,24 @@
     transition: background 0.15s;
     font-family: inherit;
   }
-  .tab-btn:hover { background: #444444; }
+  .tab-btn:hover { background: #444444; color: #ccc; }
   .tab-btn.active { background: #5a5a6a; color: #fff; }
+
+  /* ===== PRESET BAR ===== */
+  .presetbar {
+    display: flex; align-items: center; gap: 0;
+    margin: 4px 8px 8px;
+    padding: 0;
+    background: #2a2a2a;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .presetbar > .label { font-size: 12px; font-weight: bold; color: #b0b0b0; padding: 6px 4px 6px 8px; }
+  .presetbar .combobox { min-width: 160px; margin: 6px 4px; }
+  .presetbar .btn { margin: 6px 2px; }
+  .presetbar .btn.arrow { margin: 6px 0; }
+  .presetbar .right-group { display: flex; align-items: center; margin-left: auto; }
+  .presetbar .right-group .btn { margin: 6px 2px; }
 
   /* ===== CONTENT ===== */
   .content {
@@ -203,18 +220,20 @@
   }
   .prop-label .icon { margin-right: 2px; }
 
-  /* Gradient Slider */
+  /* Gradient Slider - matching Python's GradientSlider (square track, oval thumb) */
   .grad-slider {
     position: relative;
     height: 24px;
     cursor: pointer;
+    background: #353535;
+    border-radius: 2px;
   }
   .grad-track {
     position: absolute;
     top: 50%; left: 0; right: 0;
-    height: 8px;
+    height: 6px;
     transform: translateY(-50%);
-    border-radius: 4px;
+    background: #888;
     cursor: pointer;
   }
   .grad-thumb {
@@ -226,7 +245,7 @@
     border: 1.5px solid #888;
     border-radius: 50%;
     cursor: grab;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    box-shadow: 0 0 0 2px rgba(58,58,58,1);
     transition: background 0.15s;
   }
   .grad-thumb:hover { background: #f0f0f0; }
@@ -263,7 +282,7 @@
   .auto-check.checked { color: #6b6b7b; }
   .auto-check.checked input[type="checkbox"] { accent-color: #6b6b7b; }
 
-  /* Scrollbar styling */
+  /* Scrollbar */
   .content::-webkit-scrollbar { width: 8px; }
   .content::-webkit-scrollbar-track { background: #222; }
   .content::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
@@ -277,12 +296,6 @@
   @media (max-width: 900px) {
     .prop-grid { grid-template-columns: 1fr; }
     .window { width: 100%; }
-  }
-
-  /* Logo fallback text */
-  .logo-text {
-    font-size: 16px; font-weight: bold;
-    color: #e0e0e0;
   }
 </style>
 </head>
@@ -301,19 +314,22 @@
   <!-- Toolbar -->
   <div class="toolbar">
     <div class="logo">Fox<span>cam</span></div>
-    <button class="btn" id="btnScan">🔍 扫描</button>
-    <button class="btn" id="btnReload">🔄 重读</button>
-    <button class="btn gray" id="btnReset">↺ 默认</button>
+    <button class="btn" style="width:70px" id="btnScan">🔍 扫描</button>
+    <button class="btn" style="width:60px" id="btnReload">🔄 重读</button>
+    <button class="btn gray" style="width:60px" id="btnReset">↺ 默认</button>
     <div class="spacer"></div>
     <div class="header-right">
-      <span class="label">防闪烁</span>
-      <select class="combobox" id="freqSelect" style="width:85px;">
+      <button class="btn gray" style="width:60px" id="btnPin">📌 置顶</button>
+      <select class="combobox" style="width:85px" id="freqSelect">
         <option value="50">50 Hz</option>
         <option value="60">60 Hz</option>
       </select>
-      <button class="btn gray small" id="btnPin">📌 置顶</button>
+      <span class="label">防闪烁</span>
     </div>
   </div>
+
+  <!-- Separator -->
+  <div class="sep"></div>
 
   <!-- Combo bar -->
   <div class="combobar">
@@ -323,13 +339,14 @@
       <option value="meeting">会议模式</option>
       <option value="streaming">直播模式</option>
     </select>
-    <button class="btn small">▶ 应用</button>
-    <button class="btn small">💾 保存</button>
+    <button class="btn" style="width:50px">▶ 应用</button>
+    <button class="btn" style="width:50px">💾 保存</button>
     <button class="btn arrow">▲</button>
     <button class="btn arrow">▼</button>
-    <div class="spacer"></div>
-    <button class="btn gray small">✏ 重命名</button>
-    <button class="btn danger small">🗑 删除</button>
+    <div class="right-group">
+      <button class="btn gray" style="width:60px">✏ 重命名</button>
+      <button class="btn gray" style="width:50px">🗑 删除</button>
+    </div>
   </div>
 
   <!-- Notebook -->
@@ -348,15 +365,16 @@
       <option value="meeting">会议</option>
       <option value="night">夜间</option>
     </select>
-    <button class="btn small">▶ 应用</button>
-    <button class="btn small">💾 保存</button>
+    <button class="btn" style="width:50px">▶ 应用</button>
+    <button class="btn" style="width:50px">💾 保存</button>
     <button class="btn arrow">▲</button>
     <button class="btn arrow">▼</button>
-    <div class="spacer"></div>
-    <button class="btn gray small">✏ 重命名</button>
-    <button class="btn danger small">🗑 删除</button>
-    <button class="btn gray small">📤 导出</button>
-    <button class="btn gray small">📥 导入</button>
+    <div class="right-group">
+      <button class="btn gray" style="width:50px">📥 导入</button>
+      <button class="btn gray" style="width:50px">📤 导出</button>
+      <button class="btn gray" style="width:60px">✏ 重命名</button>
+      <button class="btn gray" style="width:50px">🗑 删除</button>
+    </div>
   </div>
 
   <!-- Content -->
@@ -385,7 +403,6 @@
     { key: 'tilt', labelZh: '垂直移动', icon: '↕', min: -10, max: 10, def: 0, grad1: null, grad2: null },
   ];
 
-  // Camera data with specific values
   const CAMERA_DATA = {
     '0': {
       name: 'Logitech Webcam C925e A',
@@ -404,9 +421,7 @@
     }
   };
 
-  // ===== STATE =====
   let currentCam = '0';
-  const state = {}; // key -> { value, auto }
 
   function getPropValue(prop, camId) {
     const cam = CAMERA_DATA[camId];
@@ -417,7 +432,6 @@
     return cam.auto && cam.auto[prop.key] === true;
   }
 
-  // ===== RENDER =====
   function renderContent() {
     const cam = CAMERA_DATA[currentCam];
     const container = document.getElementById('content');
@@ -438,9 +452,9 @@
             <div class="grad-track" style="background: linear-gradient(to right, ${g1}, ${g2});"></div>
             <div class="grad-thumb" style="left: ${pct}%;" data-key="${prop.key}"></div>
           </div>
-          <input type="text" class="prop-value" value="${val}" data-key="${prop.key}" data-type="entry">
+          <input type="text" class="prop-value" value="${val}" data-key="${prop.key}">
           <label class="auto-check ${auto ? 'checked' : ''}" data-key="${prop.key}">
-            <input type="checkbox" ${auto ? 'checked' : ''} data-key="${prop.key}" data-type="auto">
+            <input type="checkbox" ${auto ? 'checked' : ''} data-key="${prop.key}">
             <span>自动</span>
           </label>
         </div>
@@ -463,7 +477,7 @@
         x = Math.max(0, Math.min(rect.width, x));
         const pct = x / rect.width;
         const val = Math.round(prop.min + pct * (prop.max - prop.min));
-        const pctClamped = val / (prop.max - prop.min) * 100;
+        const pctClamped = (val - prop.min) / (prop.max - prop.min) * 100;
 
         thumb.style.left = pctClamped + '%';
         const entry = container.querySelector(`.prop-value[data-key="${key}"]`);
@@ -481,7 +495,6 @@
       });
       document.addEventListener('mouseup', () => { dragging = false; });
 
-      // Touch support
       slider.addEventListener('touchstart', (e) => {
         dragging = true;
         updateFromEvent(e);
@@ -510,7 +523,6 @@
 
     // Bind auto checkboxes
     container.querySelectorAll('.auto-check').forEach(label => {
-      const key = label.dataset.key;
       const cb = label.querySelector('input[type="checkbox"]');
       cb.addEventListener('change', () => {
         label.classList.toggle('checked', cb.checked);
@@ -518,7 +530,7 @@
     });
   }
 
-  // ===== TAB SWITCHING =====
+  // TAB SWITCHING
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -528,7 +540,7 @@
     });
   });
 
-  // ===== TOOLBAR BUTTONS =====
+  // TOOLBAR BUTTONS
   document.getElementById('btnScan').addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => {
       b.style.transition = 'background 0.3s';
@@ -546,12 +558,9 @@
       if (entry) entry.value = prop.def;
       const cb = document.querySelector(`.auto-check[data-key="${prop.key}"] input`);
       const label = document.querySelector(`.auto-check[data-key="${prop.key}"]`);
-      if (cb && prop.key === 'white_balance' || prop.key === 'exposure' || prop.key === 'focus') {
-        cb.checked = true;
-        label.classList.add('checked');
-      } else {
-        if (cb) { cb.checked = false; label.classList.remove('checked'); }
-      }
+      const isAuto = ['white_balance', 'exposure', 'focus'].includes(prop.key);
+      if (cb) { cb.checked = isAuto; }
+      if (label) { label.classList.toggle('checked', isAuto); }
     });
   });
 
@@ -562,7 +571,6 @@
     e.target.style.background = pinned ? '#8b0000' : '';
   });
 
-  // ===== INIT =====
   renderContent();
 </script>
 
