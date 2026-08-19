@@ -43,7 +43,6 @@
   body.embedded { min-height: 100vh; padding: 0; }
   body:not(.embedded) { padding: 24px; }
 
-  /* Animated gradient backdrop */
   body::before {
     content: '';
     position: fixed;
@@ -86,7 +85,6 @@
     border-radius: 6px;
     margin-right: 10px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: bold; color: #fff;
     box-shadow: 0 2px 8px rgba(249,115,22,0.4);
   }
   .tb-title {
@@ -130,8 +128,10 @@
     display: flex; align-items: center; gap: 6px;
     margin-left: auto;
   }
+
+  /* ===== BUTTONS ===== */
   .btn {
-    display: inline-flex; align-items: center; gap: 5px;
+    display: inline-flex; align-items: center; gap: 6px;
     padding: 7px 14px;
     border-radius: 8px;
     background: var(--bg-3); color: var(--text);
@@ -141,7 +141,9 @@
     transition: all 0.2s;
     white-space: nowrap;
     font-family: inherit;
+    line-height: 1;
   }
+  .btn .lucide { width: 14px; height: 14px; stroke-width: 2; }
   .btn:hover {
     background: #2C2C38;
     border-color: var(--line-strong);
@@ -167,6 +169,7 @@
   }
   .btn.ghost:hover { background: var(--bg-3); color: var(--text); }
   .btn.small { padding: 5px 10px; font-size: 11px; border-radius: 6px; }
+  .btn.small .lucide { width: 12px; height: 12px; }
   .btn.icon-only { padding: 7px; width: 32px; justify-content: center; }
 
   .freq-group {
@@ -219,13 +222,18 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.3);
   }
 
-  /* ===== BARS (combo + preset) ===== */
+  /* ===== BARS ===== */
   .bar {
     display: flex; align-items: center; gap: 8px;
     padding: 10px 14px;
     background: var(--bg-2);
     border-bottom: 1px solid var(--line);
     flex-shrink: 0;
+  }
+  .bar.bottom {
+    border-top: 1px solid var(--line);
+    border-bottom: none;
+    background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
   }
   .bar-label {
     font-size: 11px; font-weight: 600;
@@ -288,13 +296,13 @@
   .prop-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4px 32px;
+    gap: 0 32px;
   }
 
   /* ===== PROP ROW ===== */
   .prop {
     display: grid;
-    grid-template-columns: 88px 1fr 52px auto;
+    grid-template-columns: 110px 1fr 52px auto;
     align-items: center;
     gap: 10px;
     padding: 10px 0;
@@ -303,9 +311,9 @@
   .prop-label {
     font-size: 12px; font-weight: 500;
     color: var(--text-dim);
-    display: flex; align-items: center; gap: 4px;
+    display: flex; align-items: center; gap: 6px;
   }
-  .prop-label .emoji { font-size: 13px; }
+  .prop-label .lucide { width: 14px; height: 14px; stroke-width: 1.75; color: var(--text-faint); flex-shrink: 0; }
 
   /* Custom slider */
   .slider {
@@ -375,7 +383,7 @@
   }
 
   .auto-toggle {
-    display: inline-flex; align-items: center; gap: 6px;
+    display: inline-flex; align-items: center; gap: 5px;
     font-size: 11px; font-weight: 500;
     color: var(--text-faint);
     cursor: pointer;
@@ -384,16 +392,14 @@
     transition: all 0.15s;
     user-select: none;
   }
+  .auto-toggle .lucide { width: 13px; height: 13px; stroke-width: 2; }
   .auto-toggle:hover { color: var(--text-dim); background: rgba(255,255,255,0.03); }
   .auto-toggle.on {
     color: var(--accent);
     background: var(--accent-soft);
   }
+  .auto-toggle.on .lucide { stroke-width: 2.5; }
   .auto-toggle input { display: none; }
-  .auto-toggle .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: currentColor;
-  }
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
@@ -407,7 +413,7 @@
 <div class="window">
   <!-- Title bar -->
   <div class="titlebar">
-    <div class="tb-icon">F</div>
+    <div class="tb-icon" data-lucide="camera"></div>
     <div class="tb-title">Foxcam v1.1</div>
     <div class="tb-btns">
       <span>—</span><span>□</span><span class="close">✕</span>
@@ -419,9 +425,9 @@
     <div class="header-top">
       <div class="logo">Fox<span>cam</span></div>
       <div class="header-actions">
-        <button class="btn accent" id="btnScan">🔍 扫描</button>
-        <button class="btn" id="btnReload">↻ 重读</button>
-        <button class="btn ghost" id="btnReset">↺ 默认</button>
+        <button class="btn accent" id="btnScan"><i data-lucide="scan-line"></i> 扫描</button>
+        <button class="btn" id="btnReload"><i data-lucide="rotate-ccw"></i> 重读</button>
+        <button class="btn ghost" id="btnReset"><i data-lucide="undo"></i> 默认</button>
         <div class="freq-group">
           <span class="freq-label">防闪烁</span>
           <select class="freq-select" id="freqSelect">
@@ -429,7 +435,7 @@
             <option value="60">60 Hz</option>
           </select>
         </div>
-        <button class="btn ghost" id="btnPin">📌 置顶</button>
+        <button class="btn ghost" id="btnPin"><i data-lucide="pin"></i> 置顶</button>
       </div>
     </div>
 
@@ -450,39 +456,15 @@
       <option value="streaming">直播模式</option>
     </select>
     <div class="bar-actions">
-      <button class="btn small accent">▶ 应用</button>
-      <button class="btn small">💾 保存</button>
-      <button class="btn icon-only" title="上移">▲</button>
-      <button class="btn icon-only" title="下移">▼</button>
+      <button class="btn small accent"><i data-lucide="play"></i> 应用</button>
+      <button class="btn small"><i data-lucide="save"></i> 保存</button>
+      <button class="btn icon-only" title="上移"><i data-lucide="chevron-up"></i></button>
+      <button class="btn icon-only" title="下移"><i data-lucide="chevron-down"></i></button>
     </div>
     <div class="bar-spacer"></div>
     <div class="bar-actions">
-      <button class="btn small ghost">✏ 重命名</button>
-      <button class="btn small danger">🗑 删除</button>
-    </div>
-  </div>
-
-  <!-- Preset bar -->
-  <div class="bar">
-    <span class="bar-label">预设</span>
-    <select class="bar-select" id="presetSelect">
-      <option value="">选择预设…</option>
-      <option value="default">默认</option>
-      <option value="meeting">会议</option>
-      <option value="night">夜间</option>
-    </select>
-    <div class="bar-actions">
-      <button class="btn small accent">▶ 应用</button>
-      <button class="btn small">💾 保存</button>
-      <button class="btn icon-only" title="上移">▲</button>
-      <button class="btn icon-only" title="下移">▼</button>
-    </div>
-    <div class="bar-spacer"></div>
-    <div class="bar-actions">
-      <button class="btn small ghost">📥 导入</button>
-      <button class="btn small ghost">📤 导出</button>
-      <button class="btn small ghost">✏ 重命名</button>
-      <button class="btn small danger">🗑 删除</button>
+      <button class="btn small ghost"><i data-lucide="pencil"></i> 重命名</button>
+      <button class="btn small danger"><i data-lucide="trash-2"></i> 删除</button>
     </div>
   </div>
 
@@ -496,24 +478,50 @@
       <!-- Generated by JS -->
     </div>
   </div>
+
+  <!-- Preset bar (moved to bottom) -->
+  <div class="bar bottom">
+    <span class="bar-label">预设</span>
+    <select class="bar-select" id="presetSelect">
+      <option value="">选择预设…</option>
+      <option value="default">默认</option>
+      <option value="meeting">会议</option>
+      <option value="night">夜间</option>
+    </select>
+    <div class="bar-actions">
+      <button class="btn small accent"><i data-lucide="play"></i> 应用</button>
+      <button class="btn small"><i data-lucide="save"></i> 保存</button>
+      <button class="btn icon-only" title="上移"><i data-lucide="chevron-up"></i></button>
+      <button class="btn icon-only" title="下移"><i data-lucide="chevron-down"></i></button>
+    </div>
+    <div class="bar-spacer"></div>
+    <div class="bar-actions">
+      <button class="btn small ghost"><i data-lucide="download"></i> 导入</button>
+      <button class="btn small ghost"><i data-lucide="upload"></i> 导出</button>
+      <button class="btn small ghost"><i data-lucide="pencil"></i> 重命名</button>
+      <button class="btn small danger"><i data-lucide="trash-2"></i> 删除</button>
+    </div>
+  </div>
 </div>
 
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
   const ALL_PROPS = [
-    { key: 'brightness', labelZh: '亮度', icon: '☀', min: 0, max: 255, def: 128, g1: '#444', g2: '#ddd' },
-    { key: 'contrast', labelZh: '对比度', icon: '◐', min: 0, max: 255, def: 128, g1: '#444', g2: '#ddd' },
-    { key: 'saturation', labelZh: '饱和度', icon: '🎨', min: 0, max: 255, def: 128, g1: '#999', g2: '#c0392b' },
-    { key: 'hue', labelZh: '色相', icon: '🌈', min: -180, max: 180, def: 0, g1: '#6699ff', g2: '#ff6699' },
-    { key: 'sharpness', labelZh: '锐度', icon: '🔍', min: 0, max: 255, def: 128, g1: null, g2: null },
-    { key: 'gamma', labelZh: '伽马', icon: '🔘', min: 72, max: 500, def: 100, g1: null, g2: null },
-    { key: 'white_balance', labelZh: '白平衡', icon: '🌡', min: 2000, max: 6500, def: 4600, g1: '#7799cc', g2: '#ddb844' },
-    { key: 'backlight', labelZh: '背光补偿', icon: '💡', min: 0, max: 1, def: 0, g1: '#444', g2: '#ddd' },
-    { key: 'gain', labelZh: '增益', icon: '📶', min: 0, max: 255, def: 0, g1: '#444', g2: '#ddd' },
-    { key: 'exposure', labelZh: '曝光', icon: '📷', min: -13, max: -1, def: -6, g1: '#444', g2: '#ddd' },
-    { key: 'focus', labelZh: '对焦', icon: '🎯', min: 0, max: 250, def: 0, g1: null, g2: null },
-    { key: 'zoom', labelZh: '变焦', icon: '🔎', min: 100, max: 500, def: 100, g1: null, g2: null },
-    { key: 'pan', labelZh: '水平移动', icon: '↔', min: -10, max: 10, def: 0, g1: null, g2: null },
-    { key: 'tilt', labelZh: '垂直移动', icon: '↕', min: -10, max: 10, def: 0, g1: null, g2: null },
+    { key: 'brightness', labelZh: '亮度', icon: 'sun', min: 0, max: 255, def: 128, g1: '#444', g2: '#ddd' },
+    { key: 'contrast', labelZh: '对比度', icon: 'contrast', min: 0, max: 255, def: 128, g1: '#444', g2: '#ddd' },
+    { key: 'saturation', labelZh: '饱和度', icon: 'palette', min: 0, max: 255, def: 128, g1: '#999', g2: '#c0392b' },
+    { key: 'hue', labelZh: '色相', icon: 'droplets', min: -180, max: 180, def: 0, g1: '#6699ff', g2: '#ff6699' },
+    { key: 'sharpness', labelZh: '锐度', icon: 'zoom-in', min: 0, max: 255, def: 128, g1: null, g2: null },
+    { key: 'gamma', labelZh: '伽马', icon: 'sliders-horizontal', min: 72, max: 500, def: 100, g1: null, g2: null },
+    { key: 'white_balance', labelZh: '白平衡', icon: 'thermometer', min: 2000, max: 6500, def: 4600, g1: '#7799cc', g2: '#ddb844' },
+    { key: 'backlight', labelZh: '背光补偿', icon: 'lightbulb', min: 0, max: 1, def: 0, g1: '#444', g2: '#ddd' },
+    { key: 'gain', labelZh: '增益', icon: 'activity', min: 0, max: 255, def: 0, g1: '#444', g2: '#ddd' },
+    { key: 'exposure', labelZh: '曝光', icon: 'aperture', min: -13, max: -1, def: -6, g1: '#444', g2: '#ddd' },
+    { key: 'focus', labelZh: '对焦', icon: 'crosshair', min: 0, max: 250, def: 0, g1: null, g2: null },
+    { key: 'zoom', labelZh: '变焦', icon: 'maximize', min: 100, max: 500, def: 100, g1: null, g2: null },
+    { key: 'pan', labelZh: '水平移动', icon: 'move-horizontal', min: -10, max: 10, def: 0, g1: null, g2: null },
+    { key: 'tilt', labelZh: '垂直移动', icon: 'move-vertical', min: -10, max: 10, def: 0, g1: null, g2: null },
   ];
 
   const CAMERA_DATA = {
@@ -552,7 +560,7 @@
 
       html += `
         <div class="prop" data-key="${p.key}">
-          <div class="prop-label"><span class="emoji">${p.icon}</span>${p.labelZh}</div>
+          <div class="prop-label"><i data-lucide="${p.icon}"></i>${p.labelZh}</div>
           <div class="slider ${auto ? 'auto' : ''}" data-key="${p.key}">
             <div class="slider-track">
               <div class="slider-fill" style="width:${pct}%;background:${fillStyle};"></div>
@@ -562,7 +570,7 @@
           <input type="text" class="prop-value" value="${val}" data-key="${p.key}">
           <label class="auto-toggle ${auto ? 'on' : ''}" data-key="${p.key}">
             <input type="checkbox" ${auto ? 'checked' : ''} data-key="${p.key}">
-            <span class="dot"></span><span>自动</span>
+            <i data-lucide="${auto ? 'toggle-right' : 'toggle-left'}"></i><span>自动</span>
           </label>
         </div>
       `;
@@ -570,6 +578,11 @@
 
     html += '</div>';
     area.innerHTML = html;
+
+    // Render Lucide icons in dynamically generated HTML
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
 
     // Bind sliders
     area.querySelectorAll('.slider').forEach(s => {
@@ -628,6 +641,12 @@
         toggle.classList.toggle('on', cb.checked);
         const slider = area.querySelector(`.slider[data-key="${toggle.dataset.key}"]`);
         if (slider) slider.classList.toggle('auto', cb.checked);
+        // Update icon
+        const iconEl = toggle.querySelector('i');
+        if (iconEl && window.lucide) {
+          iconEl.setAttribute('data-lucide', cb.checked ? 'toggle-right' : 'toggle-left');
+          window.lucide.createIcons();
+        }
       });
     });
   }
@@ -666,6 +685,11 @@
         toggle.classList.toggle('on', isAuto);
         const cb = toggle.querySelector('input');
         if (cb) cb.checked = isAuto;
+        const iconEl = toggle.querySelector('i');
+        if (iconEl && window.lucide) {
+          iconEl.setAttribute('data-lucide', isAuto ? 'toggle-right' : 'toggle-left');
+          window.lucide.createIcons();
+        }
       }
     });
   });
@@ -674,7 +698,19 @@
   let pinned = false;
   document.getElementById('btnPin').addEventListener('click', e => {
     pinned = !pinned;
-    e.target.textContent = pinned ? '📌 取消' : '📌 置顶';
+    const iconEl = e.currentTarget.querySelector('i');
+    if (iconEl && window.lucide) {
+      iconEl.setAttribute('data-lucide', pinned ? 'pin-off' : 'pin');
+      window.lucide.createIcons();
+    }
+    const label = e.currentTarget.childNodes[e.currentTarget.childNodes.length - 1];
+    if (label && label.textContent.trim()) {
+      e.currentTarget.childNodes[e.currentTarget.childNodes.length - 1].textContent = pinned ? ' 取消' : ' 置顶';
+    } else {
+      // Rebuild text after icon
+      e.currentTarget.innerHTML = `<i data-lucide="${pinned ? 'pin-off' : 'pin'}"></i> ${pinned ? '取消' : '置顶'}`;
+      if (window.lucide) window.lucide.createIcons();
+    }
   });
 
   // Scan flash
@@ -686,6 +722,10 @@
     });
   });
 
+  // Init Lucide + render
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
   render();
 </script>
 
