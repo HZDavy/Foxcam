@@ -164,37 +164,6 @@
   }
   .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
 
-  /* ===== Giant Scroll Text Section ===== */
-  .giant-section {
-    padding: 120px 0;
-    overflow: hidden;
-    position: relative;
-  }
-  .giant-text {
-    font-size: clamp(80px, 14vw, 220px);
-    font-weight: 900;
-    letter-spacing: -0.06em;
-    line-height: 0.9;
-    color: var(--text);
-  }
-  .giant-text .accent { color: var(--accent); }
-  .giant-text .dim { color: var(--text-muted); }
-  .giant-text.outline {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--border-strong);
-  }
-  .giant-row {
-    display: flex; align-items: baseline; gap: 20px;
-    margin-bottom: 12px;
-  }
-  .giant-row .sub {
-    font-size: clamp(16px, 1.4vw, 22px);
-    color: var(--text-dim);
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    max-width: 320px;
-  }
-
   /* ===== Screenshot ===== */
   .showcase { padding: 40px 0 100px; }
   .showcase-wrap {
@@ -255,31 +224,6 @@
     background: var(--accent); transition: width 0.4s ease-out;
   }
   .feature:hover .accent-bar { width: 100%; }
-
-  /* ===== Parallax Text ===== */
-  .parallax-section {
-    padding: 140px 0;
-    overflow: hidden;
-    border-top: 1px solid var(--border);
-  }
-  .parallax-text {
-    font-size: clamp(60px, 10vw, 160px);
-    font-weight: 900;
-    letter-spacing: -0.05em;
-    line-height: 0.92;
-    will-change: transform;
-  }
-  .parallax-text .row { display: block; }
-  .parallax-text .accent { color: var(--accent); }
-  .parallax-text .outline {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--border-strong);
-  }
-  .parallax-desc {
-    max-width: 380px; color: var(--text-dim);
-    font-size: 17px; line-height: 1.55;
-    margin-top: 40px;
-  }
 
   /* ===== Download ===== */
   .download-section { padding: 100px 0; border-top: 1px solid var(--border); }
@@ -446,26 +390,6 @@
 </div>
 
 <div class="container">
-  <!-- Giant text row -->
-  <section class="giant-section">
-    <div class="giant-row">
-      <div class="giant-text reveal-left hidden-zh">专业级</div>
-      <div class="giant-text reveal-right hidden-zh" style="font-size: clamp(32px,4vw,56px);color:var(--text-dim);font-weight:400;letter-spacing:-0.02em;align-self:flex-end;">精细到每一个参数</div>
-    </div>
-    <div class="giant-row">
-      <div class="giant-text reveal hidden-zh"><span class="accent">UVC</span> 控制</div>
-      <div class="giant-text reveal hidden-en">UVC <span class="accent">Control</span></div>
-    </div>
-    <div class="giant-row">
-      <div class="giant-text reveal-left hidden-zh" style="font-size: clamp(32px,4vw,56px);font-weight:400;color:var(--text-dim);">多摄像头 · 预设 · 组合</div>
-      <div class="giant-text reveal-right hidden-zh outline" style="font-size: clamp(40px,5vw,72px);">一切尽在掌控</div>
-    </div>
-    <div class="giant-row">
-      <div class="giant-text reveal-left hidden-en" style="font-size: clamp(32px,4vw,56px);font-weight:400;color:var(--text-dim);">Multi-camera · Presets · Combos</div>
-      <div class="giant-text reveal-right hidden-en outline" style="font-size: clamp(40px,5vw,72px);">All under control</div>
-    </div>
-  </section>
-
   <!-- Screenshot -->
   <section class="showcase">
     <div class="showcase-wrap reveal">
@@ -535,18 +459,6 @@
         <p class="hidden-en">Easily share presets between machines</p>
       </div>
     </div>
-  </section>
-
-  <!-- Parallax text -->
-  <section class="parallax-section">
-    <div class="parallax-text" id="parallaxText">
-      <span class="row hidden-zh" data-speed="0.1">实时 · <span class="accent">精准</span> · 可靠</span>
-      <span class="row hidden-en" data-speed="0.1">Real-time · <span class="accent">Precise</span> · Reliable</span>
-      <span class="row hidden-zh" data-speed="0.2">为每一个<span class="outline">像素</span>而生</span>
-      <span class="row hidden-en" data-speed="0.2">Built for every <span class="outline">pixel</span></span>
-    </div>
-    <p class="parallax-desc reveal hidden-zh">专业级摄像头参数控制，为多摄像头工作流而生。</p>
-    <p class="parallax-desc reveal hidden-en">Professional camera control, built for multi-camera workflows.</p>
   </section>
 
   <!-- Download -->
@@ -638,26 +550,6 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => observer.observe(el));
-
-  // Parallax effect on giant text
-  const parallaxText = document.getElementById('parallaxText');
-  if (parallaxText) {
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrolled = window.pageYOffset;
-          const rows = parallaxText.querySelectorAll('.row');
-          rows.forEach(row => {
-            const speed = parseFloat(row.dataset.speed || '0.1');
-            row.style.transform = `translateY(${scrolled * speed * 0.3}px)`;
-          });
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
-  }
 
   // Duplicate marquee for seamless loop
   const marquee = document.getElementById('marquee');
