@@ -71,35 +71,6 @@
   }
   .lang-switch button.active { background: var(--bg); color: var(--text); }
 
-  /* ===== Marquee ===== */
-  .marquee-wrap {
-    overflow: hidden;
-    white-space: nowrap;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: var(--bg-elev);
-    padding: 28px 0;
-    position: relative;
-    z-index: 1;
-  }
-  .marquee {
-    display: inline-flex;
-    animation: marquee 22s linear infinite;
-    font-size: clamp(48px, 8vw, 112px);
-    font-weight: 800;
-    letter-spacing: -0.05em;
-    line-height: 1;
-    white-space: nowrap;
-  }
-  .marquee span { padding: 0 40px; }
-  .marquee .white { color: var(--text); }
-  .marquee .orange { color: var(--accent); }
-  .marquee .dim { color: var(--text-muted); }
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
   /* ===== Container ===== */
   .container { max-width: var(--max-w); margin: 0 auto; padding: 0 40px; }
 
@@ -382,13 +353,6 @@
   </section>
 </div>
 
-<!-- Marquee -->
-<div class="marquee-wrap">
-  <div class="marquee" id="marquee">
-    <span class="white">REAL-TIME</span><span class="orange">●</span><span class="dim">MULTI-CAMERA</span><span class="white">PRESETS</span><span class="orange">●</span><span class="dim">UVC CONTROL</span><span class="white">REAL-TIME</span><span class="orange">●</span><span class="dim">MULTI-CAMERA</span><span class="white">PRESETS</span><span class="orange">●</span><span class="dim">UVC CONTROL</span>
-  </div>
-</div>
-
 <div class="container">
   <!-- Screenshot -->
   <section class="showcase">
@@ -551,11 +515,6 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => observer.observe(el));
 
-  // Duplicate marquee for seamless loop
-  const marquee = document.getElementById('marquee');
-  if (marquee) {
-    marquee.innerHTML += marquee.innerHTML;
-  }
 </script>
 
 </body>
