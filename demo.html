@@ -8,439 +8,562 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
   body {
-    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: #1a1a24;
-    color: #e0e0e8;
+    font-family: "Microsoft YaHei UI", "Segoe UI", sans-serif;
+    background: #222222;
+    color: #cccccc;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     min-height: 100vh;
-    padding: 0;
-    overflow: hidden;
+    overflow: auto;
+    -webkit-font-smoothing: antialiased;
+    font-size: 13px;
   }
-
-  /* When embedded in iframe, fill the parent */
-  body.embedded {
-    min-height: 100%;
-    height: 100%;
-    padding: 0;
-  }
+  body.embedded { min-height: 100vh; padding: 0; }
+  body:not(.embedded) { padding: 20px; }
 
   .window {
-    width: 100%;
+    width: 1020px;
     max-width: 100%;
-    height: 100%;
-    background: #2a2a38;
-    border-radius: 0;
-    box-shadow: none;
+    background: #222222;
+    border-radius: 8px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    user-select: none;
-  }
-
-  /* Standalone mode: centered with shadow */
-  body:not(.embedded) {
-    align-items: center;
-    padding: 20px;
-  }
-  body:not(.embedded) .window {
-    max-width: 960px;
-    height: auto;
-    min-height: 0;
-    border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.6);
   }
 
-  /* Title bar */
+  /* ===== TITLE BAR ===== */
   .titlebar {
-    display: flex;
-    align-items: center;
-    padding: 8px 14px;
-    background: #1e1e2a;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex; align-items: center;
+    padding: 6px 12px;
+    background: #1a1a24;
     flex-shrink: 0;
   }
-  .titlebar-icon {
-    width: 20px; height: 20px;
+  .tb-icon {
+    width: 18px; height: 18px;
     background: linear-gradient(135deg, #f97316, #ea580c);
-    border-radius: 4px;
-    margin-right: 10px;
+    border-radius: 3px;
+    margin-right: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: bold; color: #fff;
+    font-size: 10px; font-weight: bold; color: #fff;
   }
-  .titlebar-title { font-size: 12px; color: #999; flex: 1; }
-  .titlebar-btns { display: flex; gap: 4px; }
-  .titlebar-btns span {
-    width: 28px; height: 22px; border-radius: 4px;
+  .tb-title { font-size: 12px; color: #999; flex: 1; }
+  .tb-btns { display: flex; }
+  .tb-btns span {
+    width: 28px; height: 20px; border-radius: 3px;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; font-size: 12px; color: #999;
-    transition: background 0.15s;
+    cursor: pointer; font-size: 11px; color: #999;
   }
-  .titlebar-btns span:hover { background: rgba(255,255,255,0.08); }
-  .titlebar-btns .close:hover { background: #e81123; color: #fff; }
+  .tb-btns span:hover { background: rgba(255,255,255,0.08); }
+  .tb-btns .close:hover { background: #e81123; color: #fff; }
 
-  /* App header */
-  .app-header {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 16px;
-    background: #242430;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+  /* ===== TOOLBAR ===== */
+  .toolbar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 8px;
+    background: transparent;
     flex-shrink: 0;
   }
-  .app-logo {
-    font-size: 20px; font-weight: 800;
+  .logo {
+    height: 32px;
+    display: flex; align-items: center;
+    font-size: 18px; font-weight: 800;
     background: linear-gradient(135deg, #f97316, #fb923c);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -0.02em;
-    cursor: pointer;
+    padding-right: 8px;
   }
-  .app-logo span { color: #e0e0e8; -webkit-text-fill-color: #e0e0e8; font-weight: 700; }
-  .app-btn {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 5px 12px; border-radius: 5px;
-    background: #2f2f3e; color: #bbb;
-    border: 1px solid rgba(255,255,255,0.06);
+  .logo span { color: #e0e0e0; -webkit-text-fill-color: #e0e0e0; font-weight: 700; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 5px 12px; border-radius: 6px;
+    background: #6b6b7b; color: #fff;
+    border: none;
     font-size: 12px; cursor: pointer;
-    transition: all 0.15s;
+    transition: background 0.15s;
     white-space: nowrap;
+    font-family: inherit;
   }
-  .app-btn:hover { background: #3a3a4d; color: #fff; }
-  .app-btn .dot { width: 6px; height: 6px; border-radius: 50%; background: #f97316; }
+  .btn:hover { background: #5a5a6a; }
+  .btn.gray { background: #5a5a6a; }
+  .btn.gray:hover { background: #444444; }
+  .btn.danger { background: #5a5a6a; }
+  .btn.danger:hover { background: #444444; }
+  .btn.small { padding: 3px 8px; font-size: 11px; }
+  .btn.arrow {
+    width: 22px; height: 22px; padding: 0;
+    background: transparent; color: #555;
+    border-radius: 2px; font-size: 11px;
+  }
+  .btn.arrow:hover { background: #3a3a3a; color: #aaa; }
+
   .spacer { flex: 1; }
-  .header-right { display: flex; align-items: center; gap: 10px; }
-  .header-right .label { font-size: 12px; color: #888; display: inline-flex; align-items: center; gap: 3px; }
-  .header-right .label::before { content: '⚡'; font-size: 11px; }
-  .header-right select {
-    background: #2f2f3e; color: #bbb; border: 1px solid rgba(255,255,255,0.08);
-    padding: 4px 8px; border-radius: 4px; font-size: 12px; cursor: pointer;
-  }
-  .header-right .top-btn {
-    display: inline-flex; align-items: center; gap: 3px;
-    padding: 4px 10px; border-radius: 4px;
-    background: rgba(249,115,22,0.12); color: #f97316;
-    border: 1px solid rgba(249,115,22,0.3);
-    font-size: 12px; cursor: pointer;
-  }
 
-  /* Toolbar */
-  .toolbar {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 16px;
-    background: #22222e;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+  .header-right { display: flex; align-items: center; gap: 8px; }
+  .label { font-size: 11px; color: #999; display: inline-flex; align-items: center; gap: 3px; }
+  .label::before { content: '⚡'; font-size: 10px; }
+
+  .combobox {
+    background: #353535; color: #ccc;
+    border: 1px solid #555; border-radius: 6px;
+    padding: 4px 8px; font-size: 12px;
+    cursor: pointer; font-family: inherit;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%236b6b7b' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 22px;
+  }
+  .combobox:hover { border-color: #666; }
+
+  /* ===== COMBO BAR ===== */
+  .combobar {
+    display: flex; align-items: center; gap: 6px;
+    margin: 0 8px 4px;
+    padding: 0;
+    background: #2a2a2a;
+    border-radius: 6px;
     flex-shrink: 0;
   }
-  .toolbar .combo-label {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 12px; color: #aaa;
-    white-space: nowrap;
-  }
-  .toolbar select {
-    flex: 1; max-width: 240px;
-    background: #2f2f3e; color: #bbb; border: 1px solid rgba(255,255,255,0.08);
-    padding: 5px 8px; border-radius: 5px; font-size: 12px; cursor: pointer;
-  }
-  .toolbar-btn {
-    display: inline-flex; align-items: center; gap: 4px;
-    padding: 5px 12px; border-radius: 5px;
-    background: #2f2f3e; color: #bbb;
-    border: 1px solid rgba(255,255,255,0.06);
-    font-size: 12px; cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .toolbar-btn:hover { background: #3a3a4d; color: #fff; }
-  .toolbar-btn.primary { background: #f97316; color: #fff; border-color: #f97316; }
-  .toolbar-btn.primary:hover { background: #fb923c; }
-  .toolbar-btn.danger { color: #e87c7c; }
-  .toolbar-btn.danger:hover { background: rgba(232,124,124,0.15); }
+  .combobar .label { font-size: 12px; font-weight: bold; color: #b0b0b0; padding: 6px 4px 6px 8px; }
+  .combobar .combobox { min-width: 140px; }
 
-  /* Camera tabs */
-  .camera-tabs {
-    display: flex; gap: 1px;
-    padding: 8px 16px 0;
-    background: #1e1e2a;
+  /* ===== PRESET BAR ===== */
+  .presetbar {
+    display: flex; align-items: center; gap: 6px;
+    margin: 4px 8px;
+    padding: 0;
+    background: #2a2a2a;
+    border-radius: 6px;
     flex-shrink: 0;
-    overflow-x: auto;
   }
-  .cam-tab {
-    padding: 6px 14px; border-radius: 5px 5px 0 0;
-    background: #2a2a38; color: #aaa;
-    font-size: 12px; cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.05);
-    border-bottom: none;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .cam-tab:hover { background: #333344; color: #fff; }
-  .cam-tab.active {
-    background: #3a3a4d; color: #fff;
-    border-color: rgba(249,115,22,0.2);
-  }
+  .presetbar .label { font-size: 12px; font-weight: bold; color: #b0b0b0; padding: 6px 4px 6px 8px; }
+  .presetbar .combobox { min-width: 140px; }
 
-  /* Content */
+  /* ===== NOTEBOOK / TAB SEGMENTED ===== */
+  .notebook {
+    display: flex; align-items: center; gap: 0;
+    margin: 4px 8px 0;
+    padding: 4px 4px;
+    background: #333333;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .tab-btn {
+    padding: 6px 14px;
+    background: #2a2a2a;
+    color: #ccc;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.15s;
+    font-family: inherit;
+  }
+  .tab-btn:hover { background: #444444; }
+  .tab-btn.active { background: #5a5a6a; color: #fff; }
+
+  /* ===== CONTENT ===== */
   .content {
-    padding: 16px;
+    margin: 0 8px;
     flex: 1;
     overflow-y: auto;
   }
   .cam-title {
-    font-size: 14px; font-weight: 600; margin-bottom: 14px;
-    color: #e0e0e8;
+    font-size: 15px; font-weight: bold;
+    padding: 4px 4px 8px;
+    color: #e0e0e0;
   }
 
-  /* Slider rows */
-  .sliders { display: flex; flex-direction: column; gap: 10px; }
-  .slider-row {
+  .prop-grid {
     display: grid;
-    grid-template-columns: 70px 1fr 48px auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding-bottom: 8px;
+  }
+
+  /* ===== PROP ROW ===== */
+  .prop-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 60px auto;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
+    padding: 6px 4px;
   }
-  .slider-label { font-size: 12px; color: #aaa; white-space: nowrap; }
-  .slider-wrap { display: flex; align-items: center; gap: 8px; }
-  input[type="range"] {
-    -webkit-appearance: none; appearance: none;
-    width: 100%; height: 3px; border-radius: 2px;
-    background: #3a3a4d; outline: none; cursor: pointer;
+  .prop-label {
+    font-size: 13px;
+    color: #ccc;
+    padding-right: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; appearance: none;
-    width: 14px; height: 14px; border-radius: 50%;
-    background: #d0d0d8; border: 2px solid #444;
-    cursor: pointer; transition: all 0.15s;
+  .prop-label .icon { margin-right: 2px; }
+
+  /* Gradient Slider */
+  .grad-slider {
+    position: relative;
+    height: 24px;
+    cursor: pointer;
   }
-  input[type="range"]::-webkit-slider-thumb:hover {
-    background: #f97316; border-color: #f97316;
+  .grad-track {
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 8px;
+    transform: translateY(-50%);
+    border-radius: 4px;
+    cursor: pointer;
   }
-  input[type="range"].auto-on {
-    background: rgba(249,115,22,0.3);
+  .grad-thumb {
+    position: absolute;
+    top: 50%;
+    width: 16px; height: 16px;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    border: 1.5px solid #888;
+    border-radius: 50%;
+    cursor: grab;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    transition: background 0.15s;
   }
-  input[type="range"].auto-on::-webkit-slider-thumb {
-    background: #f97316; border-color: #f97316;
+  .grad-thumb:hover { background: #f0f0f0; }
+  .grad-thumb:active { cursor: grabbing; }
+
+  /* Value entry */
+  .prop-value {
+    background: #353535;
+    color: #ccc;
+    border: 1px solid #555;
+    border-radius: 6px;
+    padding: 4px 6px;
+    font-size: 12px;
+    text-align: center;
+    font-family: Consolas, "Courier New", monospace;
+    width: 56px;
+    cursor: text;
   }
-  .slider-value {
-    font-size: 12px; color: #ccc;
-    text-align: right; min-width: 32px;
-  }
+  .prop-value:focus { outline: none; border-color: #666; }
+
+  /* Auto checkbox */
   .auto-check {
     display: inline-flex; align-items: center; gap: 4px;
-    font-size: 11px; color: #777; cursor: pointer;
-    white-space: nowrap;
+    font-size: 11px; color: #888;
+    cursor: pointer;
+    padding: 0 6px;
   }
   .auto-check input[type="checkbox"] {
-    width: 13px; height: 13px; accent-color: #f97316;
+    width: 16px; height: 16px;
+    accent-color: #6b6b7b;
     cursor: pointer;
+    border-radius: 4px;
   }
-  .auto-check.checked { color: #f97316; }
+  .auto-check.checked { color: #6b6b7b; }
+  .auto-check.checked input[type="checkbox"] { accent-color: #6b6b7b; }
 
-  /* Info bar */
-  .info-bar {
-    margin-top: 14px;
-    padding: 8px 12px;
-    background: rgba(249,115,22,0.08);
-    border: 1px solid rgba(249,115,22,0.2);
-    border-radius: 6px;
-    font-size: 11px;
-    color: #f97316;
+  /* Scrollbar styling */
+  .content::-webkit-scrollbar { width: 8px; }
+  .content::-webkit-scrollbar-track { background: #222; }
+  .content::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+  .content::-webkit-scrollbar-thumb:hover { background: #666; }
+
+  /* Embedded: remove standalone chrome */
+  body.embedded .window { box-shadow: none; border-radius: 0; width: 100%; }
+  body.embedded { padding: 0; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .prop-grid { grid-template-columns: 1fr; }
+    .window { width: 100%; }
   }
-  .info-bar.hidden { display: none; }
 
-  /* Language hide */
-  .hidden-en { display: none !important; }
-  body.lang-en .hidden-zh { display: none !important; }
-  body.lang-en .hidden-en { display: inline !important; }
-  body.lang-en .hidden-en.block { display: block !important; }
-  body.lang-en .hidden-en.flex { display: flex !important; }
-
-  /* Embedded mode: no try badge */
-  body.embedded .try-badge { display: none !important; }
-
-  /* Try badge (standalone only) */
-  .try-badge {
-    position: fixed; top: 20px; right: 20px; z-index: 1000;
-    background: rgba(249,115,22,0.95); color: #fff;
-    padding: 8px 16px; border-radius: 20px;
-    font-size: 13px; font-weight: 500;
-    box-shadow: 0 4px 16px rgba(249,115,22,0.4);
-    cursor: pointer;
+  /* Logo fallback text */
+  .logo-text {
+    font-size: 16px; font-weight: bold;
+    color: #e0e0e0;
   }
 </style>
 </head>
 <body class="embedded">
 
-<div class="try-badge hidden-zh" onclick="location.href='index.html'">← 返回官网</div>
-<div class="try-badge hidden-en" onclick="location.href='index.html'" style="display:none">← Back</div>
-
 <div class="window">
   <!-- Title bar -->
   <div class="titlebar">
-    <div class="titlebar-icon">F</div>
-    <div class="titlebar-title">Foxcam <span class="hidden-zh">v1.0</span><span class="hidden-en">v1.0</span></div>
-    <div class="titlebar-btns">
+    <div class="tb-icon">F</div>
+    <div class="tb-title">Foxcam v1.1</div>
+    <div class="tb-btns">
       <span>—</span><span>□</span><span class="close">✕</span>
-    </div>
-  </div>
-
-  <!-- App header -->
-  <div class="app-header">
-    <div class="app-logo">Fox<span class="hidden-zh">cam</span><span class="hidden-en">cam</span></div>
-    <button class="app-btn" id="btnScan">🔍 <span class="hidden-zh">扫描</span><span class="hidden-en">Scan</span></button>
-    <button class="app-btn">🔄 <span class="hidden-zh">重读</span><span class="hidden-en">Rescan</span></button>
-    <button class="app-btn">↺ <span class="hidden-zh">默认</span><span class="hidden-en">Reset</span></button>
-    <div class="spacer"></div>
-    <div class="header-right">
-      <span class="label"><span class="hidden-zh">防闪烁</span><span class="hidden-en">Anti-flicker</span></span>
-      <select>
-        <option>50 Hz</option>
-        <option>60 Hz</option>
-      </select>
-      <button class="top-btn">📌 <span class="hidden-zh">置顶</span><span class="hidden-en">Pin</span></button>
     </div>
   </div>
 
   <!-- Toolbar -->
   <div class="toolbar">
-    <span class="combo-label">🎛 <span class="hidden-zh">组合</span><span class="hidden-en">Combo</span></span>
-    <select>
-      <option><span class="hidden-zh">默认</span><span class="hidden-en">Default</span></option>
-      <option><span class="hidden-zh">会议模式</span><span class="hidden-en">Meeting</span></option>
-      <option><span class="hidden-zh">直播模式</span><span class="hidden-en">Streaming</span></option>
-    </select>
-    <button class="toolbar-btn primary">▶ <span class="hidden-zh">应用</span><span class="hidden-en">Apply</span></button>
-    <button class="toolbar-btn">💾 <span class="hidden-zh">保存</span><span class="hidden-en">Save</span></button>
-    <button class="toolbar-btn">▼</button>
+    <div class="logo">Fox<span>cam</span></div>
+    <button class="btn" id="btnScan">🔍 扫描</button>
+    <button class="btn" id="btnReload">🔄 重读</button>
+    <button class="btn gray" id="btnReset">↺ 默认</button>
     <div class="spacer"></div>
-    <button class="toolbar-btn">✏️ <span class="hidden-zh">重命名</span><span class="hidden-en">Rename</span></button>
-    <button class="toolbar-btn danger">🗑 <span class="hidden-zh">删除</span><span class="hidden-en">Delete</span></button>
+    <div class="header-right">
+      <span class="label">防闪烁</span>
+      <select class="combobox" id="freqSelect" style="width:85px;">
+        <option value="50">50 Hz</option>
+        <option value="60">60 Hz</option>
+      </select>
+      <button class="btn gray small" id="btnPin">📌 置顶</button>
+    </div>
   </div>
 
-  <!-- Camera tabs -->
-  <div class="camera-tabs" id="cameraTabs">
-    <div class="cam-tab active" data-cam="0">Logitech Webcam C925e A</div>
-    <div class="cam-tab" data-cam="1">Logitech Webcam C925e B</div>
-    <div class="cam-tab" data-cam="2">HP Wide Vision HD Camera</div>
+  <!-- Combo bar -->
+  <div class="combobar">
+    <span class="label">🔗 组合</span>
+    <select class="combobox" id="comboSelect">
+      <option value=""></option>
+      <option value="meeting">会议模式</option>
+      <option value="streaming">直播模式</option>
+    </select>
+    <button class="btn small">▶ 应用</button>
+    <button class="btn small">💾 保存</button>
+    <button class="btn arrow">▲</button>
+    <button class="btn arrow">▼</button>
+    <div class="spacer"></div>
+    <button class="btn gray small">✏ 重命名</button>
+    <button class="btn danger small">🗑 删除</button>
+  </div>
+
+  <!-- Notebook -->
+  <div class="notebook" id="notebook">
+    <button class="tab-btn active" data-cam="0">Logitech Webcam C925e A</button>
+    <button class="tab-btn" data-cam="1">Logitech Webcam C925e B</button>
+    <button class="tab-btn" data-cam="2">HP Wide Vision HD Camera</button>
+  </div>
+
+  <!-- Preset bar -->
+  <div class="presetbar">
+    <span class="label">📋 预设</span>
+    <select class="combobox" id="presetSelect">
+      <option value=""></option>
+      <option value="default">默认</option>
+      <option value="meeting">会议</option>
+      <option value="night">夜间</option>
+    </select>
+    <button class="btn small">▶ 应用</button>
+    <button class="btn small">💾 保存</button>
+    <button class="btn arrow">▲</button>
+    <button class="btn arrow">▼</button>
+    <div class="spacer"></div>
+    <button class="btn gray small">✏ 重命名</button>
+    <button class="btn danger small">🗑 删除</button>
+    <button class="btn gray small">📤 导出</button>
+    <button class="btn gray small">📥 导入</button>
   </div>
 
   <!-- Content -->
-  <div class="content">
-    <div class="cam-title" id="camTitle">Logitech Webcam C925e A</div>
-    <div class="sliders" id="sliders"></div>
-    <div class="info-bar hidden" id="infoBar">
-      <span class="hidden-zh">参数已更新</span>
-      <span class="hidden-en">Parameters updated</span>
-    </div>
+  <div class="content" id="content">
+    <!-- Generated by JS -->
   </div>
 </div>
 
 <script>
-  // Check if embedded in iframe
-  const isEmbedded = window.self !== window.top;
-  if (isEmbedded) {
-    document.body.classList.add('embedded');
-  }
-
-  const paramData = [
-    { key: 'brightness', labelZh: '亮度', labelEn: 'Brightness', value: 128, min: 0, max: 255, auto: false },
-    { key: 'contrast', labelZh: '对比度', labelEn: 'Contrast', value: 128, min: 0, max: 255, auto: false },
-    { key: 'saturation', labelZh: '饱和度', labelEn: 'Saturation', value: 128, min: 0, max: 255, auto: false },
-    { key: 'hue', labelZh: '色调', labelEn: 'Hue', value: 0, min: -180, max: 180, auto: false },
-    { key: 'gamma', labelZh: '伽马', labelEn: 'Gamma', value: 100, min: 10, max: 500, auto: false },
-    { key: 'whiteBalance', labelZh: '白平衡', labelEn: 'White Balance', value: 5000, min: 2500, max: 6500, auto: true },
-    { key: 'exposure', labelZh: '曝光', labelEn: 'Exposure', value: 0, min: -10, max: 10, auto: true },
-    { key: 'zoom', labelZh: '缩放', labelEn: 'Zoom', value: 1, min: 1, max: 10, auto: false },
-    { key: 'focus', labelZh: '对焦', labelEn: 'Focus', value: 100, min: 0, max: 100, auto: true },
+  // ===== PROPERTY DEFINITIONS =====
+  // Exact match to app.py ALL_PROPS (line 165-180)
+  const ALL_PROPS = [
+    { key: 'brightness', labelZh: '亮度', icon: '☀', min: 0, max: 255, def: 128, grad1: '#444444', grad2: '#dddddd' },
+    { key: 'contrast', labelZh: '对比度', icon: '◐', min: 0, max: 255, def: 128, grad1: '#444444', grad2: '#dddddd' },
+    { key: 'saturation', labelZh: '饱和度', icon: '🎨', min: 0, max: 255, def: 128, grad1: '#999999', grad2: '#c0392b' },
+    { key: 'hue', labelZh: '色相', icon: '🌈', min: -180, max: 180, def: 0, grad1: '#6699ff', grad2: '#ff6699' },
+    { key: 'sharpness', labelZh: '锐度', icon: '🔍', min: 0, max: 255, def: 128, grad1: null, grad2: null },
+    { key: 'gamma', labelZh: '伽马', icon: '🔘', min: 72, max: 500, def: 100, grad1: null, grad2: null },
+    { key: 'white_balance', labelZh: '白平衡', icon: '🌡', min: 2000, max: 6500, def: 4600, grad1: '#7799cc', grad2: '#ddb844' },
+    { key: 'backlight', labelZh: '背光补偿', icon: '💡', min: 0, max: 1, def: 0, grad1: '#444444', grad2: '#dddddd' },
+    { key: 'gain', labelZh: '增益', icon: '📶', min: 0, max: 255, def: 0, grad1: '#444444', grad2: '#dddddd' },
+    { key: 'exposure', labelZh: '曝光', icon: '📷', min: -13, max: -1, def: -6, grad1: '#444444', grad2: '#dddddd' },
+    { key: 'focus', labelZh: '对焦', icon: '🎯', min: 0, max: 250, def: 0, grad1: null, grad2: null },
+    { key: 'zoom', labelZh: '变焦', icon: '🔎', min: 100, max: 500, def: 100, grad1: null, grad2: null },
+    { key: 'pan', labelZh: '水平移动', icon: '↔', min: -10, max: 10, def: 0, grad1: null, grad2: null },
+    { key: 'tilt', labelZh: '垂直移动', icon: '↕', min: -10, max: 10, def: 0, grad1: null, grad2: null },
   ];
 
-  const cameraData = {
-    '0': { name: 'Logitech Webcam C925e A', values: { brightness: 140, contrast: 130, saturation: 128, hue: 0, gamma: 100, whiteBalance: 5200, exposure: 1, zoom: 1, focus: 80 } },
-    '1': { name: 'Logitech Webcam C925e B', values: { brightness: 120, contrast: 140, saturation: 135, hue: 5, gamma: 95, whiteBalance: 5000, exposure: 0, zoom: 1, focus: 70 } },
-    '2': { name: 'HP Wide Vision HD Camera', values: { brightness: 130, contrast: 120, saturation: 120, hue: 0, gamma: 105, whiteBalance: 5500, exposure: 2, zoom: 1, focus: 90 } },
+  // Camera data with specific values
+  const CAMERA_DATA = {
+    '0': {
+      name: 'Logitech Webcam C925e A',
+      values: { brightness: 140, contrast: 130, saturation: 128, hue: 0, sharpness: 128, gamma: 100, white_balance: 5200, backlight: 0, gain: 10, exposure: -4, focus: 120, zoom: 100, pan: 0, tilt: 0 },
+      auto: { white_balance: true, exposure: true, focus: true }
+    },
+    '1': {
+      name: 'Logitech Webcam C925e B',
+      values: { brightness: 120, contrast: 140, saturation: 135, hue: 5, sharpness: 128, gamma: 95, white_balance: 5000, backlight: 0, gain: 0, exposure: -6, focus: 80, zoom: 100, pan: 0, tilt: 0 },
+      auto: { white_balance: true, exposure: true, focus: true }
+    },
+    '2': {
+      name: 'HP Wide Vision HD Camera',
+      values: { brightness: 130, contrast: 120, saturation: 120, hue: 0, sharpness: 128, gamma: 105, white_balance: 5500, backlight: 0, gain: 5, exposure: -3, focus: 150, zoom: 100, pan: 0, tilt: 0 },
+      auto: { white_balance: true, exposure: true, focus: true }
+    }
   };
 
-  function renderSliders() {
-    const container = document.getElementById('sliders');
-    const isEn = document.body.classList.contains('lang-en');
-    container.innerHTML = paramData.map(p => `
-      <div class="slider-row">
-        <span class="slider-label">${isEn ? p.labelEn : p.labelZh}</span>
-        <div class="slider-wrap">
-          <input type="range" min="${p.min}" max="${p.max}" value="${p.value}"
-            class="${p.auto ? 'auto-on' : ''}"
-            data-key="${p.key}">
-        </div>
-        <span class="slider-value" data-value="${p.key}">${p.value}</span>
-        <label class="auto-check ${p.auto ? 'checked' : ''}" data-key="${p.key}">
-          <input type="checkbox" ${p.auto ? 'checked' : ''} data-key="${p.key}">
-          <span>${isEn ? 'Auto' : '自动'}</span>
-        </label>
-      </div>
-    `).join('');
+  // ===== STATE =====
+  let currentCam = '0';
+  const state = {}; // key -> { value, auto }
 
-    container.querySelectorAll('input[type="range"]').forEach(input => {
-      input.addEventListener('input', (e) => {
-        const key = e.target.dataset.key;
-        const val = parseInt(e.target.value);
-        const param = paramData.find(p => p.key === key);
-        param.value = val;
-        container.querySelector(`[data-value="${key}"]`).textContent = val;
-        showInfo();
+  function getPropValue(prop, camId) {
+    const cam = CAMERA_DATA[camId];
+    return cam.values[prop.key] !== undefined ? cam.values[prop.key] : prop.def;
+  }
+  function isAuto(prop, camId) {
+    const cam = CAMERA_DATA[camId];
+    return cam.auto && cam.auto[prop.key] === true;
+  }
+
+  // ===== RENDER =====
+  function renderContent() {
+    const cam = CAMERA_DATA[currentCam];
+    const container = document.getElementById('content');
+    let html = `<div class="cam-title">${cam.name}</div>`;
+    html += '<div class="prop-grid">';
+
+    ALL_PROPS.forEach(prop => {
+      const val = getPropValue(prop, currentCam);
+      const auto = isAuto(prop, currentCam);
+      const g1 = prop.grad1 || '#888888';
+      const g2 = prop.grad2 || '#b0b0b0';
+      const pct = (val - prop.min) / (prop.max - prop.min) * 100;
+
+      html += `
+        <div class="prop-row" data-key="${prop.key}">
+          <span class="prop-label"><span class="icon">${prop.icon}</span>${prop.labelZh}</span>
+          <div class="grad-slider" data-key="${prop.key}">
+            <div class="grad-track" style="background: linear-gradient(to right, ${g1}, ${g2});"></div>
+            <div class="grad-thumb" style="left: ${pct}%;" data-key="${prop.key}"></div>
+          </div>
+          <input type="text" class="prop-value" value="${val}" data-key="${prop.key}" data-type="entry">
+          <label class="auto-check ${auto ? 'checked' : ''}" data-key="${prop.key}">
+            <input type="checkbox" ${auto ? 'checked' : ''} data-key="${prop.key}" data-type="auto">
+            <span>自动</span>
+          </label>
+        </div>
+      `;
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+
+    // Bind slider drag
+    container.querySelectorAll('.grad-slider').forEach(slider => {
+      const key = slider.dataset.key;
+      const prop = ALL_PROPS.find(p => p.key === key);
+      const thumb = slider.querySelector('.grad-thumb');
+      const track = slider.querySelector('.grad-track');
+
+      function updateFromEvent(e) {
+        const rect = track.getBoundingClientRect();
+        let x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+        x = Math.max(0, Math.min(rect.width, x));
+        const pct = x / rect.width;
+        const val = Math.round(prop.min + pct * (prop.max - prop.min));
+        const pctClamped = val / (prop.max - prop.min) * 100;
+
+        thumb.style.left = pctClamped + '%';
+        const entry = container.querySelector(`.prop-value[data-key="${key}"]`);
+        if (entry) entry.value = val;
+      }
+
+      let dragging = false;
+      slider.addEventListener('mousedown', (e) => {
+        dragging = true;
+        updateFromEvent(e);
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', (e) => {
+        if (dragging) updateFromEvent(e);
+      });
+      document.addEventListener('mouseup', () => { dragging = false; });
+
+      // Touch support
+      slider.addEventListener('touchstart', (e) => {
+        dragging = true;
+        updateFromEvent(e);
+        e.preventDefault();
+      }, { passive: false });
+      document.addEventListener('touchmove', (e) => {
+        if (dragging) updateFromEvent(e);
+      });
+      document.addEventListener('touchend', () => { dragging = false; });
+    });
+
+    // Bind value entry
+    container.querySelectorAll('.prop-value').forEach(entry => {
+      const key = entry.dataset.key;
+      const prop = ALL_PROPS.find(p => p.key === key);
+      entry.addEventListener('change', () => {
+        let val = parseInt(entry.value);
+        if (isNaN(val)) { entry.value = getPropValue(prop, currentCam); return; }
+        val = Math.max(prop.min, Math.min(prop.max, val));
+        entry.value = val;
+        const pct = (val - prop.min) / (prop.max - prop.min) * 100;
+        const thumb = container.querySelector(`.grad-thumb[data-key="${key}"]`);
+        if (thumb) thumb.style.left = pct + '%';
       });
     });
 
+    // Bind auto checkboxes
     container.querySelectorAll('.auto-check').forEach(label => {
       const key = label.dataset.key;
-      const param = paramData.find(p => p.key === key);
       const cb = label.querySelector('input[type="checkbox"]');
-      cb.addEventListener('change', (e) => {
-        param.auto = e.target.checked;
-        label.classList.toggle('checked', e.target.checked);
-        const slider = container.querySelector(`input[data-key="${key}"]`);
-        slider.classList.toggle('auto-on', e.target.checked);
-        showInfo();
+      cb.addEventListener('change', () => {
+        label.classList.toggle('checked', cb.checked);
       });
     });
   }
 
-  let infoTimer = null;
-  function showInfo() {
-    const bar = document.getElementById('infoBar');
-    bar.classList.remove('hidden');
-    clearTimeout(infoTimer);
-    infoTimer = setTimeout(() => bar.classList.add('hidden'), 1500);
-  }
-
-  document.querySelectorAll('.cam-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.cam-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const camId = tab.dataset.cam;
-      const cam = cameraData[camId];
-      document.getElementById('camTitle').textContent = cam.name;
-      paramData.forEach(p => {
-        if (cam.values[p.key] !== undefined) p.value = cam.values[p.key];
-      });
-      renderSliders();
-      showInfo();
+  // ===== TAB SWITCHING =====
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCam = btn.dataset.cam;
+      renderContent();
     });
   });
 
-  document.getElementById('btnScan').addEventListener('click', showInfo);
-
-  // Init language
-  const savedLang = localStorage.getItem('foxcam-lang') || 'zh';
-  if (savedLang === 'en') {
-    document.body.classList.add('lang-en');
-    document.querySelectorAll('.hidden-en').forEach(el => {
-      if (el.tagName === 'SPAN') el.style.display = 'inline';
-      if (el.classList.contains('block')) el.style.display = 'block';
-      if (el.classList.contains('flex')) el.style.display = 'flex';
+  // ===== TOOLBAR BUTTONS =====
+  document.getElementById('btnScan').addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.style.transition = 'background 0.3s';
+      b.style.background = '#6b6b7b';
+      setTimeout(() => { b.style.background = ''; }, 300);
     });
-  }
+  });
 
-  renderSliders();
+  document.getElementById('btnReset').addEventListener('click', () => {
+    ALL_PROPS.forEach(prop => {
+      const pct = (prop.def - prop.min) / (prop.max - prop.min) * 100;
+      const thumb = document.querySelector(`.grad-thumb[data-key="${prop.key}"]`);
+      const entry = document.querySelector(`.prop-value[data-key="${prop.key}"]`);
+      if (thumb) thumb.style.left = pct + '%';
+      if (entry) entry.value = prop.def;
+      const cb = document.querySelector(`.auto-check[data-key="${prop.key}"] input`);
+      const label = document.querySelector(`.auto-check[data-key="${prop.key}"]`);
+      if (cb && prop.key === 'white_balance' || prop.key === 'exposure' || prop.key === 'focus') {
+        cb.checked = true;
+        label.classList.add('checked');
+      } else {
+        if (cb) { cb.checked = false; label.classList.remove('checked'); }
+      }
+    });
+  });
+
+  let pinned = false;
+  document.getElementById('btnPin').addEventListener('click', (e) => {
+    pinned = !pinned;
+    e.target.textContent = pinned ? '📌 取消' : '📌 置顶';
+    e.target.style.background = pinned ? '#8b0000' : '';
+  });
+
+  // ===== INIT =====
+  renderContent();
 </script>
 
 </body>
