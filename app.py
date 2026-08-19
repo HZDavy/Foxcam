@@ -28,122 +28,135 @@ SETTINGS_FILE = os.path.join(_base_path(), 'camera_settings.json')
 
 ctk.set_appearance_mode('dark')
 
+# Orange-black theme matching the web UI
+_ACCENT = '#F97316'
+_ACCENT_HOVER = '#EA580C'
+_BG_0 = '#0B0B0F'
+_BG_1 = '#14141C'
+_BG_2 = '#1C1C26'
+_BG_3 = '#242430'
+_LINE = '#2A2A35'
+_TEXT = '#E8E8EC'
+_TEXT_DIM = '#8A8A96'
+_TEXT_FAINT = '#55555E'
+_DANGER = '#EF4444'
+
 _GRAY_THEME = {
-    "CTk": {"fg_color": ["#222222", "#222222"]},
-    "CTkToplevel": {"fg_color": ["#222222", "#222222"]},
+    "CTk": {"fg_color": [_BG_1, _BG_1]},
+    "CTkToplevel": {"fg_color": [_BG_1, _BG_1]},
     "CTkFrame": {
         "corner_radius": 8, "border_width": 0,
-        "fg_color": ["#222222", "#222222"],
-        "top_fg_color": ["#2a2a2a", "#2a2a2a"],
-        "border_color": ["#333333", "#333333"],
+        "fg_color": [_BG_1, _BG_1],
+        "top_fg_color": [_BG_2, _BG_2],
+        "border_color": [_LINE, _LINE],
     },
     "CTkButton": {
-        "corner_radius": 6, "border_width": 0,
-        "fg_color": ["#6b6b7b", "#6b6b7b"],
-        "hover_color": ["#5a5a6a", "#5a5a6a"],
-        "border_color": ["#6b6b7b", "#6b6b7b"],
-        "text_color": ["#ffffff", "#ffffff"],
-        "text_color_disabled": ["#777777", "#777777"],
+        "corner_radius": 8, "border_width": 1,
+        "fg_color": [_BG_3, _BG_3],
+        "hover_color": ["#2C2C38", "#2C2C38"],
+        "border_color": [_LINE, _LINE],
+        "text_color": [_TEXT, _TEXT],
+        "text_color_disabled": [_TEXT_FAINT, _TEXT_FAINT],
     },
     "CTkLabel": {
         "corner_radius": 0, "fg_color": "transparent",
-        "text_color": ["#cccccc", "#cccccc"],
+        "text_color": [_TEXT, _TEXT],
     },
     "CTkEntry": {
         "corner_radius": 6, "border_width": 1,
-        "fg_color": ["#353535", "#353535"],
-        "border_color": ["#555555", "#555555"],
-        "text_color": ["#cccccc", "#cccccc"],
-        "placeholder_text_color": ["#777777", "#777777"],
+        "fg_color": [_BG_3, _BG_3],
+        "border_color": [_LINE, _LINE],
+        "text_color": [_TEXT, _TEXT],
+        "placeholder_text_color": [_TEXT_FAINT, _TEXT_FAINT],
     },
     "CTkCheckBox": {
         "corner_radius": 4, "border_width": 2,
-        "fg_color": ["#6b6b7b", "#6b6b7b"],
-        "border_color": ["#888888", "#888888"],
-        "hover_color": ["#5a5a6a", "#5a5a6a"],
-        "checkmark_color": ["#ffffff", "#ffffff"],
-        "text_color": ["#cccccc", "#cccccc"],
-        "text_color_disabled": ["#777777", "#777777"],
+        "fg_color": [_BG_3, _BG_3],
+        "border_color": [_TEXT_FAINT, _TEXT_FAINT],
+        "hover_color": ["#2C2C38", "#2C2C38"],
+        "checkmark_color": [_ACCENT, _ACCENT],
+        "text_color": [_TEXT_DIM, _TEXT_DIM],
+        "text_color_disabled": [_TEXT_FAINT, _TEXT_FAINT],
     },
     "CTkSlider": {
         "corner_radius": 6, "button_corner_radius": 10,
         "border_width": 2, "button_length": 16,
-        "fg_color": ["#444444", "#444444"],
-        "progress_color": ["#888888", "#888888"],
-        "button_color": ["#aaaaaa", "#aaaaaa"],
-        "button_hover_color": ["#999999", "#999999"],
+        "fg_color": [_BG_3, _BG_3],
+        "progress_color": [_TEXT_DIM, _TEXT_DIM],
+        "button_color": [_TEXT, _TEXT],
+        "button_hover_color": [_ACCENT, _ACCENT],
     },
     "CTkComboBox": {
-        "corner_radius": 6, "border_width": 1,
-        "fg_color": ["#353535", "#353535"],
-        "border_color": ["#555555", "#555555"],
-        "button_color": ["#6b6b7b", "#6b6b7b"],
-        "button_hover_color": ["#5a5a6a", "#5a5a6a"],
-        "text_color": ["#cccccc", "#cccccc"],
-        "text_color_disabled": ["#777777", "#777777"],
+        "corner_radius": 8, "border_width": 1,
+        "fg_color": [_BG_3, _BG_3],
+        "border_color": [_LINE, _LINE],
+        "button_color": [_ACCENT, _ACCENT],
+        "button_hover_color": [_ACCENT_HOVER, _ACCENT_HOVER],
+        "text_color": [_TEXT, _TEXT],
+        "text_color_disabled": [_TEXT_FAINT, _TEXT_FAINT],
     },
     "CTkOptionMenu": {
-        "corner_radius": 6,
-        "fg_color": ["#6b6b7b", "#6b6b7b"],
-        "button_color": ["#5a5a6a", "#5a5a6a"],
-        "button_hover_color": ["#555555", "#555555"],
-        "text_color": ["#ffffff", "#ffffff"],
-        "text_color_disabled": ["#777777", "#777777"],
+        "corner_radius": 8,
+        "fg_color": [_BG_3, _BG_3],
+        "button_color": [_ACCENT, _ACCENT],
+        "button_hover_color": [_ACCENT_HOVER, _ACCENT_HOVER],
+        "text_color": [_TEXT, _TEXT],
+        "text_color_disabled": [_TEXT_FAINT, _TEXT_FAINT],
     },
     "CTkScrollbar": {
         "corner_radius": 6, "border_spacing": 4,
-        "fg_color": ["#222222", "#222222"],
-        "button_color": ["#555555", "#555555"],
-        "button_hover_color": ["#666666", "#666666"],
+        "fg_color": [_BG_1, _BG_1],
+        "button_color": [_TEXT_FAINT, _TEXT_FAINT],
+        "button_hover_color": [_TEXT_DIM, _TEXT_DIM],
     },
     "CTkSwitch": {
         "corner_radius": 10, "border_width": 2, "button_length": 16,
-        "fg_color": ["#444444", "#444444"],
-        "progress_color": ["#888888", "#888888"],
-        "button_color": ["#aaaaaa", "#aaaaaa"],
-        "button_hover_color": ["#999999", "#999999"],
-        "text_color": ["#cccccc", "#cccccc"],
-        "text_color_disabled": ["#777777", "#777777"],
+        "fg_color": [_BG_3, _BG_3],
+        "progress_color": [_TEXT_DIM, _TEXT_DIM],
+        "button_color": [_TEXT, _TEXT],
+        "button_hover_color": [_ACCENT, _ACCENT],
+        "text_color": [_TEXT, _TEXT],
+        "text_color_disabled": [_TEXT_FAINT, _TEXT_FAINT],
     },
     "CTkRadioButton": {
         "corner_radius": 10, "border_width_checked": 2, "border_width_unchecked": 2,
-        "fg_color": ["#6b6b7b", "#6b6b7b"],
-        "border_color": ["#888888", "#888888"],
-        "hover_color": ["#5a5a6a", "#5a5a6a"],
-        "text_color": ["#cccccc", "#cccccc"],
-        "text_color_disabled": ["#777777", "#777777"],
+        "fg_color": [_ACCENT, _ACCENT],
+        "border_color": [_TEXT_FAINT, _TEXT_FAINT],
+        "hover_color": [_ACCENT_HOVER, _ACCENT_HOVER],
+        "text_color": [_TEXT, _TEXT],
+        "text_color_disabled": [_TEXT_FAINT, _TEXT_FAINT],
     },
     "CTkProgressBar": {
         "corner_radius": 6, "border_width": 0,
-        "fg_color": ["#444444", "#444444"],
-        "progress_color": ["#888888", "#888888"],
-        "border_color": ["#555555", "#555555"],
+        "fg_color": [_BG_3, _BG_3],
+        "progress_color": [_ACCENT, _ACCENT],
+        "border_color": [_LINE, _LINE],
     },
     "CTkSegmentedButton": {
-        "corner_radius": 6, "border_width": 0,
-        "fg_color": ["#333333", "#333333"],
-        "selected_color": ["#5a5a6a", "#5a5a6a"],
-        "selected_hover_color": ["#5a5a6a", "#5a5a6a"],
-        "unselected_color": ["#2a2a2a", "#2a2a2a"],
-        "unselected_hover_color": ["#444444", "#444444"],
-        "text_color": ["#cccccc", "#cccccc"],
-        "text_color_disabled": ["#777777", "#777777"],
+        "corner_radius": 8, "border_width": 0,
+        "fg_color": [_BG_0, _BG_0],
+        "selected_color": [_BG_3, _BG_3],
+        "selected_hover_color": ["#2C2C38", "#2C2C38"],
+        "unselected_color": [_BG_0, _BG_0],
+        "unselected_hover_color": ["#1A1A22", "#1A1A22"],
+        "text_color": [_TEXT_DIM, _TEXT_DIM],
+        "text_color_disabled": [_TEXT_FAINT, _TEXT_FAINT],
     },
     "CTkTextbox": {
         "corner_radius": 6, "border_width": 0,
-        "fg_color": ["#353535", "#353535"],
-        "border_color": ["#555555", "#555555"],
-        "text_color": ["#cccccc", "#cccccc"],
-        "scrollbar_button_color": ["#555555", "#555555"],
-        "scrollbar_button_hover_color": ["#666666", "#666666"],
+        "fg_color": [_BG_3, _BG_3],
+        "border_color": [_LINE, _LINE],
+        "text_color": [_TEXT, _TEXT],
+        "scrollbar_button_color": [_TEXT_FAINT, _TEXT_FAINT],
+        "scrollbar_button_hover_color": [_TEXT_DIM, _TEXT_DIM],
     },
     "CTkScrollableFrame": {
         "label_fg_color": "transparent",
     },
     "DropdownMenu": {
-        "fg_color": ["#353535", "#353535"],
-        "hover_color": ["#454545", "#454545"],
-        "text_color": ["#cccccc", "#cccccc"],
+        "fg_color": [_BG_3, _BG_3],
+        "hover_color": ["#2C2C38", "#2C2C38"],
+        "text_color": [_TEXT, _TEXT],
     },
     "CTkFont": {
         "family": "Microsoft YaHei UI",
@@ -180,8 +193,8 @@ ALL_PROPS = [
 ]
 _PROP_ENUM_MAP = {k: pe for k, pe, _, _, _, _, _ in ALL_PROPS}
 
-BLUE = '#6b6b7b'
-GRAY = '#5a5a6a'
+BLUE = _ACCENT
+GRAY = _BG_3
 
 
 def load_json(path):
@@ -258,7 +271,7 @@ class CenteredInputDialog(ctk.CTkToplevel):
     def __init__(self, parent, title, text):
         super().__init__(parent)
         self.title(title)
-        self.configure(fg_color='#222222')
+        self.configure(fg_color=_BG_1)
         self.transient(parent)
         self.grab_set()
         self.resizable(False, False)
@@ -275,7 +288,7 @@ class CenteredInputDialog(ctk.CTkToplevel):
         self.geometry(f'{w}x{h}+{px}+{py}')
 
         ctk.CTkLabel(self, text=text, font=ctk.CTkFont(size=12),
-                     text_color='#cccccc').pack(anchor='w', padx=16, pady=(16, 4))
+                     text_color=_TEXT).pack(anchor='w', padx=16, pady=(16, 4))
         self.entry_var = ctk.StringVar()
         self.entry = ctk.CTkEntry(self, textvariable=self.entry_var, width=280)
         self.entry.pack(padx=16, pady=(0, 12))
@@ -285,9 +298,11 @@ class CenteredInputDialog(ctk.CTkToplevel):
         btn_frame = ctk.CTkFrame(self, fg_color='transparent')
         btn_frame.pack(pady=(0, 12))
         ctk.CTkButton(btn_frame, text='确定', width=80, command=self._ok,
-                      fg_color=BLUE, hover_color='#5a5a6a').pack(side='left', padx=4)
+                      fg_color=_ACCENT, hover_color=_ACCENT_HOVER,
+                      text_color='#ffffff').pack(side='left', padx=4)
         ctk.CTkButton(btn_frame, text='取消', width=80, command=self._cancel,
-                      fg_color=GRAY, hover_color='#4a4a5a').pack(side='left', padx=4)
+                      fg_color='transparent', hover_color='#2C2C38',
+                      text_color=_TEXT_DIM).pack(side='left', padx=4)
 
     def _ok(self):
         self.result = self.entry_var.get()
@@ -306,58 +321,120 @@ class CenteredInputDialog(ctk.CTkToplevel):
 class GradientSlider(ctk.CTkFrame):
     def __init__(self, parent, pmin, pmax, value, c1, c2, command, height=24, **kw):
         self._grad_img = None
-        self.canvas = None
+        self._canvas = None
+        self._track_img = None
         self.pmin = pmin
         self.pmax = max(pmin + 1, pmax)
         self.val = value
         self.c1, self.c2 = c1, c2
         self.command = command
         self._lock = False
+        self._is_auto = False
         super().__init__(parent, fg_color='transparent', height=height, **kw)
 
-        self.canvas = tk.Canvas(self, height=height, highlightthickness=0, bg='#353535', bd=0)
-        self.canvas.pack(fill='both', expand=True)
-        self.canvas.bind('<Configure>', self._on_configure)
-        self.canvas.bind('<ButtonPress-1>', self._press)
-        self.canvas.bind('<B1-Motion>', self._drag)
-        self.canvas.bind('<ButtonRelease-1>', self._release)
+        self._canvas = tk.Canvas(self, height=height, highlightthickness=0,
+                                 bg=_BG_3, bd=0, cursor='hand2')
+        self._canvas.pack(fill='both', expand=True)
+        self._canvas.bind('<Configure>', self._on_configure)
+        self._canvas.bind('<ButtonPress-1>', self._press)
+        self._canvas.bind('<B1-Motion>', self._drag)
+        self._canvas.bind('<ButtonRelease-1>', self._release)
+
+    def set_auto(self, is_auto):
+        self._is_auto = is_auto
+        self._draw()
 
     def _lerp(self, c1, c2, t):
-        r1, g1, b1 = int(c1[1:3], 16), int(c1[3:5], 16), int(c1[5:7], 16)
-        r2, g2, b2 = int(c2[1:3], 16), int(c2[3:5], 16), int(c2[5:7], 16)
-        r = int(r1 + (r2 - r1) * t)
-        g = int(g1 + (g2 - g1) * t)
-        b = int(b1 + (b2 - b1) * t)
-        return f'#{r:02x}{g:02x}{b:02x}'
+        if not c1 or not c2:
+            return '#666666'
+        try:
+            r1, g1, b1 = int(c1[1:3], 16), int(c1[3:5], 16), int(c1[5:7], 16)
+            r2, g2, b2 = int(c2[1:3], 16), int(c2[3:5], 16), int(c2[5:7], 16)
+            r = int(r1 + (r2 - r1) * t)
+            g = int(g1 + (g2 - g1) * t)
+            b = int(b1 + (b2 - b1) * t)
+            return f'#{r:02x}{g:02x}{b:02x}'
+        except (ValueError, IndexError):
+            return '#666666'
+
+    def _make_gradient_img(self, w, h):
+        """Create a gradient image track."""
+        img = tk.PhotoImage(width=w, height=h)
+        for x in range(w):
+            t = x / max(1, w - 1)
+            if self._is_auto:
+                color = self._lerp(_ACCENT, '#FB923C', t)
+            elif self.c1 and self.c2:
+                color = self._lerp(self.c1, self.c2, t)
+            else:
+                color = self._lerp('#555555', '#888888', t)
+            img.put(color, to=(x, 0, x + 1, h))
+        return img
 
     def _on_configure(self, e):
         w = e.width
         h = e.height
-        img = tk.PhotoImage(width=w, height=h)
-        for x in range(w):
-            t = x / max(1, w - 1)
-            color = self._lerp(self.c1, self.c2, t)
-            img.put(color, to=(x, 0, x + 1, h))
-        self._grad_img = img
+        self._grad_img = self._make_gradient_img(w, h)
         self._draw(w, h)
 
     def _draw(self, w=None, h=None, **kw):
-        if not self.canvas:
+        if not self._canvas:
             return
-        self.canvas.delete('all')
-        w = w or self.canvas.winfo_width()
-        h = h or self.canvas.winfo_height()
-        if self._grad_img:
-            self.canvas.create_image(0, 0, anchor='nw', image=self._grad_img)
-        ratio = (self.val - self.pmin) / (self.pmax - self.pmin)
-        thumb_x = int(ratio * (w - h))
-        cx = thumb_x + h // 2
+        self._canvas.delete('all')
+        w = w or self._canvas.winfo_width()
+        h = h or self._canvas.winfo_height()
+        if w < 2 or h < 2:
+            return
+
+        # Draw gradient track (full width, 4px tall, centered)
+        track_h = 4
+        track_y = h // 2 - track_h // 2
+        if self._is_auto:
+            # Orange gradient for auto mode
+            track_img = tk.PhotoImage(width=w, height=track_h)
+            for x in range(w):
+                t = x / max(1, w - 1)
+                color = self._lerp(_ACCENT, '#FB923C', t)
+                track_img.put(color, to=(x, 0, x + 1, track_h))
+        elif self.c1 and self.c2:
+            # Custom gradient
+            track_img = tk.PhotoImage(width=w, height=track_h)
+            for x in range(w):
+                t = x / max(1, w - 1)
+                color = self._lerp(self.c1, self.c2, t)
+                track_img.put(color, to=(x, 0, x + 1, track_h))
+        else:
+            track_img = tk.PhotoImage(width=w, height=track_h)
+            for x in range(w):
+                t = x / max(1, w - 1)
+                color = self._lerp('#555555', '#888888', t)
+                track_img.put(color, to=(x, 0, x + 1, track_h))
+
+        self._track_img = track_img  # keep reference
+        self._canvas.create_image(0, track_y, anchor='nw', image=track_img)
+
+        # Draw thumb
+        ratio = (self.val - self.pmin) / max(1, self.pmax - self.pmin)
+        thumb_x = int(ratio * (w - h)) + h // 2
         cy = h // 2
-        tr = max(4, h // 2 - 3)
-        self.canvas.create_oval(cx - tr - 1, cy - tr - 1, cx + tr + 1, cy + tr + 1,
-                                fill='#3a3a3a', outline='')
-        self.canvas.create_oval(cx - tr, cy - tr, cx + tr, cy + tr,
-                                fill='#ffffff', outline='#888888', width=1.5)
+        tr = max(4, h // 2 - 4)
+
+        if self._is_auto:
+            # Orange thumb for auto mode
+            self._canvas.create_oval(
+                thumb_x - tr - 2, cy - tr - 2, thumb_x + tr + 2, cy + tr + 2,
+                fill=_ACCENT, outline='')
+            self._canvas.create_oval(
+                thumb_x - tr, cy - tr, thumb_x + tr, cy + tr,
+                fill=_ACCENT, outline='#FB923C', width=1)
+        else:
+            # White thumb
+            self._canvas.create_oval(
+                thumb_x - tr - 2, cy - tr - 2, thumb_x + tr + 2, cy + tr + 2,
+                fill='#000000', outline='')
+            self._canvas.create_oval(
+                thumb_x - tr, cy - tr, thumb_x + tr, cy + tr,
+                fill='#ffffff', outline=_BG_3, width=2)
 
     def _press(self, e):
         self._update(e.x)
@@ -369,8 +446,8 @@ class GradientSlider(ctk.CTkFrame):
         pass
 
     def _update(self, x):
-        w = self.canvas.winfo_width()
-        h = self.canvas.winfo_height()
+        w = self._canvas.winfo_width()
+        h = self._canvas.winfo_height()
         ratio = max(0, min(1, (x - h // 2) / max(1, w - h)))
         new_val = int(self.pmin + ratio * (self.pmax - self.pmin))
         if new_val != self.val:
@@ -400,15 +477,16 @@ class PropRow(ctk.CTkFrame):
 
         if self._unsupported:
             ctk.CTkLabel(self, text=f'{icon} {prop["label"]}', width=100, anchor='w',
-                         font=ctk.CTkFont(size=13), text_color='#666666').grid(
+                         font=ctk.CTkFont(size=13), text_color=_TEXT_FAINT).grid(
                              row=0, column=0, sticky='w', padx=(0, 4))
             ctk.CTkLabel(self, text='— 不支持', font=ctk.CTkFont(size=12),
-                         text_color='#555555').grid(row=0, column=1, sticky='w', padx=8)
+                         text_color=_TEXT_FAINT).grid(row=0, column=1, sticky='w', padx=8)
             self.columnconfigure(1, weight=1)
             return
 
         ctk.CTkLabel(self, text=f'{icon} {prop["label"]}', width=100, anchor='w',
-                     font=ctk.CTkFont(size=13)).grid(row=0, column=0, sticky='w', padx=(0, 4))
+                     font=ctk.CTkFont(size=13), text_color=_TEXT).grid(
+                         row=0, column=0, sticky='w', padx=(0, 4))
 
         grad_c1 = prop.get('grad_c1')
         grad_c2 = prop.get('grad_c2')
@@ -430,7 +508,8 @@ class PropRow(ctk.CTkFrame):
         self.auto_var = ctk.BooleanVar(value=prop['auto'])
         ctk.CTkCheckBox(self, text='自动', variable=self.auto_var,
                         command=self._on_auto, font=ctk.CTkFont(size=11),
-                        checkbox_width=18, checkbox_height=18).grid(row=0, column=3, padx=(4, 0))
+                        checkbox_width=18, checkbox_height=18,
+                        text_color=_TEXT_DIM).grid(row=0, column=3, padx=(4, 0))
 
         self.columnconfigure(1, weight=1)
 
@@ -463,8 +542,10 @@ class PropRow(ctk.CTkFrame):
                              daemon=True).start()
 
     def _on_auto(self):
+        auto = self.auto_var.get()
+        self.slider.set_auto(auto)
         threading.Thread(target=set_cam_prop,
-                         args=(self.dev_index, self.key, 0, self.auto_var.get()),
+                         args=(self.dev_index, self.key, 0, auto),
                          daemon=True).start()
 
     def get_value(self):
@@ -486,6 +567,7 @@ class PropRow(ctk.CTkFrame):
         except Exception:
             pass
         self.auto_var.set(auto)
+        self.slider.set_auto(auto)
         self._lock = False
 
 
@@ -501,11 +583,11 @@ class CameraTab(ctk.CTkFrame):
 
     def _build(self, props_data):
         ctk.CTkLabel(self, text=self.name, font=ctk.CTkFont(size=15, weight='bold'),
-                     anchor='w').pack(anchor='w', padx=4, pady=(4, 8))
+                     anchor='w', text_color=_TEXT).pack(anchor='w', padx=4, pady=(4, 8))
 
         self._scroll_frame = ctk.CTkScrollableFrame(self, fg_color='transparent',
-                                                     scrollbar_button_color='#222222',
-                                                     scrollbar_button_hover_color='#222222')
+                                                     scrollbar_button_color=_BG_3,
+                                                     scrollbar_button_hover_color=_TEXT_DIM)
         self._scroll_frame.pack(fill='both', expand=True)
         self._scroll_frame._scrollbar.configure(width=0)
 
@@ -523,10 +605,10 @@ class CameraTab(ctk.CTkFrame):
     def _setup_overlay_scrollbar(self):
         top = self.winfo_toplevel()
         self._overlay_canvas = tk.Canvas(top, width=10, highlightthickness=0,
-                                          bg='#222222')
+                                          bg=_BG_1)
         self._overlay_canvas.place_forget()
         self._overlay_sb_thumb = self._overlay_canvas.create_rectangle(
-            0, 0, 10, 50, fill='#666666', outline='')
+            0, 0, 10, 50, fill=_ACCENT, outline='')
         self._overlay_sb_height = 100
 
         self._overlay_canvas.bind('<ButtonPress-1>', self._sb_press)
@@ -652,7 +734,7 @@ class App(ctk.CTk):
         self.title('Foxcam v1.1')
         self.geometry('1020x560')
         self.minsize(800, 420)
-        self.configure(fg_color='#222222')
+        self.configure(fg_color=_BG_1)
         self.withdraw()
         self.after(50, self._center_and_show)
 
@@ -675,7 +757,7 @@ class App(ctk.CTk):
             self.after(100, lambda: self.iconbitmap(_icon_path))
 
         self._build_toolbar()
-        ctk.CTkFrame(self, height=1, fg_color='#3a3a3a').pack(fill='x')
+        ctk.CTkFrame(self, height=1, fg_color=_LINE).pack(fill='x')
 
         self._build_combo_bar()
 
@@ -697,24 +779,31 @@ class App(ctk.CTk):
         if os.path.exists(_logo_path):
             _logo_img = ctk.CTkImage(light_image=Image.open(_logo_path),
                                       dark_image=Image.open(_logo_path),
-                                      size=(160, 36))
+                                      size=(140, 32))
             ctk.CTkLabel(tb, image=_logo_img, text='').pack(side='left')
             self._logo_ref = _logo_img
         else:
-            ctk.CTkLabel(tb, text='📷 Foxcam', font=ctk.CTkFont(size=16, weight='bold'),
-                         text_color='#e0e0e0').pack(side='left')
+            ctk.CTkLabel(tb, text='Foxcam', font=ctk.CTkFont(size=16, weight='bold'),
+                         text_color=_TEXT).pack(side='left')
 
         ctk.CTkButton(tb, text='🔍 扫描', width=70, command=self.scan,
-                      fg_color=BLUE, hover_color='#5a5a6a').pack(side='left', padx=(16, 4))
+                      fg_color=_ACCENT, hover_color=_ACCENT_HOVER,
+                      text_color='#ffffff', corner_radius=8).pack(side='left', padx=(16, 4))
         ctk.CTkButton(tb, text='🔄 重读', width=60, command=self._reload_current,
-                      fg_color=BLUE, hover_color='#5a5a6a').pack(side='left', padx=4)
+                      fg_color=_BG_3, hover_color='#2C2C38',
+                      text_color=_TEXT, corner_radius=8,
+                      border_color=_LINE).pack(side='left', padx=4)
         ctk.CTkButton(tb, text='↺ 默认', width=60, command=self._reset_current,
-                      fg_color=GRAY, hover_color='#444444').pack(side='left', padx=4)
+                      fg_color='transparent', hover_color='#2C2C38',
+                      text_color=_TEXT_DIM, corner_radius=8,
+                      border_color=_LINE).pack(side='left', padx=4)
 
         self._pinned = False
         self._pin_btn = ctk.CTkButton(tb, text='📌 置顶', width=60,
                                        command=self._toggle_pin,
-                                       fg_color=GRAY, hover_color='#444444')
+                                       fg_color='transparent', hover_color='#2C2C38',
+                                       text_color=_TEXT_DIM, corner_radius=8,
+                                       border_color=_LINE)
         self._pin_btn.pack(side='right', padx=4)
 
         self._freq_var = ctk.StringVar(value='50 Hz')
@@ -724,77 +813,95 @@ class App(ctk.CTk):
         self._freq_cb = ctk.CTkComboBox(tb, values=['50 Hz', '60 Hz'],
                                          variable=self._freq_var, width=85,
                                          state='readonly', command=self._on_freq_change,
-                                         fg_color='#353535', border_color='#555555',
-                                         button_color=GRAY, button_hover_color='#444444',
-                                         dropdown_fg_color='#353535',
-                                         dropdown_hover_color='#454545')
+                                         fg_color=_BG_3, border_color=_LINE,
+                                         button_color=_ACCENT, button_hover_color=_ACCENT_HOVER,
+                                         dropdown_fg_color=_BG_3,
+                                         dropdown_hover_color='#2C2C38')
         self._freq_cb.pack(side='right', padx=(2, 8))
         ctk.CTkLabel(tb, text='⚡ 防闪烁', font=ctk.CTkFont(size=11),
-                     text_color='#999999').pack(side='right', padx=2)
+                     text_color=_TEXT_FAINT).pack(side='right', padx=2)
 
     def _build_combo_bar(self):
-        cf = ctk.CTkFrame(self, fg_color='#2a2a2a', corner_radius=6)
+        cf = ctk.CTkFrame(self, fg_color=_BG_2, corner_radius=8)
         cf.pack(fill='x', padx=8, pady=(0, 4))
 
         ctk.CTkLabel(cf, text='🔗 组合', font=ctk.CTkFont(size=12, weight='bold'),
-                     text_color='#b0b0b0').pack(side='left', padx=(8, 4), pady=6)
+                     text_color=_TEXT_DIM).pack(side='left', padx=(8, 4), pady=6)
         self.combo_var = ctk.StringVar()
         self.combo_cb = ctk.CTkComboBox(cf, values=[], variable=self.combo_var,
                                         width=160, state='readonly',
-                                        fg_color='#353535', border_color='#555565',
-                                        button_color=BLUE, button_hover_color='#5a5a6a',
-                                        dropdown_fg_color='#353535',
-                                        dropdown_hover_color='#454545')
+                                        fg_color=_BG_3, border_color=_LINE,
+                                        button_color=_ACCENT, button_hover_color=_ACCENT_HOVER,
+                                        dropdown_fg_color=_BG_3,
+                                        dropdown_hover_color='#2C2C38')
         self.combo_cb.pack(side='left', padx=4, pady=6)
         ctk.CTkButton(cf, text='▶ 应用', width=50, command=self._combo_apply,
-                      fg_color=BLUE, hover_color='#5a5a6a').pack(side='left', padx=2, pady=6)
+                      fg_color=_ACCENT, hover_color=_ACCENT_HOVER,
+                      text_color='#ffffff', corner_radius=8).pack(side='left', padx=2, pady=6)
         ctk.CTkButton(cf, text='💾 保存', width=50, command=self._combo_save,
-                      fg_color=BLUE, hover_color='#5a5a6a').pack(side='left', padx=2, pady=6)
+                      fg_color=_BG_3, hover_color='#2C2C38',
+                      text_color=_TEXT, corner_radius=8,
+                      border_color=_LINE).pack(side='left', padx=2, pady=6)
         self._combo_up_btn = self._make_arrow_btn(cf, '▲', lambda: self._combo_move(-1))
         self._combo_up_btn.pack(side='left', padx=(1, 0), pady=6)
         self._combo_dn_btn = self._make_arrow_btn(cf, '▼', lambda: self._combo_move(1))
         self._combo_dn_btn.pack(side='left', padx=0, pady=6)
         ctk.CTkButton(cf, text='🗑 删除', width=50, command=self._combo_del,
-                      fg_color=GRAY, hover_color='#444444').pack(side='right', padx=2, pady=6)
+                      fg_color='transparent', hover_color='#2C2C38',
+                      text_color=_TEXT_DIM, corner_radius=8,
+                      border_color=_LINE).pack(side='right', padx=2, pady=6)
         ctk.CTkButton(cf, text='✏ 重命名', width=60, command=self._combo_rename,
-                      fg_color=GRAY, hover_color='#444444').pack(side='right', padx=2, pady=6)
+                      fg_color='transparent', hover_color='#2C2C38',
+                      text_color=_TEXT_DIM, corner_radius=8,
+                      border_color=_LINE).pack(side='right', padx=2, pady=6)
 
     def _build_preset_bar(self):
-        pf = ctk.CTkFrame(self, fg_color='#2a2a2a', corner_radius=6)
+        pf = ctk.CTkFrame(self, fg_color=_BG_2, corner_radius=8)
         pf.pack(fill='x', padx=8, pady=(4, 8))
 
         ctk.CTkLabel(pf, text='📋 预设', font=ctk.CTkFont(size=12, weight='bold'),
-                     text_color='#b0b0b0').pack(side='left', padx=(8, 4), pady=6)
+                     text_color=_TEXT_DIM).pack(side='left', padx=(8, 4), pady=6)
         self.preset_var = ctk.StringVar()
         self.preset_cb = ctk.CTkComboBox(pf, values=[], variable=self.preset_var,
                                          width=160, state='readonly',
-                                         fg_color='#353535', border_color='#555565',
-                                         button_color=BLUE, button_hover_color='#5a5a6a',
-                                         dropdown_fg_color='#353535',
-                                         dropdown_hover_color='#454545')
+                                         fg_color=_BG_3, border_color=_LINE,
+                                         button_color=_ACCENT, button_hover_color=_ACCENT_HOVER,
+                                         dropdown_fg_color=_BG_3,
+                                         dropdown_hover_color='#2C2C38')
         self.preset_cb.pack(side='left', padx=4, pady=6)
         ctk.CTkButton(pf, text='▶ 应用', width=50, command=self._preset_apply,
-                      fg_color=BLUE, hover_color='#5a5a6a').pack(side='left', padx=2, pady=6)
+                      fg_color=_ACCENT, hover_color=_ACCENT_HOVER,
+                      text_color='#ffffff', corner_radius=8).pack(side='left', padx=2, pady=6)
         ctk.CTkButton(pf, text='💾 保存', width=50, command=self._preset_save,
-                      fg_color=BLUE, hover_color='#5a5a6a').pack(side='left', padx=2, pady=6)
+                      fg_color=_BG_3, hover_color='#2C2C38',
+                      text_color=_TEXT, corner_radius=8,
+                      border_color=_LINE).pack(side='left', padx=2, pady=6)
         self._preset_up_btn = self._make_arrow_btn(pf, '▲', lambda: self._preset_move(-1))
         self._preset_up_btn.pack(side='left', padx=(1, 0), pady=6)
         self._preset_dn_btn = self._make_arrow_btn(pf, '▼', lambda: self._preset_move(1))
         self._preset_dn_btn.pack(side='left', padx=0, pady=6)
         ctk.CTkButton(pf, text='🗑 删除', width=50, command=self._preset_del,
-                      fg_color=GRAY, hover_color='#444444').pack(side='right', padx=2, pady=6)
+                      fg_color='transparent', hover_color='#2C2C38',
+                      text_color=_TEXT_DIM, corner_radius=8,
+                      border_color=_LINE).pack(side='right', padx=2, pady=6)
         ctk.CTkButton(pf, text='✏ 重命名', width=60, command=self._preset_rename,
-                      fg_color=GRAY, hover_color='#444444').pack(side='right', padx=2, pady=6)
+                      fg_color='transparent', hover_color='#2C2C38',
+                      text_color=_TEXT_DIM, corner_radius=8,
+                      border_color=_LINE).pack(side='right', padx=2, pady=6)
         ctk.CTkButton(pf, text='📤 导出', width=50, command=self._preset_export,
-                      fg_color=GRAY, hover_color='#444444').pack(side='right', padx=2, pady=6)
+                      fg_color='transparent', hover_color='#2C2C38',
+                      text_color=_TEXT_DIM, corner_radius=8,
+                      border_color=_LINE).pack(side='right', padx=2, pady=6)
         ctk.CTkButton(pf, text='📥 导入', width=50, command=self._preset_import,
-                      fg_color=GRAY, hover_color='#444444').pack(side='right', padx=2, pady=6)
+                      fg_color='transparent', hover_color='#2C2C38',
+                      text_color=_TEXT_DIM, corner_radius=8,
+                      border_color=_LINE).pack(side='right', padx=2, pady=6)
 
     def _make_arrow_btn(self, parent, text, command):
         btn = ctk.CTkButton(parent, text=text, width=18, height=22,
                             font=ctk.CTkFont(size=11), command=command,
-                            fg_color='transparent', hover_color='#3a3a3a',
-                            text_color='#555555', corner_radius=2)
+                            fg_color='transparent', hover_color='#2C2C38',
+                            text_color=_TEXT_FAINT, corner_radius=2)
         return btn
 
     def _combo_move(self, direction):
@@ -856,8 +963,14 @@ class App(ctk.CTk):
     def _toggle_pin(self):
         self._pinned = not self._pinned
         self.attributes('-topmost', self._pinned)
-        self._pin_btn.configure(text='📌 取消' if self._pinned else '📌 置顶',
-                                fg_color='#8b0000' if self._pinned else GRAY)
+        if self._pinned:
+            self._pin_btn.configure(text='📌 取消',
+                                    fg_color=_ACCENT, hover_color=_ACCENT_HOVER,
+                                    text_color='#ffffff')
+        else:
+            self._pin_btn.configure(text='📌 置顶',
+                                    fg_color='transparent', hover_color='#2C2C38',
+                                    text_color=_TEXT_DIM)
 
     def _on_freq_change(self, value):
         freq_val = 2 if value == '50 Hz' else 3
@@ -940,9 +1053,9 @@ class App(ctk.CTk):
             self._drag_indicator = tk.Toplevel(self)
             self._drag_indicator.overrideredirect(True)
             self._drag_indicator.attributes('-topmost', True)
-            self._drag_indicator.configure(bg='#4a9eff')
+            self._drag_indicator.configure(bg=_ACCENT)
             lbl = tk.Label(self._drag_indicator, text=name,
-                           bg='#4a9eff', fg='white',
+                           bg=_ACCENT, fg='white',
                            font=ctk.CTkFont(size=12, weight='bold'))
             lbl.pack(padx=8, pady=4)
         self._drag_indicator.geometry(
@@ -1137,7 +1250,7 @@ class App(ctk.CTk):
         dlg.geometry('380x320')
         dlg.transient(self)
         dlg.grab_set()
-        dlg.configure(fg_color='#222222')
+        dlg.configure(fg_color=_BG_1)
         try:
             dlg.attributes('-toolwindow', True)
         except Exception:
@@ -1148,25 +1261,26 @@ class App(ctk.CTk):
         dlg.geometry(f'380x320+{x}+{y}')
 
         ctk.CTkLabel(dlg, text='组合名称', font=ctk.CTkFont(size=12, weight='bold'),
-                     text_color='#b0b0b0').pack(anchor='w', padx=12, pady=(12, 0))
+                     text_color=_TEXT_DIM).pack(anchor='w', padx=12, pady=(12, 0))
         name_var = ctk.StringVar(value=next_name(existing_names, '组合'))
         ctk.CTkEntry(dlg, textvariable=name_var, width=300).pack(padx=12, pady=(4, 8))
 
         ctk.CTkLabel(dlg, text='为每个摄像头选择预设：',
-                     font=ctk.CTkFont(size=11), text_color='#888888').pack(anchor='w', padx=12)
+                     font=ctk.CTkFont(size=11), text_color=_TEXT_FAINT).pack(anchor='w', padx=12)
 
         cam_vars = {}
         for cam_name, tab in self.tabs.items():
-            frame = ctk.CTkFrame(dlg, fg_color='#2a2a2a', corner_radius=4)
+            frame = ctk.CTkFrame(dlg, fg_color=_BG_2, corner_radius=4)
             frame.pack(fill='x', padx=12, pady=2)
             ctk.CTkLabel(frame, text=cam_name, width=180, anchor='w',
-                         font=ctk.CTkFont(size=11)).pack(side='left', padx=4, pady=4)
+                         font=ctk.CTkFont(size=11),
+                         text_color=_TEXT).pack(side='left', padx=4, pady=4)
             cam_presets = list(data.get('_presets', {}).get(cam_name, {}).keys())
             var = ctk.StringVar()
             cb = ctk.CTkComboBox(frame, values=cam_presets, variable=var,
                                  width=150, state='readonly',
-                                 fg_color='#353535', border_color='#555565',
-                                 button_color=BLUE, dropdown_fg_color='#353535')
+                                 fg_color=_BG_3, border_color=_LINE,
+                                 button_color=_ACCENT, dropdown_fg_color=_BG_3)
             cb.pack(side='left', padx=4, pady=4)
             if cam_presets:
                 cb.set(cam_presets[0])
@@ -1184,7 +1298,8 @@ class App(ctk.CTk):
             dlg.destroy()
 
         ctk.CTkButton(dlg, text='✓ 确定', width=100, command=_ok,
-                      fg_color=BLUE, hover_color='#5a5a6a').pack(pady=12)
+                      fg_color=_ACCENT, hover_color=_ACCENT_HOVER,
+                      text_color='#ffffff').pack(pady=12)
 
     def _combo_apply(self):
         name = self.combo_var.get()

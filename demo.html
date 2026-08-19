@@ -806,12 +806,10 @@
     let pinned = btn.dataset.pinned === 'true';
     pinned = !pinned;
     btn.dataset.pinned = pinned;
-    const iconEl = btn.querySelector('i');
-    if (iconEl && window.lucide) {
-      iconEl.setAttribute('data-lucide', pinned ? 'pin-off' : 'pin');
-      window.lucide.createIcons();
-    }
-    btn.appendChild(document.createTextNode(pinned ? ' ' + t.pinCancel : ' ' + t.pin));
+    const pinIcon = pinned ? 'pin-off' : 'pin';
+    const pinText = pinned ? t.pinCancel : t.pin;
+    btn.innerHTML = `<i data-lucide="${pinIcon}"></i> <span data-i18n="${pinned ? 'pinCancel' : 'pin'}">${pinText}</span>`;
+    if (window.lucide) window.lucide.createIcons();
   });
 
   // Scan flash
