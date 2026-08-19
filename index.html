@@ -7,344 +7,309 @@
 <link rel="icon" href="docs/logo.png">
 <style>
   :root {
-    --bg: #0a0b0f;
-    --surface: rgba(255,255,255,0.04);
-    --surface-hover: rgba(255,255,255,0.07);
-    --border: rgba(255,255,255,0.08);
-    --text: #e6e8ef;
-    --text-dim: #8b8fa3;
-    --text-muted: #5f6375;
-    --accent: #6366f1;
-    --accent-glow: rgba(99,102,241,0.35);
-    --accent-2: #ec4899;
-    --accent-3: #22d3ee;
-    --radius: 16px;
-    --radius-sm: 10px;
-    --max-w: 1120px;
+    --bg: #0B0B0F;
+    --bg-elev: #111117;
+    --surface: #15151D;
+    --surface-hover: #1C1C26;
+    --border: rgba(255,255,255,0.06);
+    --border-strong: rgba(255,255,255,0.1);
+    --text: #E8E8ED;
+    --text-dim: #8C8C98;
+    --text-muted: #5C5C68;
+    --accent: #F97316;
+    --accent-hover: #FB923C;
+    --accent-glow: rgba(249,115,22,0.15);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --max-w: 1160px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
-                 "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-family: "Adobe Clean", -apple-system, BlinkMacSystemFont, "SF Pro Display",
+                 "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.005em;
   }
 
-  /* ===== Animated Background ===== */
-  .bg-wrap {
-    position: fixed; inset: 0; z-index: -1; overflow: hidden;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,0.25), transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 30%, rgba(236,72,153,0.12), transparent 60%),
-      radial-gradient(ellipse 50% 40% at 20% 70%, rgba(34,211,238,0.08), transparent 60%),
-      var(--bg);
-  }
-  .bg-wrap::before {
-    content: ''; position: absolute; inset: 0;
-    background-image:
-      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
-    background-size: 40px 40px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 80%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 80%);
-  }
-  .orb {
-    position: absolute; border-radius: 50%; filter: blur(80px);
-    animation: float 20s ease-in-out infinite;
-  }
-  .orb-1 { width: 500px; height: 500px; background: rgba(99,102,241,0.15); top: -10%; left: -5%; }
-  .orb-2 { width: 400px; height: 400px; background: rgba(236,72,153,0.1); top: 30%; right: -10%; animation-delay: -7s; }
-  .orb-3 { width: 350px; height: 350px; background: rgba(34,211,238,0.08); bottom: -10%; left: 30%; animation-delay: -14s; }
-
-  @keyframes float {
-    0%, 100% { transform: translate(0,0) scale(1); }
-    33% { transform: translate(40px,-30px) scale(1.05); }
-    66% { transform: translate(-30px,20px) scale(0.95); }
-  }
-
-  /* ===== Nav ===== */
+  /* ===== Navigation ===== */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 16px 32px;
+    padding: 0 40px; height: 64px;
     display: flex; justify-content: space-between; align-items: center;
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background: rgba(10,11,15,0.5);
+    background: rgba(11,11,15,0.8);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
     border-bottom: 1px solid var(--border);
   }
-  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
-  .nav-brand img { width: 28px; height: 28px; }
-  .nav-brand span { font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
-  .nav-links { display: flex; align-items: center; gap: 24px; }
-  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--text); }
-  .lang-toggle {
-    display: inline-flex; align-items: center; gap: 2px;
+  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-brand img { height: 24px; width: auto; display: block; }
+  .nav-brand span {
+    font-weight: 600; font-size: 15px; color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-right a {
+    color: var(--text-dim); text-decoration: none; font-size: 14px;
+    padding: 8px 14px; border-radius: 6px; transition: all 0.2s;
+  }
+  .nav-right a:hover { color: var(--text); background: var(--surface); }
+  .nav-right a.nav-cta {
+    background: var(--text); color: var(--bg); font-weight: 500;
+    padding: 8px 16px;
+  }
+  .nav-right a.nav-cta:hover { background: #fff; }
+  .lang-switch {
+    display: inline-flex; align-items: center;
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 999px; padding: 3px; font-size: 12px;
+    border-radius: 6px; padding: 2px; font-size: 12px;
   }
-  .lang-toggle button {
+  .lang-switch button {
     background: none; border: none; color: var(--text-dim);
-    padding: 4px 12px; border-radius: 999px; cursor: pointer;
-    font-weight: 500; transition: all 0.25s;
+    padding: 4px 10px; border-radius: 4px; cursor: pointer;
+    font-weight: 500; transition: all 0.2s;
+    font-family: inherit; font-size: 12px;
   }
-  .lang-toggle button.active {
-    background: var(--text); color: var(--bg);
-  }
-  .nav-cta {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: linear-gradient(135deg, var(--accent), #8b5cf6);
-    color: #fff; text-decoration: none; font-size: 13px; font-weight: 600;
-    padding: 8px 18px; border-radius: 999px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px var(--accent-glow); }
+  .lang-switch button.active { background: var(--bg); color: var(--text); }
 
   /* ===== Container ===== */
-  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 40px; }
 
   /* ===== Hero ===== */
   .hero {
-    padding: 160px 0 80px;
-    text-align: center;
+    padding: 140px 0 80px;
     position: relative;
   }
-  .hero-logo {
-    width: 80px; height: 80px; margin: 0 auto 28px;
-    border-radius: 20px;
-    box-shadow: 0 12px 40px rgba(99,102,241,0.3);
-    animation: fadeUp 0.8s ease-out;
+  .hero-inner { max-width: 760px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 24px; height: 1px; background: var(--accent);
   }
   .hero h1 {
-    font-size: clamp(42px, 7vw, 72px);
-    font-weight: 800;
-    letter-spacing: -0.035em;
-    line-height: 1.05;
-    margin-bottom: 20px;
-    background: linear-gradient(180deg, #fff 0%, #a5b4fc 100%);
+    font-size: clamp(48px, 6vw, 76px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+    margin-bottom: 28px;
+  }
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, #fff 0%, #B4B4C0 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: fadeUp 0.8s ease-out 0.1s both;
   }
-  .hero-sub {
-    font-size: clamp(17px, 2vw, 20px);
-    color: var(--text-dim);
-    max-width: 620px;
-    margin: 0 auto 40px;
-    animation: fadeUp 0.8s ease-out 0.2s both;
+  .hero p {
+    font-size: 19px; color: var(--text-dim);
+    max-width: 560px; margin-bottom: 40px;
+    line-height: 1.55;
   }
-  .hero-ctas {
-    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-    animation: fadeUp 0.8s ease-out 0.3s both;
-  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 14px 28px; border-radius: 12px;
-    font-weight: 600; font-size: 15px; text-decoration: none;
-    transition: all 0.25s; cursor: pointer; border: none;
+    padding: 14px 24px; border-radius: var(--radius-sm);
+    font-weight: 500; font-size: 15px; text-decoration: none;
+    transition: all 0.2s; cursor: pointer; border: none;
+    font-family: inherit;
   }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent), #8b5cf6);
-    color: #fff;
-    box-shadow: 0 4px 20px var(--accent-glow);
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px var(--accent-glow); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
   .btn-ghost {
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(10px);
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border-strong);
   }
-  .btn-ghost:hover { background: var(--surface-hover); border-color: rgba(255,255,255,0.15); }
-
+  .btn-ghost:hover { background: var(--surface); }
   .hero-meta {
-    margin-top: 40px; display: flex; gap: 24px; justify-content: center;
+    margin-top: 36px; display: flex; gap: 32px;
     color: var(--text-muted); font-size: 13px;
-    animation: fadeUp 0.8s ease-out 0.4s both;
   }
   .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
-  .hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--text-muted); }
 
-  /* ===== Screenshot showcase ===== */
-  .showcase {
-    padding: 40px 0 100px;
-    animation: fadeUp 0.8s ease-out 0.3s both;
-  }
-  .showcase-frame {
+  /* ===== Screenshot Showcase ===== */
+  .showcase { padding: 0 0 100px; }
+  .showcase-wrap {
     position: relative;
     border-radius: var(--radius);
     overflow: hidden;
+    background: var(--bg-elev);
     border: 1px solid var(--border);
-    background: var(--surface);
-    backdrop-filter: blur(20px);
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,0.05),
-      0 32px 64px -16px rgba(0,0,0,0.5),
-      0 0 120px -20px var(--accent-glow);
-    transition: transform 0.4s, box-shadow 0.4s;
   }
-  .showcase-frame:hover {
-    transform: translateY(-4px);
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,0.08),
-      0 40px 80px -16px rgba(0,0,0,0.6),
-      0 0 160px -20px var(--accent-glow);
-  }
-  .showcase-frame img { display: block; width: 100%; height: auto; }
-
-  /* ===== Section titles ===== */
-  .section { padding: 80px 0; }
-  .section-title { text-align: center; margin-bottom: 48px; }
-  .section-label {
-    display: inline-block; font-size: 12px; font-weight: 600;
-    color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em;
-    margin-bottom: 12px;
-  }
-  .section-title h2 {
-    font-size: clamp(32px, 4.5vw, 48px);
-    font-weight: 700; letter-spacing: -0.02em;
-    background: linear-gradient(180deg, #fff 0%, #c7d2fe 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .section-title p {
-    color: var(--text-dim); max-width: 560px; margin: 16px auto 0; font-size: 17px;
-  }
-
-  /* ===== Features grid ===== */
-  .features {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  .feature {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .feature::before {
+  .showcase-wrap img { display: block; width: 100%; height: auto; }
+  .showcase-wrap::after {
     content: ''; position: absolute; inset: 0;
-    background: radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(99,102,241,0.08), transparent 60%);
-    opacity: 0; transition: opacity 0.3s;
+    background: linear-gradient(180deg, transparent 80%, rgba(11,11,15,0.4) 100%);
     pointer-events: none;
   }
-  .feature:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.12); background: var(--surface-hover); }
-  .feature:hover::before { opacity: 1; }
-  .feature-icon {
-    width: 44px; height: 44px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(236,72,153,0.1));
-    border: 1px solid rgba(99,102,241,0.2);
-    margin-bottom: 18px;
-    font-size: 20px;
-  }
-  .feature h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
-  .feature p { color: var(--text-dim); font-size: 14px; line-height: 1.6; }
 
-  /* ===== Download section ===== */
-  .downloads-wrap {
-    background: var(--surface);
+  /* ===== Section ===== */
+  .section { padding: 100px 0; border-top: 1px solid var(--border); }
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 48px; gap: 40px; flex-wrap: wrap;
+  }
+  .section-header .label {
+    font-size: 13px; font-weight: 500; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  .section-header h2 {
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 700; letter-spacing: -0.03em;
+    line-height: 1.08;
+  }
+  .section-header p {
+    color: var(--text-dim); max-width: 420px;
+    font-size: 16px; line-height: 1.55;
+  }
+
+  /* ===== Features ===== */
+  .features {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border);
     border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 48px;
-    text-align: center;
-    position: relative;
+    border-radius: var(--radius);
     overflow: hidden;
   }
-  .downloads-wrap::before {
-    content: ''; position: absolute; inset: -2px;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
-    border-radius: 24px; z-index: -1; opacity: 0.15; filter: blur(40px);
+  .feature {
+    background: var(--bg);
+    padding: 32px;
+    transition: background 0.25s;
+    position: relative;
   }
-  .downloads-wrap h2 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
-  .downloads-wrap p { color: var(--text-dim); margin-bottom: 32px; }
-  .download-grid { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .feature:hover { background: var(--bg-elev); }
+  .feature-num {
+    font-size: 13px; font-weight: 500; color: var(--text-muted);
+    letter-spacing: 0.05em; margin-bottom: 20px;
+  }
+  .feature h3 {
+    font-size: 19px; font-weight: 600; margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .feature p { color: var(--text-dim); font-size: 14px; line-height: 1.6; }
+  .feature .accent-bar {
+    position: absolute; top: 0; left: 0; width: 0; height: 2px;
+    background: var(--accent); transition: width 0.35s ease-out;
+  }
+  .feature:hover .accent-bar { width: 100%; }
+
+  /* ===== Download ===== */
+  .download-section { padding: 100px 0; border-top: 1px solid var(--border); }
+  .download-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
   .download-card {
-    display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
-    padding: 20px 24px; border-radius: 14px;
-    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    background: var(--bg);
+    padding: 40px 32px;
     text-decoration: none; color: var(--text);
-    transition: all 0.3s; min-width: 200px;
+    transition: background 0.25s;
+    position: relative;
+    display: flex; flex-direction: column;
+    gap: 12px;
   }
-  .download-card:hover { border-color: rgba(99,102,241,0.4); background: rgba(99,102,241,0.05); transform: translateY(-2px); }
-  .download-card .label { font-size: 13px; color: var(--text-dim); }
-  .download-card .ver { font-size: 20px; font-weight: 700; }
-  .download-card .size { font-size: 12px; color: var(--text-muted); }
-  .download-card svg { position: absolute; }
+  .download-card:hover { background: var(--bg-elev); }
+  .download-card .d-label {
+    font-size: 12px; font-weight: 500; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .download-card .d-version {
+    font-size: 36px; font-weight: 700; letter-spacing: -0.03em;
+  }
+  .download-card .d-desc { color: var(--text-dim); font-size: 14px; }
+  .download-card .d-arrow {
+    margin-top: auto; padding-top: 20px;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; color: var(--accent); font-weight: 500;
+    transition: gap 0.2s;
+  }
+  .download-card:hover .d-arrow { gap: 12px; }
+  .download-card.featured {
+    background: var(--bg-elev);
+  }
+  .download-card.featured::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent);
+  }
 
   /* ===== Footer ===== */
   footer {
     padding: 64px 0 40px;
     border-top: 1px solid var(--border);
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 14px;
   }
-  footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
-  footer a:hover { color: var(--text); }
-  .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-brand img { height: 20px; width: auto; }
+  .footer-brand span { font-size: 14px; color: var(--text-dim); }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-links a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 13px; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--text); }
+  .footer-bottom {
+    margin-top: 32px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between;
+    color: var(--text-muted); font-size: 12px;
+  }
 
-  /* ===== Animations ===== */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .reveal { opacity: 0; transform: translateY(24px); transition: all 0.7s ease-out; }
+  /* ===== Reveal animation ===== */
+  .reveal { opacity: 0; transform: translateY(16px); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ===== Lang visibility ===== */
-  .hidden-en { display: none; }
-  body.lang-en .hidden-zh { display: none; }
-  body.lang-en .hidden-en { display: block; }
-  body.lang-en .feature p.hidden-en { display: block; }
+  /* ===== Language visibility ===== */
+  .hidden-en { display: none !important; }
+  body.lang-en .hidden-zh { display: none !important; }
+  body.lang-en .hidden-en { display: block !important; }
 
   /* ===== Responsive ===== */
-  @media (max-width: 768px) {
-    nav { padding: 12px 20px; }
-    .nav-links { gap: 12px; }
-    .nav-links a:not(.nav-cta) { display: none; }
+  @media (max-width: 900px) {
+    .features, .download-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 20px; }
+    .nav-right a:not(.nav-cta) { display: none; }
     .container { padding: 0 20px; }
     .hero { padding: 120px 0 60px; }
-    .downloads-wrap { padding: 32px 24px; }
-    .section { padding: 56px 0; }
+    .section { padding: 64px 0; }
+    .section-header { flex-direction: column; align-items: flex-start; }
+    .hero-meta { gap: 20px; flex-wrap: wrap; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .footer-bottom { flex-direction: column; gap: 8px; }
   }
 </style>
 </head>
 <body>
 
-<div class="bg-wrap">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-</div>
-
 <nav>
   <a href="#" class="nav-brand">
     <img src="docs/logo.png" alt="Foxcam">
-    <span>Foxcam</span>
   </a>
-  <div class="nav-links">
+  <div class="nav-right">
     <a href="#features" class="hidden-zh">功能</a>
     <a href="#features" class="hidden-en">Features</a>
     <a href="#download" class="hidden-zh">下载</a>
     <a href="#download" class="hidden-en">Download</a>
-    <div class="lang-toggle">
+    <div class="lang-switch">
       <button class="active" onclick="switchLang('zh')">中</button>
       <button onclick="switchLang('en')">EN</button>
     </div>
     <a href="https://github.com/HZDavy/Foxcam" class="nav-cta">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.16c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.77.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0C17.59 4.49 18.6 4.81 18.6 4.81c.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.82.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.16c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.77.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0C17.59 4.49 18.6 4.81 18.6 4.81c.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.82.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
       GitHub
     </a>
   </div>
@@ -352,84 +317,96 @@
 
 <div class="container">
   <section class="hero">
-    <img class="hero-logo" src="docs/logo.png" alt="Foxcam">
-    <h1 class="hidden-zh">专业级 UVC<br>摄像头控制中心</h1>
-    <h1 class="hidden-en">Professional UVC<br>Camera Control</h1>
-    <p class="hero-sub hidden-zh">一款轻量 Windows 桌面应用，实时控制 UVC 摄像头全部参数。多摄像头、预设、组合——一切尽在掌控。</p>
-    <p class="hero-sub hidden-en">A lightweight Windows desktop app for real-time UVC camera control. Multi-camera, presets, combos — all under your control.</p>
-    <div class="hero-ctas">
-      <a class="btn btn-primary" href="#download">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        <span class="hidden-zh">立即下载</span>
-        <span class="hidden-en">Download Now</span>
-      </a>
-      <a class="btn btn-ghost" href="https://github.com/HZDavy/Foxcam">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.16c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.77.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0C17.59 4.49 18.6 4.81 18.6 4.81c.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.82.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-    </div>
-    <div class="hero-meta">
-      <span>Windows 10/11</span>
-      <span class="dot"></span>
-      <span class="hidden-zh">无需 Python · 解压即用</span>
-      <span class="hidden-en">No Python required · Extract & run</span>
-      <span class="dot"></span>
-      <span>MIT License</span>
+    <div class="hero-inner">
+      <div class="hero-eyebrow hidden-zh">UVC Camera Control</div>
+      <div class="hero-eyebrow hidden-en">UVC Camera Control</div>
+      <h1>
+        <span class="gradient-text hidden-zh">专业级 UVC<br>摄像头控制中心</span>
+        <span class="gradient-text hidden-en">Professional UVC<br>Camera Control</span>
+      </h1>
+      <p class="hidden-zh">一款轻量 Windows 桌面应用，实时控制 UVC 摄像头全部参数。多摄像头、预设、组合——一切尽在掌控。</p>
+      <p class="hidden-en">A lightweight Windows desktop app for real-time UVC camera control. Multi-camera, presets, combos — all under your control.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#download">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          <span class="hidden-zh">立即下载</span>
+          <span class="hidden-en">Download</span>
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/HZDavy/Foxcam">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.16c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.77.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0C17.59 4.49 18.6 4.81 18.6 4.81c.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.82.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+      <div class="hero-meta">
+        <span>Windows 10/11</span>
+        <span class="hidden-zh">无需 Python</span>
+        <span class="hidden-en">No Python required</span>
+        <span>MIT License</span>
+      </div>
     </div>
   </section>
 
   <section class="showcase">
-    <div class="showcase-frame">
+    <div class="showcase-wrap">
       <img src="docs/screenshot.png" alt="Foxcam Screenshot">
     </div>
   </section>
 
   <section class="section" id="features">
-    <div class="section-title reveal">
-      <span class="section-label">Features</span>
-      <h2 class="hidden-zh">强大功能，简约体验</h2>
-      <h2 class="hidden-en">Powerful Features, Simple Experience</h2>
-      <p class="hidden-zh">专业级摄像头参数控制，为多摄像头工作流而生</p>
-      <p class="hidden-en">Professional camera control, built for multi-camera workflows</p>
+    <div class="section-header reveal">
+      <div>
+        <div class="label hidden-zh">功能</div>
+        <div class="label hidden-en">Features</div>
+        <h2 class="hidden-zh">为专业工作流<br>而生的工具</h2>
+        <h2 class="hidden-en">Built for<br>professional workflows</h2>
+      </div>
+      <p class="hidden-zh">在多摄像头环境中精细控制每一个细节，让你的设备发挥最佳表现。</p>
+      <p class="hidden-en">Fine-tune every detail in multi-camera setups and get the best performance from your devices.</p>
     </div>
     <div class="features">
       <div class="feature reveal">
-        <div class="feature-icon">🎥</div>
+        <div class="accent-bar"></div>
+        <div class="feature-num">01</div>
         <h3 class="hidden-zh">多摄像头实时管理</h3>
         <h3 class="hidden-en">Multi-camera Control</h3>
         <p class="hidden-zh">同时检测和控制多个 USB 摄像头，每个独立配置</p>
         <p class="hidden-en">Detect and control multiple USB cameras simultaneously with independent configs</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon">⚡</div>
+        <div class="accent-bar"></div>
+        <div class="feature-num">02</div>
         <h3 class="hidden-zh">实时参数调节</h3>
         <h3 class="hidden-en">Real-time Adjustment</h3>
         <p class="hidden-zh">亮度、对比度、饱和度、色调、伽马、白平衡、曝光、缩放、对焦</p>
         <p class="hidden-en">Brightness, contrast, saturation, hue, gamma, white balance, exposure, zoom, focus</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon">🎛️</div>
+        <div class="accent-bar"></div>
+        <div class="feature-num">03</div>
         <h3 class="hidden-zh">自动 / 手动</h3>
         <h3 class="hidden-en">Auto / Manual</h3>
         <p class="hidden-zh">每个参数独立切换自动或手动模式</p>
         <p class="hidden-en">Toggle auto or manual mode independently per parameter</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon">💾</div>
+        <div class="accent-bar"></div>
+        <div class="feature-num">04</div>
         <h3 class="hidden-zh">预设与组合</h3>
         <h3 class="hidden-en">Presets & Combos</h3>
         <p class="hidden-zh">按摄像头保存配置，跨设备一键应用组合预设</p>
         <p class="hidden-en">Save per-camera configs, apply preset combos across devices</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon">🔀</div>
+        <div class="accent-bar"></div>
+        <div class="feature-num">05</div>
         <h3 class="hidden-zh">拖拽排序</h3>
         <h3 class="hidden-en">Drag & Drop</h3>
         <p class="hidden-zh">拖拽排列摄像头标签，顺序自动记忆</p>
         <p class="hidden-en">Reorder camera tabs by dragging, order is remembered</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon">📦</div>
+        <div class="accent-bar"></div>
+        <div class="feature-num">06</div>
         <h3 class="hidden-zh">导入导出</h3>
         <h3 class="hidden-en">Import / Export</h3>
         <p class="hidden-zh">在不同电脑之间轻松分享预设</p>
@@ -438,43 +415,72 @@
     </div>
   </section>
 
-  <section class="section" id="download">
-    <div class="downloads-wrap reveal">
-      <h2 class="hidden-zh">立即下载 Foxcam</h2>
-      <h2 class="hidden-en">Download Foxcam Now</h2>
-      <p class="hidden-zh">选择你的语言版本，开箱即用</p>
-      <p class="hidden-en">Choose your language version, ready out of the box</p>
-      <div class="download-grid">
-        <a class="download-card" href="https://github.com/HZDavy/Foxcam/releases/download/v1.1/Foxcam-v1.1.zip">
-          <span class="label">中文版本</span>
-          <span class="ver">v1.1</span>
-          <span class="size">Foxcam-v1.1.zip · Windows</span>
-        </a>
-        <a class="download-card" href="https://github.com/HZDavy/Foxcam/releases/download/v1.1/Foxcam-EN-v1.1.zip">
-          <span class="label">English Version</span>
-          <span class="ver">v1.1</span>
-          <span class="size">Foxcam-EN-v1.1.zip · Windows</span>
-        </a>
-        <a class="download-card" href="https://github.com/HZDavy/Foxcam">
-          <span class="label">Source</span>
-          <span class="ver">GitHub</span>
-          <span class="size">View repository →</span>
-        </a>
+  <section class="download-section" id="download">
+    <div class="section-header reveal">
+      <div>
+        <div class="label hidden-zh">下载</div>
+        <div class="label hidden-en">Download</div>
+        <h2 class="hidden-zh">选择你的版本</h2>
+        <h2 class="hidden-en">Choose your version</h2>
       </div>
+      <p class="hidden-zh">开箱即用，无需额外安装。</p>
+      <p class="hidden-en">Ready out of the box. No extra installation needed.</p>
+    </div>
+    <div class="download-grid reveal">
+      <a class="download-card featured" href="https://github.com/HZDavy/Foxcam/releases/download/v1.1/Foxcam-v1.1.zip">
+        <span class="d-label">中文版本</span>
+        <span class="d-version">v1.1</span>
+        <span class="d-desc">Windows · 简体中文界面</span>
+        <span class="d-arrow">
+          <span class="hidden-zh">下载</span>
+          <span class="hidden-en">Download</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+      <a class="download-card" href="https://github.com/HZDavy/Foxcam/releases/download/v1.1/Foxcam-EN-v1.1.zip">
+        <span class="d-label">English Version</span>
+        <span class="d-version">v1.1</span>
+        <span class="d-desc">Windows · English UI</span>
+        <span class="d-arrow">
+          Download
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+      <a class="download-card" href="https://github.com/HZDavy/Foxcam">
+        <span class="d-label" class="hidden-zh">源代码</span>
+        <span class="d-label" class="hidden-en">Source</span>
+        <span class="d-version">GitHub</span>
+        <span class="d-desc" class="hidden-zh">查看仓库和构建说明</span>
+        <span class="d-desc" class="hidden-en">View repository and build instructions</span>
+        <span class="d-arrow">
+          <span class="hidden-zh">查看</span>
+          <span class="hidden-en">View</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
     </div>
   </section>
 
   <footer>
-    <div class="footer-links">
-      <a href="https://github.com/HZDavy/Foxcam">GitHub</a>
-      <a href="https://github.com/HZDavy/Foxcam/releases" class="hidden-zh">下载</a>
-      <a href="https://github.com/HZDavy/Foxcam/releases" class="hidden-en">Downloads</a>
-      <a href="https://github.com/HZDavy/Foxcam/blob/main/LICENSE" class="hidden-zh">许可证</a>
-      <a href="https://github.com/HZDavy/Foxcam/blob/main/LICENSE" class="hidden-en">License</a>
-      <a href="https://github.com/allanhanan/duvc-ctl">duvc-ctl</a>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="docs/logo.png" alt="Foxcam">
+        <span>© 2025 Foxcam</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/HZDavy/Foxcam">GitHub</a>
+        <a href="https://github.com/HZDavy/Foxcam/releases" class="hidden-zh">下载</a>
+        <a href="https://github.com/HZDavy/Foxcam/releases" class="hidden-en">Downloads</a>
+        <a href="https://github.com/HZDavy/Foxcam/blob/main/LICENSE" class="hidden-zh">许可证</a>
+        <a href="https://github.com/HZDavy/Foxcam/blob/main/LICENSE" class="hidden-en">License</a>
+        <a href="https://github.com/allanhanan/duvc-ctl">duvc-ctl</a>
+      </div>
     </div>
-    <p class="hidden-zh">© 2025 Foxcam · 基于 MIT 许可证开源</p>
-    <p class="hidden-en">© 2025 Foxcam · Released under MIT License</p>
+    <div class="footer-bottom">
+      <span>© 2025 Foxcam</span>
+      <span class="hidden-zh">基于 MIT 许可证开源</span>
+      <span class="hidden-en">Released under MIT License</span>
+    </div>
   </footer>
 </div>
 
@@ -483,7 +489,7 @@
     document.body.classList.toggle('lang-en', lang === 'en');
     document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
     localStorage.setItem('foxcam-lang', lang);
-    document.querySelectorAll('.lang-toggle button').forEach((b, i) => {
+    document.querySelectorAll('.lang-switch button').forEach((b, i) => {
       b.classList.toggle('active', (lang === 'zh' && i === 0) || (lang === 'en' && i === 1));
     });
   }
@@ -495,17 +501,8 @@
   // Reveal on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Feature card mouse-follow glow
-  document.querySelectorAll('.feature').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
-  });
 </script>
 
 </body>
