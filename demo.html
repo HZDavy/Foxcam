@@ -30,7 +30,7 @@
 
   body {
     font-family: "SF Pro Display", "Inter", "Microsoft YaHei UI", system-ui, sans-serif;
-    background: var(--bg-0);
+    background: var(--bg-1);
     color: var(--text);
     display: flex;
     align-items: flex-start;
@@ -41,33 +41,17 @@
     letter-spacing: -0.01em;
   }
   body.embedded { min-height: 100vh; padding: 0; }
-  body:not(.embedded) { padding: 24px; }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 20% 0%, rgba(249,115,22,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(251,146,60,0.05) 0%, transparent 50%),
-      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(234,88,12,0.03) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
+  body:not(.embedded) { padding: 0; }
 
   .window {
     position: relative;
     width: 1060px;
     max-width: 100%;
     background: var(--bg-1);
-    border-radius: var(--radius-lg);
+    border-radius: 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow:
-      0 32px 80px rgba(0,0,0,0.5),
-      0 0 0 1px var(--line),
-      0 0 60px rgba(249,115,22,0.04);
     z-index: 1;
   }
 
@@ -114,16 +98,9 @@
     margin-bottom: 14px;
   }
   .logo {
-    font-size: 22px; font-weight: 800;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.03em;
+    display: flex; align-items: center;
   }
-  .logo span {
-    color: var(--text); -webkit-text-fill-color: var(--text);
-    font-weight: 600;
-  }
+  .logo img { height: 28px; width: auto; display: block; }
   .header-actions {
     display: flex; align-items: center; gap: 6px;
     margin-left: auto;
@@ -404,7 +381,6 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
     .prop-grid { grid-template-columns: 1fr; }
-    .window { border-radius: 0; }
   }
 </style>
 </head>
@@ -424,7 +400,7 @@
   <!-- Header -->
   <div class="header">
     <div class="header-top">
-      <div class="logo">Fox<span>cam</span></div>
+      <div class="logo"><img src="foxcam_logo.png" alt="Foxcam"></div>
       <div class="header-actions">
         <button class="btn accent" id="btnScan"><i data-lucide="scan-line"></i> 扫描</button>
         <button class="btn" id="btnReload"><i data-lucide="rotate-ccw"></i> 重读</button>
