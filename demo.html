@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Foxcam — 在线试用</title>
+<title>Foxcam — Demo</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
@@ -98,8 +98,16 @@
   }
   .logo {
     display: flex; align-items: center;
+    width: 120px;
+    overflow: hidden;
   }
-  .logo img { height: 28px; width: auto; display: block; }
+  .logo img {
+    height: 28px;
+    width: auto;
+    display: block;
+    object-position: right center;
+    object-fit: contain;
+  }
   .header-actions {
     display: flex; align-items: center; gap: 6px;
     margin-left: auto;
@@ -384,13 +392,13 @@
   }
 </style>
 </head>
-<body class="embedded">
+<body>
 
 <div class="window">
   <!-- Title bar -->
   <div class="titlebar">
     <div class="tb-icon"><img src="icon.png" alt="Foxcam"></div>
-    <div class="tb-title">Foxcam v1.1</div>
+    <div class="tb-title" data-i18n="title">Foxcam v1.1</div>
     <div class="tb-spacer"></div>
     <div class="tb-btns">
       <span>—</span><span class="close">✕</span>
@@ -402,53 +410,53 @@
     <div class="header-top">
       <div class="logo"><img src="foxcam_logo.png" alt="Foxcam"></div>
       <div class="header-actions">
-        <button class="btn accent" id="btnScan"><i data-lucide="scan-line"></i> 扫描</button>
-        <button class="btn" id="btnReload"><i data-lucide="rotate-ccw"></i> 重读</button>
-        <button class="btn ghost" id="btnReset"><i data-lucide="undo"></i> 默认</button>
+        <button class="btn accent" id="btnScan"><i data-lucide="scan-line"></i> <span data-i18n="scan">扫描</span></button>
+        <button class="btn" id="btnReload"><i data-lucide="rotate-ccw"></i> <span data-i18n="reload">重读</span></button>
+        <button class="btn ghost" id="btnReset"><i data-lucide="undo"></i> <span data-i18n="reset">默认</span></button>
         <div class="freq-group">
-          <span class="freq-label">防闪烁</span>
+          <span class="freq-label" data-i18n="flicker">防闪烁</span>
           <select class="freq-select" id="freqSelect">
             <option value="50">50 Hz</option>
             <option value="60">60 Hz</option>
           </select>
         </div>
-        <button class="btn ghost" id="btnPin"><i data-lucide="pin"></i> 置顶</button>
+        <button class="btn ghost" id="btnPin"><i data-lucide="pin"></i> <span data-i18n="pin">置顶</span></button>
       </div>
     </div>
 
     <!-- Tabs -->
     <div class="tabs" id="tabs">
-      <button class="tab active" data-cam="0">Logitech Webcam C925e A</button>
-      <button class="tab" data-cam="1">Logitech Webcam C925e B</button>
-      <button class="tab" data-cam="2">HP Wide Vision HD Camera</button>
+      <button class="tab active" data-cam="0">Device Alpha</button>
+      <button class="tab" data-cam="1">Device Beta</button>
+      <button class="tab" data-cam="2">Device Gamma</button>
     </div>
   </div>
 
   <!-- Combo bar -->
   <div class="bar">
-    <span class="bar-label">组合</span>
+    <span class="bar-label" data-i18n="combo">组合</span>
     <select class="bar-select" id="comboSelect">
-      <option value="">选择组合…</option>
-      <option value="meeting">会议模式</option>
-      <option value="streaming">直播模式</option>
+      <option value="" data-i18n="selectCombo">选择组合…</option>
+      <option value="meeting" data-i18n="meeting">会议模式</option>
+      <option value="streaming" data-i18n="streaming">直播模式</option>
     </select>
     <div class="bar-actions">
-      <button class="btn small accent"><i data-lucide="play"></i> 应用</button>
-      <button class="btn small"><i data-lucide="save"></i> 保存</button>
+      <button class="btn small accent"><i data-lucide="play"></i> <span data-i18n="apply">应用</span></button>
+      <button class="btn small"><i data-lucide="save"></i> <span data-i18n="save">保存</span></button>
       <button class="btn icon-only" title="上移"><i data-lucide="chevron-up"></i></button>
       <button class="btn icon-only" title="下移"><i data-lucide="chevron-down"></i></button>
     </div>
     <div class="bar-spacer"></div>
     <div class="bar-actions">
-      <button class="btn small ghost"><i data-lucide="pencil"></i> 重命名</button>
-      <button class="btn small danger"><i data-lucide="trash-2"></i> 删除</button>
+      <button class="btn small ghost"><i data-lucide="pencil"></i> <span data-i18n="rename">重命名</span></button>
+      <button class="btn small danger"><i data-lucide="trash-2"></i> <span data-i18n="delete">删除</span></button>
     </div>
   </div>
 
   <!-- Main -->
   <div class="main">
     <div class="cam-header">
-      <div class="cam-name" id="camName">Logitech Webcam C925e A</div>
+      <div class="cam-name" id="camName">Device Alpha</div>
       <div class="cam-id" id="camId">CAM_0</div>
     </div>
     <div class="sliders-area" id="slidersArea">
@@ -458,25 +466,25 @@
 
   <!-- Preset bar (moved to bottom) -->
   <div class="bar bottom">
-    <span class="bar-label">预设</span>
+    <span class="bar-label" data-i18n="preset">预设</span>
     <select class="bar-select" id="presetSelect">
-      <option value="">选择预设…</option>
-      <option value="default">默认</option>
-      <option value="meeting">会议</option>
-      <option value="night">夜间</option>
+      <option value="" data-i18n="selectPreset">选择预设…</option>
+      <option value="default" data-i18n="default">默认</option>
+      <option value="meeting" data-i18n="meeting">会议</option>
+      <option value="night" data-i18n="night">夜间</option>
     </select>
     <div class="bar-actions">
-      <button class="btn small accent"><i data-lucide="play"></i> 应用</button>
-      <button class="btn small"><i data-lucide="save"></i> 保存</button>
+      <button class="btn small accent"><i data-lucide="play"></i> <span data-i18n="apply">应用</span></button>
+      <button class="btn small"><i data-lucide="save"></i> <span data-i18n="save">保存</span></button>
       <button class="btn icon-only" title="上移"><i data-lucide="chevron-up"></i></button>
       <button class="btn icon-only" title="下移"><i data-lucide="chevron-down"></i></button>
     </div>
     <div class="bar-spacer"></div>
     <div class="bar-actions">
-      <button class="btn small ghost"><i data-lucide="download"></i> 导入</button>
-      <button class="btn small ghost"><i data-lucide="upload"></i> 导出</button>
-      <button class="btn small ghost"><i data-lucide="pencil"></i> 重命名</button>
-      <button class="btn small danger"><i data-lucide="trash-2"></i> 删除</button>
+      <button class="btn small ghost"><i data-lucide="download"></i> <span data-i18n="import">导入</span></button>
+      <button class="btn small ghost"><i data-lucide="upload"></i> <span data-i18n="export">导出</span></button>
+      <button class="btn small ghost"><i data-lucide="pencil"></i> <span data-i18n="rename">重命名</span></button>
+      <button class="btn small danger"><i data-lucide="trash-2"></i> <span data-i18n="delete">删除</span></button>
     </div>
   </div>
 </div>
@@ -484,27 +492,152 @@
 <!-- Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
+  // ===== i18n =====
+  const I18N = {
+    zh: {
+      title: 'Foxcam v1.1',
+      scan: '扫描',
+      reload: '重读',
+      reset: '默认',
+      flicker: '防闪烁',
+      pin: '置顶',
+      pinCancel: '取消',
+      combo: '组合',
+      selectCombo: '选择组合…',
+      meeting: '会议模式',
+      streaming: '直播模式',
+      apply: '应用',
+      save: '保存',
+      rename: '重命名',
+      delete: '删除',
+      preset: '预设',
+      selectPreset: '选择预设…',
+      default: '默认',
+      night: '夜间',
+      import: '导入',
+      export: '导出',
+      auto: '自动',
+      props: {
+        brightness: '亮度',
+        contrast: '对比度',
+        saturation: '饱和度',
+        hue: '色相',
+        sharpness: '锐度',
+        gamma: '伽马',
+        white_balance: '白平衡',
+        backlight: '背光补偿',
+        gain: '增益',
+        exposure: '曝光',
+        focus: '对焦',
+        zoom: '变焦',
+        pan: '水平移动',
+        tilt: '垂直移动',
+      }
+    },
+    en: {
+      title: 'Foxcam v1.1',
+      scan: 'Scan',
+      reload: 'Reload',
+      reset: 'Default',
+      flicker: 'Anti-flicker',
+      pin: 'Pin',
+      pinCancel: 'Unpin',
+      combo: 'Combo',
+      selectCombo: 'Select combo…',
+      meeting: 'Meeting',
+      streaming: 'Streaming',
+      apply: 'Apply',
+      save: 'Save',
+      rename: 'Rename',
+      delete: 'Delete',
+      preset: 'Preset',
+      selectPreset: 'Select preset…',
+      default: 'Default',
+      meeting: 'Meeting',
+      night: 'Night',
+      import: 'Import',
+      export: 'Export',
+      auto: 'Auto',
+      props: {
+        brightness: 'Brightness',
+        contrast: 'Contrast',
+        saturation: 'Saturation',
+        hue: 'Hue',
+        sharpness: 'Sharpness',
+        gamma: 'Gamma',
+        white_balance: 'White Balance',
+        backlight: 'Backlight',
+        gain: 'Gain',
+        exposure: 'Exposure',
+        focus: 'Focus',
+        zoom: 'Zoom',
+        pan: 'Pan',
+        tilt: 'Tilt',
+      }
+    }
+  };
+
+  // Detect language from URL param or localStorage
+  const urlParams = new URLSearchParams(window.location.search);
+  let currentLang = urlParams.get('lang') || localStorage.getItem('foxcam-lang') || 'zh';
+
+  function applyLang(lang) {
+    const t = I18N[lang];
+    document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+
+    // Update all data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key]) el.textContent = t[key];
+    });
+
+    // Update camera data labels
+    CAMERA_DATA['0'].name = lang === 'en' ? 'Device Alpha' : '设备 Alpha';
+    CAMERA_DATA['1'].name = lang === 'en' ? 'Device Beta' : '设备 Beta';
+    CAMERA_DATA['2'].name = lang === 'en' ? 'Device Gamma' : '设备 Gamma';
+
+    // Update tabs
+    document.querySelectorAll('.tab').forEach((tab, i) => {
+      const cam = tab.dataset.cam;
+      tab.textContent = CAMERA_DATA[cam].name;
+    });
+
+    // Update pin button text
+    const pinBtn = document.getElementById('btnPin');
+    if (pinBtn) {
+      const isPinned = pinBtn.dataset.pinned === 'true';
+      const pinIcon = isPinned ? 'pin-off' : 'pin';
+      const pinText = isPinned ? t.pinCancel : t.pin;
+      pinBtn.innerHTML = `<i data-lucide="${pinIcon}"></i> ${pinText}`;
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    localStorage.setItem('foxcam-lang', lang);
+    render();
+  }
+
+  // ===== Camera data =====
   const ALL_PROPS = [
-    { key: 'brightness', labelZh: '亮度', icon: 'sun', min: 0, max: 255, def: 128, g1: '#444', g2: '#ddd' },
-    { key: 'contrast', labelZh: '对比度', icon: 'contrast', min: 0, max: 255, def: 128, g1: '#444', g2: '#ddd' },
-    { key: 'saturation', labelZh: '饱和度', icon: 'palette', min: 0, max: 255, def: 128, g1: '#999', g2: '#c0392b' },
-    { key: 'hue', labelZh: '色相', icon: 'droplets', min: -180, max: 180, def: 0, g1: '#6699ff', g2: '#ff6699' },
-    { key: 'sharpness', labelZh: '锐度', icon: 'zoom-in', min: 0, max: 255, def: 128, g1: null, g2: null },
-    { key: 'gamma', labelZh: '伽马', icon: 'sliders-horizontal', min: 72, max: 500, def: 100, g1: null, g2: null },
-    { key: 'white_balance', labelZh: '白平衡', icon: 'thermometer', min: 2000, max: 6500, def: 4600, g1: '#7799cc', g2: '#ddb844' },
-    { key: 'backlight', labelZh: '背光补偿', icon: 'lightbulb', min: 0, max: 1, def: 0, g1: '#444', g2: '#ddd' },
-    { key: 'gain', labelZh: '增益', icon: 'activity', min: 0, max: 255, def: 0, g1: '#444', g2: '#ddd' },
-    { key: 'exposure', labelZh: '曝光', icon: 'aperture', min: -13, max: -1, def: -6, g1: '#444', g2: '#ddd' },
-    { key: 'focus', labelZh: '对焦', icon: 'crosshair', min: 0, max: 250, def: 0, g1: null, g2: null },
-    { key: 'zoom', labelZh: '变焦', icon: 'maximize', min: 100, max: 500, def: 100, g1: null, g2: null },
-    { key: 'pan', labelZh: '水平移动', icon: 'move-horizontal', min: -10, max: 10, def: 0, g1: null, g2: null },
-    { key: 'tilt', labelZh: '垂直移动', icon: 'move-vertical', min: -10, max: 10, def: 0, g1: null, g2: null },
+    { key: 'brightness', i18n: 'brightness', icon: 'sun', min: 0, max: 255, def: 128, g1: '#444', g2: '#ddd' },
+    { key: 'contrast', i18n: 'contrast', icon: 'contrast', min: 0, max: 255, def: 128, g1: '#444', g2: '#ddd' },
+    { key: 'saturation', i18n: 'saturation', icon: 'palette', min: 0, max: 255, def: 128, g1: '#999', g2: '#c0392b' },
+    { key: 'hue', i18n: 'hue', icon: 'droplets', min: -180, max: 180, def: 0, g1: '#6699ff', g2: '#ff6699' },
+    { key: 'sharpness', i18n: 'sharpness', icon: 'zoom-in', min: 0, max: 255, def: 128, g1: null, g2: null },
+    { key: 'gamma', i18n: 'gamma', icon: 'sliders-horizontal', min: 72, max: 500, def: 100, g1: null, g2: null },
+    { key: 'white_balance', i18n: 'white_balance', icon: 'thermometer', min: 2000, max: 6500, def: 4600, g1: '#7799cc', g2: '#ddb844' },
+    { key: 'backlight', i18n: 'backlight', icon: 'lightbulb', min: 0, max: 1, def: 0, g1: '#444', g2: '#ddd' },
+    { key: 'gain', i18n: 'gain', icon: 'activity', min: 0, max: 255, def: 0, g1: '#444', g2: '#ddd' },
+    { key: 'exposure', i18n: 'exposure', icon: 'aperture', min: -13, max: -1, def: -6, g1: '#444', g2: '#ddd' },
+    { key: 'focus', i18n: 'focus', icon: 'crosshair', min: 0, max: 250, def: 0, g1: null, g2: null },
+    { key: 'zoom', i18n: 'zoom', icon: 'maximize', min: 100, max: 500, def: 100, g1: null, g2: null },
+    { key: 'pan', i18n: 'pan', icon: 'move-horizontal', min: -10, max: 10, def: 0, g1: null, g2: null },
+    { key: 'tilt', i18n: 'tilt', icon: 'move-vertical', min: -10, max: 10, def: 0, g1: null, g2: null },
   ];
 
   const CAMERA_DATA = {
-    '0': { name: 'Logitech Webcam C925e A', id: 'CAM_0', values: { brightness: 140, contrast: 130, saturation: 128, hue: 0, sharpness: 128, gamma: 100, white_balance: 5200, backlight: 0, gain: 10, exposure: -4, focus: 120, zoom: 100, pan: 0, tilt: 0 }, auto: { white_balance: true, exposure: true, focus: true } },
-    '1': { name: 'Logitech Webcam C925e B', id: 'CAM_1', values: { brightness: 120, contrast: 140, saturation: 135, hue: 5, sharpness: 128, gamma: 95, white_balance: 5000, backlight: 0, gain: 0, exposure: -6, focus: 80, zoom: 100, pan: 0, tilt: 0 }, auto: { white_balance: true, exposure: true, focus: true } },
-    '2': { name: 'HP Wide Vision HD Camera', id: 'CAM_2', values: { brightness: 130, contrast: 120, saturation: 120, hue: 0, sharpness: 128, gamma: 105, white_balance: 5500, backlight: 0, gain: 5, exposure: -3, focus: 150, zoom: 100, pan: 0, tilt: 0 }, auto: { white_balance: true, exposure: true, focus: true } },
+    '0': { name: 'Device Alpha', id: 'CAM_0', values: { brightness: 140, contrast: 130, saturation: 128, hue: 0, sharpness: 128, gamma: 100, white_balance: 5200, backlight: 0, gain: 10, exposure: -4, focus: 120, zoom: 100, pan: 0, tilt: 0 }, auto: { white_balance: true, exposure: true, focus: true } },
+    '1': { name: 'Device Beta', id: 'CAM_1', values: { brightness: 120, contrast: 140, saturation: 135, hue: 5, sharpness: 128, gamma: 95, white_balance: 5000, backlight: 0, gain: 0, exposure: -6, focus: 80, zoom: 100, pan: 0, tilt: 0 }, auto: { white_balance: true, exposure: true, focus: true } },
+    '2': { name: 'Device Gamma', id: 'CAM_2', values: { brightness: 130, contrast: 120, saturation: 120, hue: 0, sharpness: 128, gamma: 105, white_balance: 5500, backlight: 0, gain: 5, exposure: -3, focus: 150, zoom: 100, pan: 0, tilt: 0 }, auto: { white_balance: true, exposure: true, focus: true } },
   };
 
   let currentCam = '0';
@@ -519,6 +652,7 @@
   }
 
   function render() {
+    const t = I18N[currentLang];
     const cam = CAMERA_DATA[currentCam];
     document.getElementById('camName').textContent = cam.name;
     document.getElementById('camId').textContent = cam.id;
@@ -537,7 +671,7 @@
 
       html += `
         <div class="prop" data-key="${p.key}">
-          <div class="prop-label"><i data-lucide="${p.icon}"></i>${p.labelZh}</div>
+          <div class="prop-label"><i data-lucide="${p.icon}"></i>${t.props[p.i18n]}</div>
           <div class="slider ${auto ? 'auto' : ''}" data-key="${p.key}">
             <div class="slider-track">
               <div class="slider-fill" style="width:${pct}%;background:${fillStyle};"></div>
@@ -547,7 +681,7 @@
           <input type="text" class="prop-value" value="${val}" data-key="${p.key}">
           <label class="auto-toggle ${auto ? 'on' : ''}" data-key="${p.key}">
             <input type="checkbox" ${auto ? 'checked' : ''} data-key="${p.key}">
-            <i data-lucide="${auto ? 'toggle-right' : 'toggle-left'}"></i><span>自动</span>
+            <i data-lucide="${auto ? 'toggle-right' : 'toggle-left'}"></i><span>${t.auto}</span>
           </label>
         </div>
       `;
@@ -556,10 +690,7 @@
     html += '</div>';
     area.innerHTML = html;
 
-    // Render Lucide icons in dynamically generated HTML
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
+    if (window.lucide) window.lucide.createIcons();
 
     // Bind sliders
     area.querySelectorAll('.slider').forEach(s => {
@@ -618,7 +749,6 @@
         toggle.classList.toggle('on', cb.checked);
         const slider = area.querySelector(`.slider[data-key="${toggle.dataset.key}"]`);
         if (slider) slider.classList.toggle('auto', cb.checked);
-        // Update icon
         const iconEl = toggle.querySelector('i');
         if (iconEl && window.lucide) {
           iconEl.setAttribute('data-lucide', cb.checked ? 'toggle-right' : 'toggle-left');
@@ -672,22 +802,18 @@
   });
 
   // Pin
-  let pinned = false;
   document.getElementById('btnPin').addEventListener('click', e => {
+    const t = I18N[currentLang];
+    const btn = e.currentTarget;
+    let pinned = btn.dataset.pinned === 'true';
     pinned = !pinned;
-    const iconEl = e.currentTarget.querySelector('i');
+    btn.dataset.pinned = pinned;
+    const iconEl = btn.querySelector('i');
     if (iconEl && window.lucide) {
       iconEl.setAttribute('data-lucide', pinned ? 'pin-off' : 'pin');
       window.lucide.createIcons();
     }
-    const label = e.currentTarget.childNodes[e.currentTarget.childNodes.length - 1];
-    if (label && label.textContent.trim()) {
-      e.currentTarget.childNodes[e.currentTarget.childNodes.length - 1].textContent = pinned ? ' 取消' : ' 置顶';
-    } else {
-      // Rebuild text after icon
-      e.currentTarget.innerHTML = `<i data-lucide="${pinned ? 'pin-off' : 'pin'}"></i> ${pinned ? '取消' : '置顶'}`;
-      if (window.lucide) window.lucide.createIcons();
-    }
+    btn.appendChild(document.createTextNode(pinned ? ' ' + t.pinCancel : ' ' + t.pin));
   });
 
   // Scan flash
@@ -699,11 +825,17 @@
     });
   });
 
-  // Init Lucide + render
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
-  render();
+  // Listen for language changes from parent
+  window.addEventListener('message', (e) => {
+    if (e.data && e.data.type === 'language-change') {
+      currentLang = e.data.lang;
+      applyLang(currentLang);
+    }
+  });
+
+  // Init Lucide + apply language + render
+  if (window.lucide) window.lucide.createIcons();
+  applyLang(currentLang);
 </script>
 
 </body>

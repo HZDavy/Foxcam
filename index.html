@@ -163,7 +163,7 @@
   .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
 
   /* ===== Screenshot Showcase ===== */
-  .showcase { padding: 40px 0 100px; }
+  .showcase { padding: 72px 0 40px; }
   .showcase iframe {
     width: 100%;
     height: 720px;
@@ -379,11 +379,7 @@
 
 <div class="container">
   <section class="showcase">
-    <iframe src="demo.html" title="Foxcam Demo"></iframe>
-    <p style="text-align:center;margin-top:16px;font-size:12px;color:var(--text-muted);">
-      <span class="hidden-zh">👆 直接在上面的窗口中拖动滑块、切换摄像头体验</span>
-      <span class="hidden-en">👆 Drag sliders and switch cameras above to try it out</span>
-    </p>
+    <iframe src="demo.html" id="demoFrame" title="Foxcam Demo"></iframe>
   </section>
 
   <section class="section" id="features">
@@ -526,11 +522,28 @@
     document.querySelectorAll('.lang-switch button').forEach((b, i) => {
       b.classList.toggle('active', (lang === 'zh' && i === 0) || (lang === 'en' && i === 1));
     });
+    // Sync language to demo iframe
+    const frame = document.getElementById('demoFrame');
+    if (frame && frame.contentWindow) {
+      try {
+        frame.contentWindow.postMessage({ type: 'language-change', lang: lang }, '*');
+      } catch(e) {}
+    }
   }
 
   // Init
   const savedLang = localStorage.getItem('foxcam-lang') || 'zh';
   switchLang(savedLang);
+
+  // Sync language to iframe when it loads
+  window.addEventListener('load', () => {
+    const frame = document.getElementById('demoFrame');
+    if (frame) {
+      frame.addEventListener('load', () => {
+        frame.contentWindow.postMessage({ type: 'language-change', lang: savedLang }, '*');
+      });
+    }
+  });
 
   // Reveal on scroll
   const observer = new IntersectionObserver((entries) => {
